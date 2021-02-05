@@ -1,0 +1,33 @@
+export class ErrMessageUtilsTH{
+
+    errVisitorSlotRunningIdNotFound = 'ไม่พบ visitor_slot_running_id'
+    errVisitorSlotRunningIdNotNumber = 'visitor_slot_running_id ต้องเป็นตัวเลขเท่านั้น'
+    errVisitorCartypeIDNotfound = 'ไม่พบรหัสประเภทรถ'
+    errVisitorCartypeIDNotNumber = 'รหัสประเภทรถต้องเป็นตัวเลขเท่านั้น'
+    errVisitorCartypeNameContractionNotFound = 'ไม่พบอักษรย่อของประเภทรถ'
+    errVisitorCartypeNameContractionProhibitSpecial ='อักษรย่อของประเภทรถ ห้ามมีอักขระพิเศษ'
+    errVisitorCartypeNameThNotFound = 'ไม่พบประเภทรถ (ชื่อไทย)'
+    errVisitorCartypeNameThProhibitSpecial = 'ประเภทรถ (ชื่อไทย) ห้ามมีอักขระพิเศษ'
+    errVisitorCartypeNameEnNotFound = 'ไม่พบประเภทรถ (ชื่ออังกฤษ)'
+    errVisitorCartypeNameEnProhibitSpecial = 'ปรเภทรถ (ชื่ออังกฤษ) ห้ามมีอักขระพิเศษ'
+    
+    errVisitorInfoNotFound = 'ไม่พบข้อมูลของ Visitor'
+    errVisitorInfoPrefixNameNotFound = 'ไม่พบคำนำหน้าชื่อ Visitor'
+    errVisitorInfoPrefixNameProhibitSpecial = 'คำนำหน้าชื่อ Visitor ห้ามมีอักขระพิเศษ'
+    errVisitorInfoFirstNameNotFound = 'ไม่พบชื่อของ Visitor'
+    errVisitorInfoFirstNameProhibitSpecial = 'ชื่อของ Visitor ห้ามมีอักขระพิเศษ'
+    errVisitorInfoLastNameNotFound = 'ไม่พบนามสกุลของ Visitor'
+    errVisitorInfoLastNameProhibitSpecial = 'นามสกุลของ Visiotr ห้ามมีอักขระพิเศษ'
+    errVisitorInfoBirthDateNotFound = 'ไม่พบวัน-เดือน-ปี เกิด ของ Visitor'
+    errVisitorInfoIdentityNotFound = 'ไม่พบรหัสประจำตัวประชาชน'
+    errVisitorInfoIdentityNotNumber = 'รหัสประจำตัวประชาชนต้องเป็นตัวเลขเท่านั้น'
+    errVisitorInfoIdentityFormatNotValid = 'รูปแบบรหัสประชำตัวประชาชนไม่ถูกต้อง'
+
+    errEmployeeIDNotFound = 'ไม่พบไอดีพนักงาน'
+    errEmployeeIDNotNumber = 'ไอดีพนักงานต้องเป็นตัวเลขเท่านั้น'
+    errEmployeeCodeNotFound = 'ไม่พบรหัสพนักงาน'
+    errEmployeeFirstNameNotFound = 'ไม่พบชื่อพนักงาน'
+    errEmployeeFitstNameProhibitSpecial = 'ชื่อพนักงาน ห้ามมีอักขระพิเศษ'
+    errEmployeeLastNameNotFound = 'ไม่พบนามสกุลพนักงาน'
+    errEmployeeLastNameProhibitSpecial = 'นามสกุลพนักงาน ห้ามมีอักขระพิเศษ'
+}
