@@ -1,0 +1,38 @@
+CREATE FUNCTION addvisitorslot(slot text default '10',countslot integer default 10) 
+    RETURNS BOOLEAN  language plpgsql
+    as $$
+        DROP TABLE IF EXIST m_visitor_slot;
+        CREATE TABLE public.m_visitor_slot
+        (
+            visitor_slot_id integer DEFAULT nextval('seq_m_visitor_slot_running'::regclass),
+            visitor_slot_number bigint,
+            visitor_slot_code character varying(50) COLLATE pg_catalog."default",
+            visitor_slot_name character varying(100) COLLATE pg_catalog."default",
+            status_flag character varying(20) COLLATE pg_catalog."default" DEFAULT 'N'::character varying,
+            update_by integer,
+            update_date timestamp with time zone,
+            visitor_record_id bigint,
+            building_id integer,
+            building_code character varying(50) COLLATE pg_catalog."default"
+            )
+        WITH (OIDS = FALSE)
+        TABLESPACE pg_default;
+
+        ALTER TABLE public.m_visitor_slot
+        OWNER to postgres;
+
+        declare
+            slotcode text:=slot;
+            num integer:= countslot;
+            counter integer:=1;
+        begin
+        loop
+        exit when counter > num;
+            insert into m_visitor_slot(visitor_slot_code,visitor_slot_number)
+            values(
+            CONCAT(slotcode,counter),counter
+            );
+            counter := counter + 1 ;
+        end loop;
+    RETURN true;
+    end; $$

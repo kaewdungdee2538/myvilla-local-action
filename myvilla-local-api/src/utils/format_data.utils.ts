@@ -6,11 +6,21 @@ export class FormatDataUtils {
         return false;
     }
 
-    IsNumber(input:any){
-        return input.isInteger(input);
+    IsNumber(value: any) {
+        if (typeof value !== 'number') {
+            return false
+          }
+          if (value !== Number(value)) {
+            return false
+          }
+          if (value === Infinity) {
+            return false
+          }
+          return true
     }
+    
 
-    IsEmptyOrSpaces(str:string) {
+    IsEmptyOrSpaces(str: string) {
         //return str === null || str.match(/^ *$/) !== null;
         if (!str)
             return true;
@@ -18,8 +28,8 @@ export class FormatDataUtils {
             return true;
         return false;
     }
-    
-    IsFormatIdentityCard(input:string){
+
+    IsFormatIdentityCard(input: string) {
         let check = false;
         let cc;
         let sum = 0;

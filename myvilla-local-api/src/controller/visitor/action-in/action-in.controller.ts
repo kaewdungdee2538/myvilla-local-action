@@ -5,11 +5,12 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
-@Controller('action-in')
+
+@Controller('bannayuu/api/visitor/action/in')
 export class ActionInController {
     constructor(private readonly actionINService:ActionInService){}
     // @UseGuards(JwtAuthGuard)
-    @Post('save-in')
+    @Post('save')
     @UseInterceptors(
         FilesInterceptor('image', 20, {
             storage: diskStorage({

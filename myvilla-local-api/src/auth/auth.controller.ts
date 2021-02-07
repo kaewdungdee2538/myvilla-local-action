@@ -4,7 +4,7 @@ import { StatusException } from 'src/utils/callback.status';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
-@Controller('auth')
+@Controller('bannayuu/api/auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 

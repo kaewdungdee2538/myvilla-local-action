@@ -29,9 +29,9 @@ export class VsActionInSaveMiddleware implements NestMiddleware {
 
     checkValuesActionInSave(req: Request) {
         const body = req.body;
-        if (!body.visitor_slot_running_id)
+        if (!body.visitor_slot_id)
             return this.errMessageUtilsTh.errVisitorSlotRunningIdNotFound;
-        else if (!this.formatUtils.IsNumber(body.visitor_slot_running_id))
+        else if (!this.formatUtils.IsNumber(body.visitor_slot_id))
             return this.errMessageUtilsTh.errVisitorSlotRunningIdNotNumber;
         else if (!body.cartype_id)
             return this.errMessageUtilsTh.errVisitorCartypeIDNotfound;
