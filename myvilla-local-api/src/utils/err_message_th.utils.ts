@@ -1,10 +1,21 @@
 export class ErrMessageUtilsTH{
 
     messageSuccess ='เรียบร้อย'
+    messageProcessFail = 'ล้มเหลว'
+
+    errSiteIDNotFound = 'ไม่พบรหัสหมู่บ้าน'
+    errSiteIDNotNumber = 'รหัสหมู่บ้านต้องเป็นตัวเลยเท่านั้น'
+    errSiteIDProhibitSpecial = 'รหัสหมู่บ้านห้ามมีอักขระพิเศษ'
+    errSiteCodeProhibitSpecial = 'โค้ดหมู่บ้านห้ามีอักขระพิเศษ'
+    errGuardHouseIDNotFound = 'ไม่พบรหัสป้อม'
+    errGuardHouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
+    errGuardHouseIDProhibitSpecial = 'รหัสป้อมห้ามมีอักชระพิเศษ'
+    errGuardHouseCodeProhibitSpecial = 'โค้ดป้อมห้ามมีอักขระพิเศษ'
 
     errVisitorSlotRunningIdNotFound = 'ไม่พบ visitor_slot_running_id'
     errVisitorSlotRunningIdNotNumber = 'visitor_slot_running_id ต้องเป็นตัวเลขเท่านั้น'
     errVisitorCartypeIDNotfound = 'ไม่พบรหัสประเภทรถ'
+    errVisitorCartypeODProhibitSpecail = 'รหัสประเภทรถห้ามมีอักขระพิเศษ'
     errVisitorCartypeIDNotNumber = 'รหัสประเภทรถต้องเป็นตัวเลขเท่านั้น'
     errVisitorCartypeNameContractionNotFound = 'ไม่พบอักษรย่อของประเภทรถ'
     errVisitorCartypeNameContractionProhibitSpecial ='อักษรย่อของประเภทรถ ห้ามมีอักขระพิเศษหรือช่องว่าง'
@@ -12,7 +23,7 @@ export class ErrMessageUtilsTH{
     errVisitorCartypeNameThProhibitSpecial = 'ประเภทรถ (ชื่อไทย) ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errVisitorCartypeNameEnNotFound = 'ไม่พบประเภทรถ (ชื่ออังกฤษ)'
     errVisitorCartypeNameEnProhibitSpecial = 'ปรเภทรถ (ชื่ออังกฤษ) ห้ามมีอักขระพิเศษหรือช่องว่าง'
-    
+
     errVisitorInfoNotFound = 'ไม่พบข้อมูลของ Visitor'
     errVisitorInfoPrefixNameNotFound = 'ไม่พบคำนำหน้าชื่อ Visitor'
     errVisitorInfoPrefixNameProhibitSpecial = 'คำนำหน้าชื่อ Visitor ห้ามมีอักขระพิเศษหรือช่องว่าง'
@@ -27,6 +38,8 @@ export class ErrMessageUtilsTH{
 
     errEmployeeIDNotFound = 'ไม่พบไอดีพนักงาน'
     errEmployeeIDNotNumber = 'ไอดีพนักงานต้องเป็นตัวเลขเท่านั้น'
+    errEmployeeIDProhibitSpecail = 'ไอดีพนักงานห้ามมีอักขระพิเศษ'
+    errEmployeeIDNotInDatabase = 'ไม่พบพนักงานในระบบ'
     errEmployeeCodeNotFound = 'ไม่พบรหัสพนักงาน'
     errEmployeeFirstNameNotFound = 'ไม่พบชื่อพนักงาน'
     errEmployeeFitstNameProhibitSpecial = 'ชื่อพนักงาน ห้ามมีอักขระพิเศษหรือช่องว่าง'
@@ -41,4 +54,13 @@ export class ErrMessageUtilsTH{
     errGetSlotVisitorNumberSlotNumberNotNumber ='เลข Slot ต้องเป็นตัวเลขเท่านั้น'
     errGetSlotVisitorNumberIsFail = 'ไม่สามารถเรียกดู slot ที่ว่างได้'
     errGetSlotVistiorNumberNotValue = 'ไม่พบ Slot ว่าง'
+    errGetSlotVisitorNumberNotInDataBase = 'ไม่พบเลข slot ในระบบ'
+    errGetSlotVisitorNumberIsDuplicate = 'เลข slot ถูกใช้งานไปแล้ว'
+
+    errImageNotFound = 'ไม่พบรูปภาพ';
+
+    errHomeIDNotFound = 'ไม่พบรหัสบ้านที่มาติดต่อ'
+    errHomeIDNotNumber = 'รหัสบ้านที่มาติดต่อต้องเป็นตัวเลขเท่านั้น'
+    errHomeIdProhibitSpecial = 'รหัสบ้านที่มาติดต่อต้องเป็นตัวเลขเท่านั้น'
+    errHomeIDNotInDataBase = 'ไม่พบบ้านเลขที่ในระบบ'
 }

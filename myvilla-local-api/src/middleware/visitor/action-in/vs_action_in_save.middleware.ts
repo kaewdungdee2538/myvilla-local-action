@@ -5,36 +5,27 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 
 @Injectable()
-export class VsActionInSaveMiddleware implements NestMiddleware {
+export class VsActionInSaveMiddleware {
     constructor(
         private readonly formatUtils: FormatDataUtils,
         private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
-    use(req: Request, res: Response, next: () => void) {
-        console.log(req);
-        const messageCheckValues = this.checkValuesActionInSave(req)
-        if (messageCheckValues){
-            console.log('Middleware action in : '+messageCheckValues);
-            res.send({
-                response: {
-                    error: messageCheckValues
-                    , result: null
-                    , message: messageCheckValues
-                    , statusCode: 400
-                }
-            });
-        }else
-            next();
+
+    CheckSaveIn(body: any) {
+        return this.checkValuesActionInSave(body)
     }
 
-    checkValuesActionInSave(req: Request) {
-        const body = req.body;
-        if (!body.visitor_slot_id)
-            return this.errMessageUtilsTh.errVisitorSlotRunningIdNotFound;
-        else if (!this.formatUtils.IsNumber(body.visitor_slot_id))
-            return this.errMessageUtilsTh.errVisitorSlotRunningIdNotNumber;
-        else if (!body.cartype_id)
+
+
+    checkValuesActionInSave(body: any) {
+        // if (!body.visitor_slot_id)
+        //     return this.errMessageUtilsTh.errVisitorSlotRunningIdNotFound;
+        // else if (!this.formatUtils.IsNumber(body.visitor_slot_id))
+        //     return this.errMessageUtilsTh.errVisitorSlotRunningIdNotNumber;
+        if (!body.cartype_id)
             return this.errMessageUtilsTh.errVisitorCartypeIDNotfound;
+        else if (this.formatUtils.HaveSpecialFormat(body.cartype_id))
+            return this.errMessageUtilsTh.errVisitorCartypeODProhibitSpecail
         else if (!this.formatUtils.IsNumber(body.cartype_id))
             return this.errMessageUtilsTh.errVisitorCartypeIDNotNumber;
         else if (!body.cartype_name_contraction)
@@ -47,10 +38,38 @@ export class VsActionInSaveMiddleware implements NestMiddleware {
             return this.errMessageUtilsTh.errVisitorCartypeNameThProhibitSpecial;
         else if (!body.cartype_name_en)
             return this.errMessageUtilsTh.errVisitorCartypeNameEnNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_en)) {
+        else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_en))
             return this.errMessageUtilsTh.errVisitorCartypeNameEnProhibitSpecial;
-        } return null;
+        else if (!body.site_id)
+            return this.errMessageUtilsTh.errSiteIDNotFound;
+        else if (!this.formatUtils.IsNumber(body.site_id))
+            return this.errMessageUtilsTh.errSiteIDNotNumber;
+        else if (this.formatUtils.HaveSpecialFormat(body.site_id))
+            return this.errMessageUtilsTh.errSiteIDProhibitSpecial;
+        else if (this.formatUtils.HaveSpecialFormat(body.site_code))
+            return this.errMessageUtilsTh.errSiteCodeProhibitSpecial;
+        else if (!body.guardhouse_in_id)
+            return this.errMessageUtilsTh.errGuardHouseIDNotFound;
+        else if (!this.formatUtils.IsNumber(body.guardhouse_in_id))
+            return this.errMessageUtilsTh.errGuardHouseIDNotNumber;
+        else if (this.formatUtils.HaveSpecialFormat(body.guardhouse_in_id))
+            return this.errMessageUtilsTh.errGuardHouseIDProhibitSpecial;
+        else if (this.formatUtils.HaveSpecialFormat(body.guardhouse_in_code))
+            return this.errMessageUtilsTh.errGuardHouseCodeProhibitSpecial;
+        else if (!body.employee_in_id)
+            return this.errMessageUtilsTh.errEmployeeIDNotFound;
+        else if (this.formatUtils.HaveSpecialFormat(body.employee_in_id))
+            return this.errMessageUtilsTh.errEmployeeIDProhibitSpecail;
+        else if (!this.formatUtils.IsNumber(body.employee_in_id))
+            return this.errMessageUtilsTh.errEmployeeIDNotNumber
+        else if (!body.home_id)
+            return this.errMessageUtilsTh.errHomeIDNotFound;
+        else if (this.formatUtils.HaveSpecialFormat(body.home_id))
+            return this.errMessageUtilsTh.errHomeIdProhibitSpecial;
+        else if (!this.formatUtils.IsNumber(body.home_id))
+            return this.errMessageUtilsTh.errHomeIDNotNumber;
+        return null;
     }
-    
+
 };
 

@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { StatusException } from 'src/utils/callback.status';
+import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly jwtService: JwtService,
+    constructor(
+        private readonly errMessageUtilsTh: ErrMessageUtilsTH,
+        private readonly jwtService: JwtService,
         private readonly dbconnecttion: dbConnection) { }
 
     async validateUser(username: string, password: string): Promise<any> {
@@ -46,7 +49,7 @@ export class AuthService {
             throw new StatusException({
                 error: null,
                 result: { access_token, employee: response.result[0] },
-                message: 'Success.',
+                message: this.errMessageUtilsTh.messageSuccess,
                 statusCode: 200
             }, 200);
         } else {

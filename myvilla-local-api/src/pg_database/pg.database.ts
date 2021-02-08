@@ -42,15 +42,17 @@ export class dbConnection {
         }
     }
 
-    async savePgData(querys:any) {
-        console.log('save : ' + {querys});
+    async savePgData(querys:any[]) {
+        console.log('save : ' + querys.length);
         const queryRunner = connection.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         let result = null;
         let error = null;
         try {
-            await queryRunner.query(querys);
+            for(let num =0;num<querys.length;num++){
+                await queryRunner.query(querys[num]);
+            }
             await queryRunner.commitTransaction();
             result = true;
         } catch (err) {

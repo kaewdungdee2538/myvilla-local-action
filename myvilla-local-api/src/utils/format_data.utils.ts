@@ -6,19 +6,23 @@ export class FormatDataUtils {
         return false;
     }
 
-    IsNumber(value: any) {
-        if (typeof value !== 'number') {
-            return false
-          }
-          if (value !== Number(value)) {
-            return false
-          }
-          if (value === Infinity) {
-            return false
-          }
-          return true
+    IsNumber(input: any) {
+
+        try {
+            const value = parseInt(input);
+            if (typeof value !== 'number') {
+                return false
+            }
+            if (value !== Number(value)) {
+                return false
+            }
+            if (value === Infinity) {
+                return false
+            }
+            return true
+        } catch { return fail }
     }
-    
+
 
     IsEmptyOrSpaces(str: string) {
         //return str === null || str.match(/^ *$/) !== null;
@@ -46,6 +50,8 @@ export class FormatDataUtils {
             Cal = 11 - Cal;
         if (input.substring(12, 13) == Cal.toString())
             check = true;
+
+        console.log('Identity : ' + check)
         return check;
     }
 }
