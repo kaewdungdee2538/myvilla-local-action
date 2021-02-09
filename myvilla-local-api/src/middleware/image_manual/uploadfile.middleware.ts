@@ -89,7 +89,7 @@ export const getCurrentDatePathFileSave = (req, file, callback) => {
     let month = current_date.getMonth().toString();
     let date = current_date.getDate().toString();
     let currentPath = `${pathAllFiles}/${year}/${month}/${date}`;
-
+    console.log(pathAllFiles);
     const dir = currentPath;
     if (!existsSync(dir)) {
         mkdirSync(dir, {

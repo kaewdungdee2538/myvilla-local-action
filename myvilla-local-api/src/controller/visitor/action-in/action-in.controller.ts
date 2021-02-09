@@ -1,11 +1,11 @@
-import { Body, MiddlewareConsumer, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import 'dotenv/config';
+import { Body, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Controller, Post } from '@nestjs/common';
-import { AnyFilesInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
-import { Request, Response, NextFunction } from 'express';
 import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_action_in_save.middleware';
 import { VsActionInInfoMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_info.middleware';
 import { VsActionInCheckSlotMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkslot.middleware';
@@ -37,6 +37,10 @@ export class ActionInController {
     )
     async ActionSaveIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
+        const filesName = files.map(file=>{
+            return file.path
+        })
+        console.log(filesName)
         if (files.length === 0) {
             throw new StatusException(
                 {
@@ -90,19 +94,8 @@ export class ActionInController {
                 }, 400
             )
             const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
-            if (getHomeID) {
-                const getVisitorSlotID = await this.actionINService.getVisitorSlotID(body);
-                console.log(getVisitorSlotID);
-                if (getVisitorSlotID)
-                    return this.actionINService.ActionSaveIn(files, body, getVisitorSlotID[0].visitor_slot_id, getHomeID);
-                throw new StatusException(
-                    {
-                        error: this.errMessageUtilsTh.errGetSlotVisitorNumberIsFail
-                        , result: null
-                        , message: this.errMessageUtilsTh.errGetSlotVisitorNumberIsFail
-                        , statusCode: 400
-                    }, 400
-                )
+            if (await getHomeID) {
+                return await this.getSlotOrGetCard(files, body, getHomeID);
             } else throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errHomeIDNotInDataBase
@@ -111,8 +104,39 @@ export class ActionInController {
                     , statusCode: 400
                 }, 400
             )
-                
+
         }
 
+    }
+
+
+    async getSlotOrGetCard(files: any, @Body() body, getHomeID: any) {
+        console.log('Get slot Or Get Card');
+        if (body.visitor_slot_number) {
+            console.log('Get slot');
+            const getVisitorSlotID = await this.actionINService.getVisitorSlotID(body);
+            if (getVisitorSlotID)
+                return this.actionINService.ActionSaveIn(files, body, getVisitorSlotID[0].visitor_slot_id, null, getHomeID);
+            throw new StatusException(
+                {
+                    error: getVisitorSlotID.error
+                    , result: null
+                    , message: this.errMessageUtilsTh.errGetSlotVisitorNumberIsFail
+                    , statusCode: 400
+                }, 400
+            )
+        }
+        console.log('Get Card');
+        const getCardID = await this.actionINService.getCardID(body);
+        if (getCardID)
+            return this.actionINService.ActionSaveIn(files, body, null, getCardID[0].card_id, getHomeID);
+        throw new StatusException(
+            {
+                error: getCardID.error
+                , result: null
+                , message: this.errMessageUtilsTh.errGetCardIDIsFail
+                , statusCode: 400
+            }, 400
+        )
     }
 }

@@ -52,10 +52,19 @@ export class ErrMessageUtilsTH{
     errGetSlotVisitorNumberSlotNumberNotFound = 'ไม่พบเลข Slot'
     errGetSlotVisitorNumberSlotNumberProhibitSpecial = 'เลข Slot ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errGetSlotVisitorNumberSlotNumberNotNumber ='เลข Slot ต้องเป็นตัวเลขเท่านั้น'
-    errGetSlotVisitorNumberIsFail = 'ไม่สามารถเรียกดู slot ที่ว่างได้'
+    errGetSlotVisitorNumberIsFail = 'ค้นหา slot ล้มเหลว'
     errGetSlotVistiorNumberNotValue = 'ไม่พบ Slot ว่าง'
     errGetSlotVisitorNumberNotInDataBase = 'ไม่พบเลข slot ในระบบ'
     errGetSlotVisitorNumberIsDuplicate = 'เลข slot ถูกใช้งานไปแล้ว'
+
+    errGetHaveCardCodeAndCardName = 'กรุณาเลือกกรอกเลขบัตร หรือทาบบัตร อย่างใดอย่างหนึ่ง'
+    errGetCardNotNumber = 'เลขบัตรต้องเป็นตัวเลยเท่านั้น'
+    errGetCardProhibitSpecial = 'เลขบัตรห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errGetCardNotInDatabase = 'ไม่พบบัตรในระบบ'
+    errGetCardIsDuplicate = 'บัตรยังไม่ได้ทำรายการออก'
+    errGetCardIDIsFail = 'ค้นหาบัตรล้มเหลว'
+
+    errGetCardOrSlotNumberVisitor = 'กรุณาเลือกกรอกเลขบัตร หรือเลข slot อย่างใดอย่างหนึ่ง'
 
     errImageNotFound = 'ไม่พบรูปภาพ';
 

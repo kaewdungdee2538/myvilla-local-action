@@ -10,9 +10,9 @@ export class ActionInService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
         ) { }
 
-    async ActionSaveIn(@UploadedFiles() files, @Body() body, visitor_slot_id: string,getHomeID:any) {
+    async ActionSaveIn(@UploadedFiles() files, @Body() body, visitor_slot_id: string,card_id:string,getHomeID:any) {
         const visitor_slot_number = body.visitor_slot_number;
-        const card_number = body.card_number;
+        const card_code = body.card_code;
         const card_name = body.card_name;
         const cartype_id = body.cartype_id;
         const cartype_name_contraction = body.cartype_name_contraction;
@@ -37,7 +37,7 @@ export class ActionInService {
 
         let sql1 = `insert into t_visitor_record(`;
         sql1 += 'visitor_slot_id'
-        sql1 += ',card_number,card_name'
+        sql1 += ',card_code,card_name'
         sql1 += ',cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en'
         sql1 += ',visitor_info'
         sql1 += ',action_info'
@@ -51,6 +51,7 @@ export class ActionInService {
         sql1 += ',employee_in_id'
         sql1 += ',employee_in_info'
         sql1 += ',home_id,home_info'
+        sql1 += ',card_id'
         sql1 += ') values('
         sql1 += `$1`
         sql1 += `,$2,$3`
@@ -67,12 +68,13 @@ export class ActionInService {
         sql1 += `,$17`
         sql1 += `,$18`
         sql1 += `,$19,$20`
+        sql1 += `,$21`
         sql1 += ');'
         const query1 = {
             text: sql1
             , values: [
                 visitor_slot_id
-                , card_number
+                , card_code
                 , card_name
                 , cartype_id
                 , cartype_name_contraction
@@ -91,15 +93,30 @@ export class ActionInService {
                 , employee_in_info
                 , home_id
                 , home_info
+                , card_id
             ]
         }
-        let sql2 = `update m_visitor_slot set status_flag = 'Y'`;
-        sql2 += ',update_by = $1,update_date = now()'
-        sql2 += ` where visitor_slot_id = $2`
-        const query2 = {
-            text: sql2
-            , values: [employee_in_id,visitor_slot_id]
+        let query2;
+        if(visitor_slot_id){
+            let sql2 = `update m_visitor_slot set status_flag = 'Y'`;
+            sql2 += ',update_by = $1,update_date = now()'
+            sql2 += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
+            sql2 += ` where visitor_slot_id = $2`
+            query2 = {
+                text: sql2
+                , values: [employee_in_id,visitor_slot_id]
+            }
+        }else{
+            let sql = `update m_card set status_flag = 'Y'`
+            sql += ',update_by = $1,update_date = now()'
+            sql += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
+            sql += ' where card_id = $2'
+            query2 = {
+                text:sql
+                ,values:[employee_in_id,card_id]
+            }
         }
+        
         const querys = [query1,query2];
         const result = await this.dbconnecttion.savePgData(querys);
         if(result.error){
@@ -124,7 +141,6 @@ export class ActionInService {
     }
 
     async getVisitorSlotID(@Body() body) {
-
         const visitor_slot_number = body.visitor_slot_number;
         const site_id = body.site_id;
         const guardhouse_in_id = body.guardhouse_in_id;
@@ -143,8 +159,32 @@ export class ActionInService {
         }
         const result = await this.dbconnecttion.getPgData(quesy);
         if (result.error)
+            return result.error;
+        else if(result.result.length === 0)
             return null;
         else
             return result.result;
+    }
+
+    async getCardID(@Body() body){
+        const site_id = body.site_id;
+        const card_code = body.card_code;
+        const card_name = body.card_name;
+        let sql = `select card_id,card_code,card_name`
+        sql += ` from m_card`
+        sql += ` where delete_flag = 'N' and status_flag = 'N'`
+        sql += ` and site_id = $1`
+        sql += ` and (card_code = $2 or card_name = $3);`
+        const query = {
+            text:sql
+            ,values:[site_id,card_code,card_name]
+        }
+        const res = await this.dbconnecttion.getPgData(query);
+        if (res.error)
+            return res.error;
+        else if(res.result.length === 0)
+            return null;
+        else
+            return res.result;
     }
 }
