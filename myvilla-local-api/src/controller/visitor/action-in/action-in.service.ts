@@ -33,6 +33,8 @@ export class ActionInService {
         const employee_in_info = body.employee_in_info;
         const home_id = getHomeID.home_id;
         const home_info = getHomeID.home_info;
+        const cartype_category_id = body.cartype_category_id;
+        const cartype_category_info = body.cartype_category_info;
         console.log(getHomeID);
 
         let sql1 = `insert into t_visitor_record(`;
@@ -52,6 +54,7 @@ export class ActionInService {
         sql1 += ',employee_in_info'
         sql1 += ',home_id,home_info'
         sql1 += ',card_id'
+        sql1 += ',cartype_category_id,cartype_category_info'
         sql1 += ') values('
         sql1 += `$1`
         sql1 += `,$2,$3`
@@ -69,6 +72,7 @@ export class ActionInService {
         sql1 += `,$18`
         sql1 += `,$19,$20`
         sql1 += `,$21`
+        sql1 += `,$22,$23`
         sql1 += ');'
         const query1 = {
             text: sql1
@@ -94,6 +98,8 @@ export class ActionInService {
                 , home_id
                 , home_info
                 , card_id
+                , cartype_category_id
+                , cartype_category_info
             ]
         }
         let query2;

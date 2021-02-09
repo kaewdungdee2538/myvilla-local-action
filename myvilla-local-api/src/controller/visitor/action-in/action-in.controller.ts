@@ -40,7 +40,6 @@ export class ActionInController {
         const filesName = files.map(file=>{
             return file.path
         })
-        console.log(filesName)
         if (files.length === 0) {
             throw new StatusException(
                 {
@@ -95,7 +94,7 @@ export class ActionInController {
             )
             const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
             if (await getHomeID) {
-                return await this.getSlotOrGetCard(files, body, getHomeID);
+                return await this.getSlotOrGetCard(filesName, body, getHomeID);
             } else throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errHomeIDNotInDataBase

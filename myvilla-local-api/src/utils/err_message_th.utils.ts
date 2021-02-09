@@ -68,8 +68,24 @@ export class ErrMessageUtilsTH{
 
     errImageNotFound = 'ไม่พบรูปภาพ';
 
-    errHomeIDNotFound = 'ไม่พบรหัสบ้านที่มาติดต่อ'
-    errHomeIDNotNumber = 'รหัสบ้านที่มาติดต่อต้องเป็นตัวเลขเท่านั้น'
-    errHomeIdProhibitSpecial = 'รหัสบ้านที่มาติดต่อต้องเป็นตัวเลขเท่านั้น'
+    errHomeIDNotFound = 'ไม่พบรหัสลูกบ้าน'
+    errHomeIDNotNumber = 'รหัสลูกบ้านต้องเป็นตัวเลขเท่านั้น'
+    errHomeIdProhibitSpecial = 'รหัสลูกบ้านต้องเป็นตัวเลขเท่านั้น'
     errHomeIDNotInDataBase = 'ไม่พบบ้านเลขที่ในระบบ'
+    errHomeGetFail = 'เรียกดูข้อมูลลูกบ้านล้มเหลว'
+
+    errGetSiteIDNotFound = 'ไม่พบรหัส Site'
+    errGetSiteIDNotNumber = 'รหัส Site ต้องเป็นตัวเลขเท่านั้น'
+    errGetSiteIDProhibitSpecial = 'รหัส Site ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    
+    errGetGuardhouseIDNotFound = 'ไม่พบรหัสป้อม'
+    errGetGuardhouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
+    errGetGuardhouseIDProhibitSpecial = 'รหัสป้อม ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+
+    errGetCarTypeFail = 'เรียกดูประเภทรถล้มเหลว'
+    errGetCarTypeNotFound = 'ไม่พบรหัสประเภทรถ'
+    errGetCarTypeNotNumber = 'รหัสประเภทรถต้องเป็นตัวเลขเท่านั้น'
+    errGetCarTypeProhibitSpecial = 'รหัสประเภทรถห้ามมีอักขระพิเศษ หรือช่องว่าง'
+   
+    errGetCartypeCategoryFail = 'เรียกดูหมวดหมู่รถล้มเหลว'
 }
