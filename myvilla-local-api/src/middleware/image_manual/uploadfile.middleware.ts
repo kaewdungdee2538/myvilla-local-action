@@ -82,13 +82,45 @@ export const editFileName = (req, file, callback) => {
     return callback(null, `${name}_${file_date_name}${fileExtName}`);
 };
 
-export const getCurrentDatePathFileSave = (req, file, callback) => {
+export const getCurrentDatePathFileSaveIn = (req, file, callback) => {
     const current_date = new Date();
     const pathAllFiles = process.env.PATHSAVEIMAGE;
     let year = current_date.getFullYear().toString();
     let month = current_date.getMonth().toString();
     let date = current_date.getDate().toString();
-    let currentPath = `${pathAllFiles}/${year}/${month}/${date}`;
+    let currentPath = `${pathAllFiles}/files/in/${year}/${month}/${date}`;
+    console.log(pathAllFiles);
+    const dir = currentPath;
+    if (!existsSync(dir)) {
+        mkdirSync(dir, {
+            recursive: true
+        });
+    }
+    readdir(currentPath, err => {
+        if (err)
+            return callback(
+                new StatusException(
+                    {
+                        error: 'File is not image.',
+                        result: null,
+                        message: 'ต้องเป็นรูปภาพนามสกุล .jpg .jpeg .png เท่านั้น',
+                        statusCode: 400
+                    },
+                    400,
+                ),
+                false
+            );
+        return callback(null, currentPath);
+    });
+}
+
+export const getCurrentDatePathFileSaveOut = (req, file, callback) => {
+    const current_date = new Date();
+    const pathAllFiles = process.env.PATHSAVEIMAGE;
+    let year = current_date.getFullYear().toString();
+    let month = current_date.getMonth().toString();
+    let date = current_date.getDate().toString();
+    let currentPath = `${pathAllFiles}/files/out/${year}/${month}/${date}`;
     console.log(pathAllFiles);
     const dir = currentPath;
     if (!existsSync(dir)) {

@@ -58,7 +58,7 @@ export class ErrMessageUtilsTH{
     errGetSlotVisitorNumberIsDuplicate = 'เลข slot ถูกใช้งานไปแล้ว'
 
     errGetHaveCardCodeAndCardName = 'กรุณาเลือกกรอกเลขบัตร หรือทาบบัตร อย่างใดอย่างหนึ่ง'
-    errGetCardNotNumber = 'เลขบัตรต้องเป็นตัวเลยเท่านั้น'
+    errGetCardNotNumber = 'เลขบัตรต้องเป็นตัวเลขเท่านั้น'
     errGetCardProhibitSpecial = 'เลขบัตรห้ามมีอักขระพิเศษ หรือช่องว่าง'
     errGetCardNotInDatabase = 'ไม่พบบัตรในระบบ'
     errGetCardIsDuplicate = 'บัตรยังไม่ได้ทำรายการออก'
@@ -88,4 +88,11 @@ export class ErrMessageUtilsTH{
     errGetCarTypeProhibitSpecial = 'รหัสประเภทรถห้ามมีอักขระพิเศษ หรือช่องว่าง'
    
     errGetCartypeCategoryFail = 'เรียกดูหมวดหมู่รถล้มเหลว'
+
+    errGetDataActionInInfoNotFound = 'ไม่พบข้อมูลขาเข้า'
+
+    errImagePathNotFound = 'กรุณาใส่ Path รูปภาพ'
+    errImageGetFail = 'ไม่พบรูปภาพที่ร้องขอ'
+    
+    errAuthorizationNotFound = 'ไม่พบ Bearer Token สำหรับร้องขอข้อมูล'
 }

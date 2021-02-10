@@ -5,7 +5,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
-import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
+import { editFileName, getCurrentDatePathFileSaveIn, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_action_in_save.middleware';
 import { VsActionInInfoMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_info.middleware';
 import { VsActionInCheckSlotMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkslot.middleware';
@@ -29,7 +29,7 @@ export class ActionInController {
     @UseInterceptors(
         FilesInterceptor('image', 20, {
             storage: diskStorage({
-                destination: getCurrentDatePathFileSave,
+                destination: getCurrentDatePathFileSaveIn,
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
@@ -37,9 +37,11 @@ export class ActionInController {
     )
     async ActionSaveIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
+        const pathMain = process.env.PATHSAVEIMAGE;
         const filesName = files.map(file=>{
-            return file.path
+            return file.path.replace(pathMain,'');
         })
+        console.log(filesName);
         if (files.length === 0) {
             throw new StatusException(
                 {
@@ -128,7 +130,7 @@ export class ActionInController {
         console.log('Get Card');
         const getCardID = await this.actionINService.getCardID(body);
         if (getCardID)
-            return this.actionINService.ActionSaveIn(files, body, null, getCardID[0].card_id, getHomeID);
+            return this.actionINService.ActionSaveIn(files, body, null, getCardID[0], getHomeID);
         throw new StatusException(
             {
                 error: getCardID.error
