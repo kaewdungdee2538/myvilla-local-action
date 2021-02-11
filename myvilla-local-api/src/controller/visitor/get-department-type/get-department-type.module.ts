@@ -3,22 +3,22 @@ import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
-import { GetContactTypeController } from './get-contact-type.controller';
-import { GetContactTypeService } from './get-contact-type.service';
+import { GetDepartmentTypeController } from './get-department-type.controller';
+import { GetDepartmentTypeService } from './get-department-type.service';
 
 @Module({
-  controllers: [GetContactTypeController],
+  controllers: [GetDepartmentTypeController],
   providers: [
-    GetContactTypeService
+    GetDepartmentTypeService
     ,dbConnection
     ,ErrMessageUtilsTH
     ,FormatDataUtils
   ]
 })
-export class GetContactTypeModule {
+export class GetDepartmentTypeModule {
   configure(consumer:MiddlewareConsumer){
     consumer
     .apply(vsGetHomeMiddleware)
-    .forRoutes('bannayuu/api/visitor/get-contact-type/*');
+    .forRoutes('bannayuu/api/visitor/get-department-type/*');
   }
 }

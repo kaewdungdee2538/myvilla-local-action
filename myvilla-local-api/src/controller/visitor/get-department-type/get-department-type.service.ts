@@ -4,18 +4,18 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 
 @Injectable()
-export class GetContactTypeService {
+export class GetDepartmentTypeService {
     constructor(
         private readonly dbconnecttion: dbConnection
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async getContactType(@Body() body){
-        return await this.getContact(body);
+    async getDepartmentType(@Body() body){
+        return await this.getDepartment(body);
     }
-    async getContact(@Body() body){
+    async getDepartment(@Body() body){
         const site_id = body.site_id;
-        let sql = `select contact_id,contact_code,contact_name_th,contact_name_en,contact_info from m_type_contact where site_id = $1;`
+        let sql = `select department_id,department_code,department_name_th,department_name_en,department_info from m_type_department where site_id = $1;`
         const query = {
             text:sql
             ,values:[site_id]
