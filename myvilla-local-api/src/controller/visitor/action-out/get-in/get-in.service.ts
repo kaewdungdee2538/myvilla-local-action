@@ -79,7 +79,8 @@ export class GetInService {
         sql += `,home_id,home_info,license_plate`
         sql += `,img_visitor_in as image_token`
         sql += `,estamp_flag,estamp_id,estamp_info,estamp_datetime`
-        sql += `,datetime_action`
+        sql += `,parking_in_datetime,datetime_action`
+        sql += `,employee_in_id,employee_in_info`
         sql += ` from t_visitor_record`
         sql += ` where action_out_flag = 'N' and action_type = 'IN'`
         sql += ` and site_id = $1`
@@ -110,17 +111,20 @@ export class GetInService {
             }, 400)
         else {
             const files = res.result[0].image_token.images;
-            let result = [];
-            for (let num = 0; num < files.length; num++) {
-                const image_path = { image_path: files[num] }
+            console.log(files.image_card);
+            console.log(files.image_vehicle);
+            let image_card_token,image_vehicle_token;
                 try {
-                    const access_token = await this.registryImageService.validateImage(image_path)
-                    result = [...result,access_token.access_token];
+                    // สร้าง JWT Token สำหรับรูปภาพ
+                    image_card_token = !files.image_card ? null : await this.registryImageService.validateImage({image_path:files.image_card});
+                    image_vehicle_token = !files.image_vehicle ? null : await this.registryImageService.validateImage({image_path:files.image_vehicle});
                 } catch (error) {
-                    result = [...result];
+                    console.log(error);
                 }
-            }
-            res.result[0].image_token = result;
+            // เปลี่ยนค่าจาก path file เป็น JWT Token เพื่อ return ให้ response
+            res.result[0].image_token = {
+                img_driver_token: !image_card_token ? null : image_card_token.access_token
+                ,img_license_token: !image_vehicle_token ? null : image_vehicle_token.access_token};
             throw new StatusException({
                 error: null
                 , result: res.result[0]

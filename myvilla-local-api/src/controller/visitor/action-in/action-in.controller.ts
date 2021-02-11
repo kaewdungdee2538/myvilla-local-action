@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { Body, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Controller, Post } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
@@ -27,30 +27,57 @@ export class ActionInController {
     // @UseGuards(JwtAuthGuard)
     @Post('save')
     @UseInterceptors(
-        FilesInterceptor('image', 20, {
+        FileFieldsInterceptor([
+            {name:'image_card',maxCount:1}
+            ,{name:'image_vehicle',maxCount:1}
+        ],{
             storage: diskStorage({
                 destination: getCurrentDatePathFileSaveIn,
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
-        }),
+        })
+        // FilesInterceptor('image', 20, {
+        //     storage: diskStorage({
+        //         destination: getCurrentDatePathFileSaveIn,
+        //         filename: editFileName,
+        //     }),
+        //     fileFilter: imageFileFilter,
+        // }),
     )
     async ActionSaveIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
         const pathMain = process.env.PATHSAVEIMAGE;
-        const filesName = files.map(file=>{
-            return file.path.replace(pathMain,'');
-        })
-        console.log(filesName);
-        if (files.length === 0) {
+        if (!files.image_card) {
             throw new StatusException(
                 {
-                    error: this.errMessageUtilsTh.errImageNotFound
+                    error: this.errMessageUtilsTh.errImageCardNotFound
                     , result: null
-                    , message: this.errMessageUtilsTh.errImageNotFound
+                    , message: this.errMessageUtilsTh.errImageCardNotFound
                     , statusCode: 400
                 }, 400
             )
+        }else if(!files.image_vehicle){
+            throw new StatusException(
+                {
+                    error: this.errMessageUtilsTh.errImageVehicleNotFound
+                    , result: null
+                    , message: this.errMessageUtilsTh.errImageVehicleNotFound
+                    , statusCode: 400
+                }, 400
+            )
+        }
+        const pathDriver = files.image_card.map(file=>{
+            return file.path.replace(pathMain,'');
+        })
+        console.log(pathDriver);
+        const pathLicense = files.image_vehicle.map(file=>{
+            return file.path.replace(pathMain,'');
+        })
+        console.log(pathLicense);
+        const imagesNameObj = {
+            image_card:pathDriver[0]
+            ,image_vehicle:pathLicense[0]   
         }
         //---------------------Middle ware
         const VisitorInfo = this.vsActionInforMiddleware.CheclVisitorinfo(body);
@@ -96,7 +123,7 @@ export class ActionInController {
             )
             const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
             if (await getHomeID) {
-                return await this.getSlotOrGetCard(filesName, body, getHomeID);
+                return await this.getSlotOrGetCard(imagesNameObj, body, getHomeID);
             } else throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errHomeIDNotInDataBase

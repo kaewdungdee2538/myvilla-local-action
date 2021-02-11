@@ -9,7 +9,9 @@ import { GetInModule } from './controller/visitor/action-out/get-in/get-in.modul
 import { ActionOutSaveModule } from './controller/visitor/action-out/save/action-out.module';
 import { GetCartypeCategoryModule } from './controller/visitor/get-cartype-category/get-cartype-category.module';
 import { GetCartypeModule } from './controller/visitor/get-cartype/get-cartype.module';
+import { GetContactTypeModule } from './controller/visitor/get-contact-type/get-contact-type.module';
 import { GetHomeModule } from './controller/visitor/get-home/get-home.module';
+import { GetIndividualTypeModule } from './controller/visitor/get-individual-type/get-individual-type.module';
 import { GetSlotModule } from './controller/visitor/get-slot/get-slot.module';
 import { loggerMiddleware } from './middleware/logger.middleware';
 
@@ -24,6 +26,8 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , GetInModule
     , GetImageModule
     , ActionOutSaveModule
+    , GetContactTypeModule
+    , GetIndividualTypeModule
   ],
   controllers: [AppController],
   providers: [AppService],

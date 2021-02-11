@@ -10,7 +10,7 @@ export class ActionInService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async ActionSaveIn(@UploadedFiles() files, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any) {
+    async ActionSaveIn(files:any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any) {
         const visitor_slot_number = body.visitor_slot_number;
         const card_id = !cardObj ? null : cardObj.card_id;
         const card_code = !cardObj ? null : cardObj.card_code;
@@ -49,6 +49,7 @@ export class ActionInService {
         sql1 += ',site_id,site_code'
         sql1 += ',guardhouse_in_id,guardhouse_in_code'
         sql1 += ',datetime_action'
+        sql1 += ',parking_in_datetime'
         sql1 += ',license_plate'
         sql1 += ',visitor_slot_number'
         sql1 += ',employee_in_id'
@@ -64,9 +65,9 @@ export class ActionInService {
         sql1 += `,$9`
         sql1 += `,$10`
         sql1 += `,'IN'`,
-            sql1 += `,$11,$12`
+        sql1 += `,$11,$12`
         sql1 += `,$13,$14`
-        sql1 += ',now()'
+        sql1 += ',now(),now()'
         sql1 += `,$15`
         sql1 += `,$16`
         sql1 += `,$17`
@@ -138,8 +139,8 @@ export class ActionInService {
         } else {
             throw new StatusException(
                 {
-                    error: this.errMessageUtilsTh.messageSuccess
-                    , result: null
+                    error: null
+                    , result: this.errMessageUtilsTh.messageSuccess
                     , message: this.errMessageUtilsTh.messageSuccess
                     , statusCode: 200
                 }, 200

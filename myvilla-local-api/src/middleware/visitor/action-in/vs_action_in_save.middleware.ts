@@ -25,7 +25,7 @@ export class VsActionInSaveMiddleware {
         if (!body.cartype_id)
             return this.errMessageUtilsTh.errVisitorCartypeIDNotfound;
         else if (this.formatUtils.HaveSpecialFormat(body.cartype_id))
-            return this.errMessageUtilsTh.errVisitorCartypeODProhibitSpecail
+            return this.errMessageUtilsTh.errVisitorCartypeIDProhibitSpecail
         else if (!this.formatUtils.IsNumber(body.cartype_id))
             return this.errMessageUtilsTh.errVisitorCartypeIDNotNumber;
         else if (!body.cartype_name_contraction)
