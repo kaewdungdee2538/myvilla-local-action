@@ -5,6 +5,7 @@ import {dbConnection} from './pg_database/pg.database';
 import * as bodyParser from 'body-parser';
 import * as formData from 'express-form-data';
 import * as os from 'os';
+import * as cookieParser from 'cookie-parser';
 
 const connect = new dbConnection;
 const port = process.env.PORT_API || 8080;
@@ -16,7 +17,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({extended:true}))
   app.use(bodyParser.json());
   app.use(bodyParser.raw());
- 
+  app.use(cookieParser());
   //  app.use(upload.array());
   await app.listen(port);
   console.log('API is listening on port : '+port);

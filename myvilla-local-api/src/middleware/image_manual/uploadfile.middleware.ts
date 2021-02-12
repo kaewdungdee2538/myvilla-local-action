@@ -67,6 +67,10 @@ const checkVisitorValues = (req,file,callback) => {
     return callback(null, true);
 }
 export const editFileName = (req, file, callback) => {
+    const cookiesObj = req.cookie
+    const type_contrac = cookiesObj.type_contrac
+    const action_type_contrac = cookiesObj.action_type_contrac
+    console.log('cookie '+ JSON.stringify(cookiesObj))
     const name = file.originalname.split('.')[0];
     const current_date = new Date();
     const year = current_date.getFullYear().toString();
@@ -79,16 +83,20 @@ export const editFileName = (req, file, callback) => {
 
     const file_date_name = `${year}${month}${date}_${hour}${minute}${second}${milsec}`
     const fileExtName = extname(file.originalname);
-    return callback(null, `${name}_${file_date_name}${fileExtName}`);
+    return callback(null, `${type_contrac}${action_type_contrac}_${name}_${file_date_name}${fileExtName}`);
 };
 
-export const getCurrentDatePathFileSaveIn = (req, file, callback) => {
+
+export const getCurrentDatePathFileSave = (req, file, callback) => {
+    const cookiesObj = req.cookie
+    const type = cookiesObj.type;
+    const action_type = cookiesObj.action_type;
     const current_date = new Date();
     const pathAllFiles = process.env.PATHSAVEIMAGE;
     let year = current_date.getFullYear().toString();
     let month = current_date.getMonth().toString();
     let date = current_date.getDate().toString();
-    let currentPath = `${pathAllFiles}/files/in/${year}/${month}/${date}`;
+    let currentPath = `${pathAllFiles}/files/${type}/${action_type}/${year}/${month}/${date}`;
     console.log(pathAllFiles);
     const dir = currentPath;
     if (!existsSync(dir)) {
@@ -114,34 +122,3 @@ export const getCurrentDatePathFileSaveIn = (req, file, callback) => {
     });
 }
 
-export const getCurrentDatePathFileSaveOut = (req, file, callback) => {
-    const current_date = new Date();
-    const pathAllFiles = process.env.PATHSAVEIMAGE;
-    let year = current_date.getFullYear().toString();
-    let month = current_date.getMonth().toString();
-    let date = current_date.getDate().toString();
-    let currentPath = `${pathAllFiles}/files/out/${year}/${month}/${date}`;
-    console.log(pathAllFiles);
-    const dir = currentPath;
-    if (!existsSync(dir)) {
-        mkdirSync(dir, {
-            recursive: true
-        });
-    }
-    readdir(currentPath, err => {
-        if (err)
-            return callback(
-                new StatusException(
-                    {
-                        error: 'File is not image.',
-                        result: null,
-                        message: 'ต้องเป็นรูปภาพนามสกุล .jpg .jpeg .png เท่านั้น',
-                        statusCode: 400
-                    },
-                    400,
-                ),
-                false
-            );
-        return callback(null, currentPath);
-    });
-}

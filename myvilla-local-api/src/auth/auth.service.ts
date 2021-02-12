@@ -12,7 +12,7 @@ export class AuthService {
         private readonly dbconnecttion: dbConnection) { }
 
     async validateUser(username: string, password: string): Promise<any> {
-        console.log(username+password)
+        console.log(username + password)
         let sql = `select employee_id, employee_code,first_name_th,last_name_th,username,(passcode = crypt($2, passcode)) as password_status FROM m_employee me `;
         sql += ` inner join m_employee_privilege mep on me.employee_privilege_id = mep.employee_privilege_id`;
         sql += ` WHERE me.username = $1 and me.delete_flag = 'N' and mep.delete_flag ='N' and mep.login_general_status='Y';`;
@@ -44,11 +44,14 @@ export class AuthService {
         } else if (await response.result[0].password_status) {
             const payload = { employee: response.result[0] };
             console.log(payload);
-            const access_token = this.jwtService.sign(payload)
+            const access_token = this.jwtService.sign(
+                payload, { expiresIn: '1m' })
             console.log('login : ' + JSON.stringify(payload) + 'access_token : ' + access_token);
             throw new StatusException({
                 error: null,
-                result: { access_token, employee: response.result[0] },
+                result: { 
+                    access_token
+                    , employee: response.result[0] },
                 message: this.errMessageUtilsTh.messageSuccess,
                 statusCode: 200
             }, 200);

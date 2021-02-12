@@ -2,7 +2,7 @@ import { ExecutionContext } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { StatusException } from 'src/utils/callback.status';
-
+import * as jwt from 'jsonwebtoken';
 
 // @Injectable()
 // export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -15,8 +15,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         return super.canActivate(context);
     }
 
-    handleRequest(err, user, info) {
+    handleRequest(err, user, info: Error) {
         // You can throw an exception based on either "info" or "err" arguments
+        this.checkToken(user.exp);
+        if (info instanceof jwt.TokenExpiredError){
+            console.log('token expired');
+        }   
         if (err || !user) {
             console.log(`Authentication Forbidden ${user}`);
             throw err || new StatusException({
@@ -24,7 +28,19 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
                 result: null,
                 message: 'Forbidden',
                 statusCode: 403
-            }, 403)}
+            }, 403)
+        }
+        
         return user;
     }
+
+    checkToken(exp) {
+        console.log(exp * 1000)
+        console.log(Date.now())
+        if (Date.now() <= exp * 1000) {
+          console.log(true, 'token is not expired')
+        } else { 
+          console.log(false, 'token is expired') 
+        }
+      }
 }

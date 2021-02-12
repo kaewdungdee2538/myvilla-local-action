@@ -7,8 +7,7 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 export class GetImageService {
     constructor(private readonly  errMessage: ErrMessageUtilsTH){}
     async getImageWithPathFile(@Request() req,@Res() res) {
-        const image_path = req.user.image_path;
-        console.log(JSON.stringify(req.user))
+        const image_path = req.body.image_path;
         const file = process.env.PATHSAVEIMAGE + image_path;
         console.log(file);
         try{

@@ -77,7 +77,7 @@ export class GetInService {
         let sql = `select visitor_record_id,visitor_slot_id,card_code,card_name`
         sql += `,cartype_id,cartype_name_th,cartype_name_en,visitor_info,action_info`
         sql += `,home_id,home_info,license_plate`
-        sql += `,img_visitor_in as image_token`
+        sql += `,img_visitor_in->'images' as image_path`
         sql += `,estamp_flag,estamp_id,estamp_info,estamp_datetime`
         sql += `,parking_in_datetime,datetime_action`
         sql += `,employee_in_id,employee_in_info`
@@ -110,21 +110,21 @@ export class GetInService {
                 , statusCode: 400
             }, 400)
         else {
-            const files = res.result[0].image_token.images;
-            console.log(files.image_card);
-            console.log(files.image_vehicle);
-            let image_card_token,image_vehicle_token;
-                try {
-                    // สร้าง JWT Token สำหรับรูปภาพ
-                    image_card_token = !files.image_card ? null : await this.registryImageService.validateImage({image_path:files.image_card});
-                    image_vehicle_token = !files.image_vehicle ? null : await this.registryImageService.validateImage({image_path:files.image_vehicle});
-                } catch (error) {
-                    console.log(error);
-                }
-            // เปลี่ยนค่าจาก path file เป็น JWT Token เพื่อ return ให้ response
-            res.result[0].image_token = {
-                img_driver_token: !image_card_token ? null : image_card_token.access_token
-                ,img_license_token: !image_vehicle_token ? null : image_vehicle_token.access_token};
+            // const files = res.result[0].image_token.images;
+            // console.log(files.image_card);
+            // console.log(files.image_vehicle);
+            // let image_card_token,image_vehicle_token;
+            //     try {
+            //         // สร้าง JWT Token สำหรับรูปภาพ
+            //         image_card_token = !files.image_card ? null : await this.registryImageService.validateImage({image_path:files.image_card});
+            //         image_vehicle_token = !files.image_vehicle ? null : await this.registryImageService.validateImage({image_path:files.image_vehicle});
+            //     } catch (error) {
+            //         console.log(error);
+            //     }
+            // // เปลี่ยนค่าจาก path file เป็น JWT Token เพื่อ return ให้ response
+            // res.result[0].image_token = {
+            //     img_driver_token: !image_card_token ? null : image_card_token.access_token
+            //     ,img_license_token: !image_vehicle_token ? null : image_vehicle_token.access_token};
             throw new StatusException({
                 error: null
                 , result: res.result[0]

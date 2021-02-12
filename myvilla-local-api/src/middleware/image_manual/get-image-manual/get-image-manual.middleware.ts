@@ -24,10 +24,9 @@ export class getImageManualMiddleware implements NestMiddleware {
             next();
     }
     checkValues(req:Request){
-        const header = req.headers;
-        console.log(header);
-        if(!header.authorization)
-            return this.errMessageUrilTh.errAuthorizationNotFound;
+        const body = req.body;
+        if(!body.image_path)
+            return this.errMessageUrilTh.errImagePathNotFound;
         return null;
     }
 }

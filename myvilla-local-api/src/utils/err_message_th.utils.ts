@@ -109,4 +109,6 @@ export class ErrMessageUtilsTH{
     errImageGetFail = 'ไม่พบรูปภาพที่ร้องขอ'
     
     errAuthorizationNotFound = 'ไม่พบ Bearer Token สำหรับร้องขอข้อมูล'
+
+    
 }

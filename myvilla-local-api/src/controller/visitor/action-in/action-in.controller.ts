@@ -5,7 +5,7 @@ import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-expres
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
-import { editFileName, getCurrentDatePathFileSaveIn, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
+import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_action_in_save.middleware';
 import { VsActionInInfoMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_info.middleware';
 import { VsActionInCheckSlotMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkslot.middleware';
@@ -13,6 +13,7 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import { ActionInInterceptor } from 'src/interceptor/action-in/action-in.interceptor';
 @Controller('bannayuu/api/visitor/action/in')
 export class ActionInController {
     constructor(
@@ -23,16 +24,19 @@ export class ActionInController {
         , private readonly vsActionSaveIn: VsActionInSaveMiddleware
         , private readonly vsActionCheckHomeID: VsActionInCheckHomeIDMiddleWare
         , private readonly vsActionCheckEmployee: VsActionInCheckEmployeeMiddleWare
+
     ) { }
     // @UseGuards(JwtAuthGuard)
+    // @UseInterceptors(ActionInInterceptor)
     @Post('save')
     @UseInterceptors(
+        ActionInInterceptor,
         FileFieldsInterceptor([
             {name:'image_card',maxCount:1}
             ,{name:'image_vehicle',maxCount:1}
         ],{
             storage: diskStorage({
-                destination: getCurrentDatePathFileSaveIn,
+                destination: getCurrentDatePathFileSave,
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,

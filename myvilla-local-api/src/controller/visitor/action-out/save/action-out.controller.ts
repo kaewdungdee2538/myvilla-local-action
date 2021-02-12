@@ -1,12 +1,13 @@
 import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { editFileName, getCurrentDatePathFileSaveOut, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
+import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { diskStorage } from 'multer';
 import { ActionOutSaveService } from './action-out.service';
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_slotorcard.middleware';
 import { VsActionOutForSaveMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_forsave.middleware';
+import { ActionOutInterceptor } from 'src/interceptor/action-out/action-out.interceptor';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
@@ -20,12 +21,13 @@ export class ActionOutSaveController {
     // @UseGuards(JwtAuthGuard)
     @Post('save')
     @UseInterceptors(
+        ActionOutInterceptor,
         FileFieldsInterceptor([
             { name: 'image_vehicle', maxCount: 1 }
             // , { name: 'image_license', maxCount: 1 }
         ], {
             storage: diskStorage({
-                destination: getCurrentDatePathFileSaveOut,
+                destination: getCurrentDatePathFileSave,
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
