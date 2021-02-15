@@ -110,5 +110,8 @@ export class ErrMessageUtilsTH{
     
     errAuthorizationNotFound = 'ไม่พบ Bearer Token สำหรับร้องขอข้อมูล'
 
+    errPosIDNotFound = 'ไม่พบ pos id'
+    errPosIDProhibitSpecial = 'pos id ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+
     
 }

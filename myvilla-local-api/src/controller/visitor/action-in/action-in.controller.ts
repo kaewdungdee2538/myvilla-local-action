@@ -158,10 +158,11 @@ export class ActionInController {
                 }, 400
             )
         }
-        console.log('Get Card');
+        
         const getCardID = await this.actionINService.getCardID(body);
+        console.log('Get Card'+JSON.stringify(getCardID));
         if (getCardID)
-            return this.actionINService.ActionSaveIn(files, body, null, getCardID[0], getHomeID);
+            return this.actionINService.ActionSaveIn(files, body, null, getCardID, getHomeID);
         throw new StatusException(
             {
                 error: getCardID.error

@@ -12,21 +12,21 @@ export class GetInService {
         , private readonly registryImageService: RegistryImageService
     ) { }
     async getActionInInfo(@Body() body) {
-        const visitor_record_id = await this.getVSRecordID(body);
-        console.log(visitor_record_id);
-        if (await visitor_record_id.error)
+        const visitor_record_uuid = await this.getVSRecordID(body);
+        console.log(visitor_record_uuid);
+        if (await visitor_record_uuid.error)
             throw new StatusException(
                 {
-                    error: visitor_record_id.error
+                    error: visitor_record_uuid.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
                     , statusCode: 400
                 }
                 , 400
             )
-        else if (visitor_record_id.result[0].visitor_record_id) {
+        else if (visitor_record_uuid.result[0].visitor_record_uuid) {
             const visitorInfo = {
-                visitor_record_id: visitor_record_id.result[0].visitor_record_id
+                visitor_record_uuid: visitor_record_uuid.result[0].visitor_record_uuid
                 , site_id: body.site_id
             }
             return await this.getDataInInfo(visitorInfo);
@@ -48,15 +48,15 @@ export class GetInService {
         const card_name = body.card_name;
         const visitor_slot_number = !body.visitor_slot_number ? 0 : body.visitor_slot_number;
         let sql = 'select '
-        sql += `coalesce((select visitor_record_id from m_card`
+        sql += `coalesce((select visitor_record_uuid from m_card`
         sql += ` where delete_flag = 'N'`
         sql += `  and status_flag = 'Y'`
         sql += ` and site_id = $1 `
         sql += ` and (card_code = $2 or card_name = $3))`
-        sql += `,(select visitor_record_id from m_visitor_slot`
+        sql += `,(select visitor_record_uuid from m_visitor_slot`
         sql += ` where status_flag = 'Y'`
         sql += ` and site_id = $1 `
-        sql += `  and visitor_slot_number = $4)) as visitor_record_id;`
+        sql += `  and visitor_slot_number = $4)) as visitor_record_uuid;`
 
         const query = {
             text: sql
@@ -72,7 +72,7 @@ export class GetInService {
     }
     async getDataInInfo(visitorInfo: any) {
         const site_id = visitorInfo.site_id;
-        const visitor_record_id = visitorInfo.visitor_record_id;
+        const visitor_record_uuid = visitorInfo.visitor_record_uuid;
 
         let sql = `select visitor_record_id,visitor_slot_id,card_code,card_name`
         sql += `,cartype_id,cartype_name_th,cartype_name_en,visitor_info,action_info`
@@ -84,13 +84,13 @@ export class GetInService {
         sql += ` from t_visitor_record`
         sql += ` where action_out_flag = 'N' and action_type = 'IN'`
         sql += ` and site_id = $1`
-        sql += ` and visitor_record_id = $2;`
+        sql += ` and visitor_record_uuid = $2;`
 
         const query = {
             text: sql
             , values: [
                 site_id
-                , visitor_record_id
+                , visitor_record_uuid
             ]
         }
         const res = await this.dbconnecttion.getPgData(query);

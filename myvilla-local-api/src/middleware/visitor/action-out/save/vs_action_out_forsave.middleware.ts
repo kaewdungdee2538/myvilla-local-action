@@ -11,7 +11,7 @@ export class VsActionOutForSaveMiddleWare {
     ) { }
 
     CheckVisitorOut(body: any) {
-        return  this.checkVisitorValues(body);
+        return this.checkVisitorValues(body);
     }
     checkVisitorValues(body: any) {
         // if (!body.visitor_record_id)
@@ -44,6 +44,10 @@ export class VsActionOutForSaveMiddleWare {
             return this.errMessageUtilsTh.errEmployeeIDNotNumber;
         else if (!body.employee_out_info)
             return this.errMessageUtilsTh.errEmployeeInfoNotFound;
+        else if (!body.pos_id)
+            return this.errMessageUtilsTh.errPosIDNotFound
+        else if (this.formatUtils.HaveSpecialFormat(body.pos_id))
+            return this.errMessageUtilsTh.errPosIDProhibitSpecial;
         return null;
     }
 }

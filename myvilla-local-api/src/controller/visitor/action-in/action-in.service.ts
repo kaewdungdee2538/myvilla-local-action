@@ -11,10 +11,12 @@ export class ActionInService {
     ) { }
 
     async ActionSaveIn(files:any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any) {
+        console.log(cardObj);
+        const visitor_record_uuid = await this.getUuidFormPg();
         const visitor_slot_number = body.visitor_slot_number;
-        const card_id = !cardObj ? null : cardObj.card_id;
-        const card_code = !cardObj ? null : cardObj.card_code;
-        const card_name = !cardObj ? null : cardObj.card_name;
+        const card_id = !cardObj ? 0 : cardObj.card_id;
+        const card_code = !cardObj ? '' : cardObj.card_code;
+        const card_name = !cardObj ? '' : cardObj.card_name;
         const cartype_id = body.cartype_id;
         const cartype_name_contraction = body.cartype_name_contraction;
         const cartype_name_th = body.cartype_name_th;
@@ -36,7 +38,7 @@ export class ActionInService {
         const home_info = getHomeID.home_info;
         const cartype_category_id = body.cartype_category_id;
         const cartype_category_info = body.cartype_category_info;
-        console.log(getHomeID);
+        console.log(visitor_record_uuid);
 
         let sql1 = `insert into t_visitor_record(`;
         sql1 += 'visitor_slot_id'
@@ -57,6 +59,7 @@ export class ActionInService {
         sql1 += ',home_id,home_info'
         sql1 += ',card_id'
         sql1 += ',cartype_category_id,cartype_category_info'
+        sql1 += ',visitor_record_uuid'
         sql1 += ') values('
         sql1 += `$1`
         sql1 += `,$2,$3`
@@ -75,6 +78,7 @@ export class ActionInService {
         sql1 += `,$19,$20`
         sql1 += `,$21`
         sql1 += `,$22,$23`
+        sql1 += `,$24`
         sql1 += ');'
         const query1 = {
             text: sql1
@@ -102,26 +106,29 @@ export class ActionInService {
                 , card_id
                 , cartype_category_id
                 , cartype_category_info
+                , visitor_record_uuid
             ]
         }
         let query2;
         if (visitor_slot_id) {
             let sql2 = `update m_visitor_slot set status_flag = 'Y'`;
             sql2 += ',update_by = $1,update_date = now()'
-            sql2 += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
-            sql2 += ` where visitor_slot_id = $2`
+            // sql2 += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
+            sql2 += `,visitor_record_uuid = $2`
+            sql2 += ` where visitor_slot_id = $3`
             query2 = {
                 text: sql2
-                , values: [employee_in_id, visitor_slot_id]
+                , values: [employee_in_id, visitor_record_uuid,visitor_slot_id]
             }
         } else {
             let sql = `update m_card set status_flag = 'Y'`
             sql += ',update_by = $1,update_date = now()'
-            sql += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
-            sql += ' where card_id = $2'
+            // sql += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
+            sql += `,visitor_record_uuid = $2`
+            sql += ' where card_id = $3'
             query2 = {
                 text: sql
-                , values: [employee_in_id, card_id]
+                , values: [employee_in_id,visitor_record_uuid, card_id]
             }
         }
 
@@ -146,6 +153,17 @@ export class ActionInService {
                 }, 200
             )
         }
+    }
+
+    async getUuidFormPg(){
+        const sql = 'select uuid_generate_v4();'
+        const res = await this.dbconnecttion.getPgData(sql);
+        if (res.error)
+            return res.error;
+        else if (res.result.length === 0)
+            return null;
+        else
+            return res.result[0].uuid_generate_v4;
     }
 
     async getVisitorSlotID(@Body() body) {
@@ -193,6 +211,6 @@ export class ActionInService {
         else if (res.result.length === 0)
             return null;
         else
-            return res.result;
+            return res.result[0];
     }
 }
