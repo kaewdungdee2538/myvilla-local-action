@@ -3,6 +3,8 @@ export class ErrMessageUtilsTH{
     messageSuccess ='เรียบร้อย'
     messageProcessFail = 'ล้มเหลว'
 
+    errRecordInNotFound = 'ไม่พบข้อมูลการทำรายการเข้า'
+
     errSiteIDNotFound = 'ไม่พบรหัสหมู่บ้าน'
     errSiteIDNotNumber = 'รหัสหมู่บ้านต้องเป็นตัวเลยเท่านั้น'
     errSiteIDProhibitSpecial = 'รหัสหมู่บ้านห้ามมีอักขระพิเศษ'
@@ -23,6 +25,10 @@ export class ErrMessageUtilsTH{
     errVisitorCartypeNameThProhibitSpecial = 'ประเภทรถ (ชื่อไทย) ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errVisitorCartypeNameEnNotFound = 'ไม่พบประเภทรถ (ชื่ออังกฤษ)'
     errVisitorCartypeNameEnProhibitSpecial = 'ปรเภทรถ (ชื่ออังกฤษ) ห้ามมีอักขระพิเศษหรือช่องว่าง'
+
+    errVisitorRecordIdNotFound = 'ไม่พบรหัส Visitor record'
+    errVisitorRecordIdProhibitSpecial = 'Visitor record ห้ามมีอักระพิเศษ หรือช่องว่าง'
+    errVisitorRecordIdNotNumber = 'Visitor record ต้องเป็นตัวเลขเท่านั้น'
 
     errVisitorInfoNotFound = 'ไม่พบข้อมูลของ Visitor'
     errVisitorInfoPrefixNameNotFound = 'ไม่พบคำนำหน้าชื่อ Visitor'
@@ -81,6 +87,7 @@ export class ErrMessageUtilsTH{
     errImageNotFound = 'ไม่พบรูปภาพ';
     errImageCardNotFound = 'ไม่พบรูปภาพหน้าบัตร'
     errImageVehicleNotFound = 'ไม่พบรูปภาพพาหนะ'
+    errImageCustomerNotFound = 'ไม่พบรูปภาพผู้ใช้บริการ'
 
     errHomeIDNotFound = 'ไม่พบรหัสลูกบ้าน'
     errHomeIDNotNumber = 'รหัสลูกบ้านต้องเป็นตัวเลขเท่านั้น'
@@ -112,6 +119,20 @@ export class ErrMessageUtilsTH{
 
     errPosIDNotFound = 'ไม่พบ pos id'
     errPosIDProhibitSpecial = 'pos id ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+
+    errPriceOfCardlossNotFound = 'ไม่พบค่าปรับบัตรหาย'
+    errPriceOfCardlossProhibitSpecial = 'ค่าปรับบัตรหายห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errPriceOfCardlossNotNumber  = 'ค่าปรับบัตรหายต้องเป็นตัวเลขเท่านั้น'
+
+    errCustomerPaymentNotFound = 'ไม่พบจำนวนเงินที่ลูกค้าชำระบริการ'
+    errCustomerPaymentProhibitSpecial = 'จำนวนเงินที่ลูกค้าชำระบริการห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCustomerPaymentNotNumber  = 'จำนวนเงินที่ลูกค้าชำระบริการต้องเป็นตัวเลขเท่านั้น'
+
+    errChangeMoneyNotFound = 'ไม่พบจำนวนเงินทอน'
+    errChangeMoneyProhibitSpecial = 'จำนวนเงินทอนห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errChangeMoneyNotNumber  = 'จำนวนเงินทอนต้องเป็นตัวเลขเท่านั้น'
+
+    errPaymentIncomplete = 'ชำระเงินไม่ครบถ้วน'
 
     
 }

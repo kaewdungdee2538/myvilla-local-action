@@ -13,7 +13,8 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
-import { ActionInInterceptor } from 'src/interceptor/action-in/action-in.interceptor';
+import { ActionInInterceptor } from 'src/interceptor/visitor/action-in/action-in.interceptor';
+
 @Controller('bannayuu/api/visitor/action/in')
 export class ActionInController {
     constructor(

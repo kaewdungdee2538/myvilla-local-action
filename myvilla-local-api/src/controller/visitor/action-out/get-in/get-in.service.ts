@@ -74,7 +74,7 @@ export class GetInService {
         const site_id = visitorInfo.site_id;
         const visitor_record_uuid = visitorInfo.visitor_record_uuid;
 
-        let sql = `select visitor_record_id,visitor_slot_id,card_code,card_name`
+        let sql = `select visitor_record_id,visitor_record_uuid,visitor_slot_id,card_code,card_name`
         sql += `,cartype_id,cartype_name_th,cartype_name_en,visitor_info,action_info`
         sql += `,home_id,home_info,license_plate`
         sql += `,img_visitor_in->'images' as image_path`

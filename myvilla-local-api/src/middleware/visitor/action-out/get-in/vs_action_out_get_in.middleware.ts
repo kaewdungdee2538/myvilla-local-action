@@ -9,6 +9,7 @@ export class vsActionOutGetInMiddleware implements NestMiddleware {
         private readonly formatDataUtils: FormatDataUtils
     ) { }
     use(req: Request, res: Response, next: () => void) {
+        console.log('cardloss middleware')
         const messageCheckCartypeInfo = this.checkValues(req);
         if (messageCheckCartypeInfo) {
             console.log('Middleware action in : ' + messageCheckCartypeInfo)

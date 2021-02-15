@@ -10,7 +10,6 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionInCheckSlotMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkslot.middleware';
 import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
-import { ActionInInterceptor } from 'src/interceptor/action-in/action-in.interceptor';
 
 @Module({
   imports:[dbConnection],

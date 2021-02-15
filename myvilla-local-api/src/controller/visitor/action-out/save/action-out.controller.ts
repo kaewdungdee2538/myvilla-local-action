@@ -7,7 +7,7 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_slotorcard.middleware';
 import { VsActionOutForSaveMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_forsave.middleware';
-import { ActionOutInterceptor } from 'src/interceptor/action-out/action-out.interceptor';
+import { ActionOutInterceptor } from 'src/interceptor/visitor/action-out/action-out.interceptor';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
