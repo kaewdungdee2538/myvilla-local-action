@@ -15,7 +15,7 @@ export class VisitorSaveCardlossController {
         private readonly errMessageUtilsTh: ErrMessageUtilsTH,
         private readonly VsCardLossSaveMiddleware: vsCardLossSaveMiddleware
     ) { }
-    @Post('save')
+    @Post('saveandout')
     @UseInterceptors(
         CardLossInterceptor,
         FileFieldsInterceptor([
@@ -62,6 +62,65 @@ export class VisitorSaveCardlossController {
         //---------------------Save
         return await this.visitorCardlossService.saveCardloss(body, imagesNameObj);
 
+    }
+
+    @Post('savenotout')
+    @UseInterceptors(
+        CardLossInterceptor,
+        FileFieldsInterceptor([
+            { name: 'image_customer', maxCount: 1 }
+        ], {
+            storage: diskStorage({
+                destination: getCurrentDatePathFileSave,
+                filename: editFileName,
+            }),
+            fileFilter: imageFileFilter,
+        })
+    )
+    async saveCardLossNotOut(@UploadedFiles() files, @Body() body) {
+        console.log('Files' + JSON.stringify(files));
+        const pathMain = process.env.PATHSAVEIMAGE;
+        if (!files.image_customer) {
+            throw new StatusException(
+                {
+                    error: this.errMessageUtilsTh.errImageCustomerNotFound
+                    , result: null
+                    , message: this.errMessageUtilsTh.errImageCustomerNotFound
+                    , statusCode: 400
+                }, 400
+            )
+        }
+        const pathCustomer = files.image_customer.map(file => {
+            return file.path.replace(pathMain, '');
+        })
+
+        const imagesNameObj = {
+            image_customer: pathCustomer[0]
+        }
+        //---------------------Middle ware
+        const middlewareSaveCardLoss = this.VsCardLossSaveMiddleware.checkValues(body);
+        if (middlewareSaveCardLoss)
+            throw new StatusException(
+                {
+                    error: middlewareSaveCardLoss
+                    , result: null
+                    , message: middlewareSaveCardLoss
+                    , statusCode: 400
+                }, 400
+            )
+        const middlewareForCheckCardBefore = await this.VsCardLossSaveMiddleware.checkCardBefore(body);
+        if (middlewareForCheckCardBefore)
+            throw new StatusException(
+                {
+                    error: middlewareForCheckCardBefore
+                    , result: null
+                    , message: middlewareForCheckCardBefore
+                    , statusCode: 400
+                }, 400
+            )
+            
+        //---------------------Save
+        return await this.visitorCardlossService.saveCardlossNotOut(body, imagesNameObj);
     }
 
 }

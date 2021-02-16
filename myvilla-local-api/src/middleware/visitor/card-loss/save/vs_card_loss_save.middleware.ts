@@ -1,16 +1,17 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { Request, Response, NextFunction } from 'express';
+import { CardManageService } from "src/middleware/card-manage/card-manage.service";
 import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
 @Injectable()
 export class vsCardLossSaveMiddleware {
     constructor(
         private readonly errMessageUrilTh: ErrMessageUtilsTH,
-        private readonly formatDataUtils: FormatDataUtils
+        private readonly formatDataUtils: FormatDataUtils,
+        private readonly cardManageService: CardManageService
     ) { }
 
     checkValues(body: any) {
-        console.log(body);
         if (!body.site_id)
             return this.errMessageUrilTh.errSiteIDNotFound;
         else if (this.formatDataUtils.HaveSpecialFormat(body.site_id))
@@ -65,4 +66,72 @@ export class vsCardLossSaveMiddleware {
             return this.errMessageUrilTh.errPaymentIncomplete;
         return null;
     }
+
+    async checkCardBefore(body: any) {
+        console.log('check cardloss not out ')
+        console.log(body)
+        if (!body.card_id_before)
+            return this.errMessageUrilTh.errCardlossCardIDBeforeNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_id_before))
+            return this.errMessageUrilTh.errCardlossCardIDBeforeProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_id_before))
+            return this.errMessageUrilTh.errCardlossCardIDBeforeNotNumber
+        else if (!body.card_code_before)
+            return this.errMessageUrilTh.errCardlossCardCodeBeforeNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_code_before))
+            return this.errMessageUrilTh.errCardlossCardCodeBeforeProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_code_before))
+            return this.errMessageUrilTh.errCardlossCardCodeBeforeNotNumber
+        else if (!body.card_name_before)
+            return this.errMessageUrilTh.errCardlossCardNameBeforeNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_name_before))
+            return this.errMessageUrilTh.errCardlossCardNameBeforeProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_name_before))
+            return this.errMessageUrilTh.errCardlossCardNameBeforeNotNumber
+        else if (!body.card_id_after)
+            return this.errMessageUrilTh.errCardlossCardIDAfterNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_id_after))
+            return this.errMessageUrilTh.errCardlossCardIDAfterProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_id_after))
+            return this.errMessageUrilTh.errCardlossCardIDAfterNotNumber
+        else if (!body.card_code_after)
+            return this.errMessageUrilTh.errCardlossCardCodeAfterNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_code_after))
+            return this.errMessageUrilTh.errCardlossCardCodeAfterProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_code_after))
+            return this.errMessageUrilTh.errCardlossCardCodeAfterNotNumber
+        else if (!body.card_name_after)
+            return this.errMessageUrilTh.errCardlossCardNameAfterNotFound
+        else if (this.formatDataUtils.HaveSpecialFormat(body.card_name_after))
+            return this.errMessageUrilTh.errCardlossCardNameAfterProhibitSpecial
+        else if (!this.formatDataUtils.IsNumber(body.card_name_after))
+            return this.errMessageUrilTh.errCardlossCardNameAfterNotNumber
+        const inputObjBefore = {
+            site_id: body.site_id
+            , card_code: !body.card_code_before ? '' : body.card_code_before
+            , card_name: !body.card_name_before ? '' : body.card_name_before
+        }
+        const cardBeforeInbase = await this.cardManageService.getCardInDataBase(inputObjBefore)
+        if (!cardBeforeInbase)
+            return this.errMessageUrilTh.errCardLossCardBeforeNotInDatabase;
+        const cardBeforeCheckIn = await this.cardManageService.getCardCheckIn(inputObjBefore)
+        if (!cardBeforeCheckIn)
+            return this.errMessageUrilTh.errCardLossCardBeforeIsNotCheckIn;
+
+        const inputObjAfter = {
+            site_id: body.site_id
+            , card_code: !body.card_code_after ? '' : body.card_code_after
+            , card_name: !body.card_name_after ? '' : body.card_name_after
+        }
+        const cardAfterInbase = await this.cardManageService.getCardInDataBase(inputObjAfter)
+        if (!cardAfterInbase)
+            return this.errMessageUrilTh.errCardLossCardAfterNotInDatabase;
+            const cardAfterCheckIn = await this.cardManageService.getCardCheckIn(inputObjAfter)
+        if (cardAfterCheckIn)
+            return this.errMessageUrilTh.errCardLossCardAfterIsNotCheckIn;
+
+        return null;
+    }
+
+
 }

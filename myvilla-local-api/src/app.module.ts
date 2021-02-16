@@ -10,6 +10,7 @@ import { GetInModule } from './controller/visitor/action-out/get-in/get-in.modul
 import { ActionOutSaveModule } from './controller/visitor/action-out/save/action-out.module';
 import { VisitorGetPriceofcardlossModule } from './controller/visitor/card-loss/visitor-get-priceofcardloss/visitor-get-priceofcardloss.module';
 import { VisitorSaveCardlossModule } from './controller/visitor/card-loss/visitor-save-cardloss/visitor-save-cardloss.module';
+import { CheckCardModule } from './controller/visitor/check-card/check-card.module';
 import { GetCartypeCategoryModule } from './controller/visitor/get-cartype-category/get-cartype-category.module';
 import { GetCartypeModule } from './controller/visitor/get-cartype/get-cartype.module';
 import { GetDepartmentTypeModule } from './controller/visitor/get-department-type/get-department-type.module';
@@ -36,6 +37,7 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , VisitorPendantModule
     , VisitorGetPriceofcardlossModule
     , VisitorSaveCardlossModule
+    , CheckCardModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { CardManageService } from 'src/middleware/card-manage/card-manage.service';
 import { vsCardLossSaveMiddleware } from 'src/middleware/visitor/card-loss/save/vs_card_loss_save.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -9,7 +10,14 @@ import { VisitorSaveCardlossService } from './visitor-save-cardloss.service';
 
 @Module({
   controllers: [VisitorSaveCardlossController],
-  providers: [VisitorSaveCardlossService,dbConnection,FormatDataUtils,ErrMessageUtilsTH,vsCardLossSaveMiddleware]
+  providers: [
+    VisitorSaveCardlossService
+    ,dbConnection
+    ,FormatDataUtils
+    ,ErrMessageUtilsTH
+    ,vsCardLossSaveMiddleware
+    ,CardManageService
+  ]
 })
 export class VisitorSaveCardlossModule {
   // configure(consumer:MiddlewareConsumer){

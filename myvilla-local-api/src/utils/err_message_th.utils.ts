@@ -134,5 +134,29 @@ export class ErrMessageUtilsTH{
 
     errPaymentIncomplete = 'ชำระเงินไม่ครบถ้วน'
 
+    errCardlossCardIDBeforeNotFound = 'ไม่พบ ID ของบัตรที่หาย'
+    errCardlossCardIDBeforeProhibitSpecial = 'ID ของบัตรที่หายห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardIDBeforeNotNumber = 'ID ของบัตรหายต้องเป็นตัวเลขเท่านั้น'
+    errCardlossCardCodeBeforeNotFound = 'ไม่พบรหัสบัตรที่หาย'
+    errCardlossCardCodeBeforeProhibitSpecial = 'รหัสบัตรที่หายห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardCodeBeforeNotNumber = 'รหัสบัตรหายต้องเป็นตัวเลขเท่านั้น'
+    errCardlossCardNameBeforeNotFound = 'ไม่พบเลขบัตรที่หาย'
+    errCardlossCardNameBeforeProhibitSpecial = 'เลขบัตรที่หายห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardNameBeforeNotNumber = 'เลขบัตรหายต้องเป็นตัวเลขเท่านั้น'
+    errCardLossCardBeforeIsNotCheckIn = 'บัตรที่หายไม่ได้ทำรายการเข้า'
+    errCardLossCardBeforeNotInDatabase = 'ไม่พบข้อมูลบัตรที่หายอยู่ในระบบ'
+
+    errCardlossCardIDAfterNotFound = 'ไม่พบ ID ของบัตรใหม่'
+    errCardlossCardIDAfterProhibitSpecial = 'ID ของบัตรใหม่ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardIDAfterNotNumber = 'ID ของบัตรใหม่ต้องเป็นตัวเลขเท่านั้น'
+    errCardlossCardCodeAfterNotFound = 'ไม่พบรหัสบัตรใหม่'
+    errCardlossCardCodeAfterProhibitSpecial = 'รหัสของบัตรใหม่ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardCodeAfterNotNumber = 'รหัสของบัตรใหม่ต้องเป็นตัวเลขเท่านั้น'
+    errCardlossCardNameAfterNotFound = 'ไม่พบเลขบัตรใหม่'
+    errCardlossCardNameAfterProhibitSpecial = 'เลขบัตรใหม่ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errCardlossCardNameAfterNotNumber = 'เลขบัตรใหม่ต้องเป็นตัวเลขเท่านั้น'
+    errCardLossCardAfterNotInDatabase = 'ไม่พบข้อมูลบัตรใหม่อยู่ในระบบ'
+    errCardLossCardAfterIsNotCheckIn = 'บัตรใหม่ถูกงานใช้อยู่แล้ว'
+
     
 }

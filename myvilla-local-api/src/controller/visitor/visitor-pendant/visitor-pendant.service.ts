@@ -52,7 +52,7 @@ export class VisitorPendantService {
         throw new StatusException(
             {
                 error: null
-                , result: res.result
+                , result: {data:res.result,value_count:res.result.length}
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 400
             }
