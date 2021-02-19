@@ -6,12 +6,12 @@ export class SlotManageService {
     constructor(private readonly dbconnecttion: dbConnection) { }
 
     async getSlotNumberInDataBase(inputObj: any) {
-        const site_id = inputObj.site_id;
+        const company_id = inputObj.company_id;
         const visitor_slot_number = inputObj.visitor_slot_number;
-        let sql = 'select * from m_visitor_slot where site_id = $1 and visitor_slot_number = $2;'
+        let sql = 'select * from m_visitor_slot where company_id = $1 and visitor_slot_number = $2;'
         const query = {
             text: sql
-            , values: [site_id, visitor_slot_number]
+            , values: [company_id, visitor_slot_number]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if(res.error){
@@ -23,12 +23,12 @@ export class SlotManageService {
     }
 
     async getSlotNumberCheckIn(inputObj: any){
-        const site_id = inputObj.site_id;
+        const company_id = inputObj.company_id;
         const visitor_slot_number = inputObj.visitor_slot_number;
-        let sql = `select * from m_visitor_slot where status_flag = 'Y' and site_id = $1 and visitor_slot_number = $2;`
+        let sql = `select * from m_visitor_slot where status_flag = 'Y' and company_id = $1 and visitor_slot_number = $2;`
         const query = {
             text: sql
-            , values: [site_id, visitor_slot_number]
+            , values: [company_id, visitor_slot_number]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if(res.error){

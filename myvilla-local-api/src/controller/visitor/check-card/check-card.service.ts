@@ -15,18 +15,19 @@ export class CheckCardService {
     }
 
     async getCardVisitor(@Body() body) {
-        const site_id = body.site_id;
-        const card_id = !body.card_id ? '' : body.card_id;
+        const company_id = body.company_id;
+        const card_code = !body.card_code ? '' : body.card_code;
         const card_name = !body.card_name ? '' : body.card_name;
-        let sql = `select card_id,card_code,card_name,visitor_record_uuid`
+        let sql = `select card_id,card_code,card_name,visitor_record_code`
         sql += ` from m_card`
-        sql += ` where site_id = $1`
+        sql += ` where company_id = $1`
         sql += ` and (card_code = $2 or card_name = $3) limit 1;`
         const query = {
             text: sql
-            , values: [site_id, card_id, card_name]
+            , values: [company_id, card_code, card_name]
         }
         const res = await this.dbconnecttion.getPgData(query);
+        console.log(res)
         if (res.error) throw new StatusException(
             {
                 error: res.error

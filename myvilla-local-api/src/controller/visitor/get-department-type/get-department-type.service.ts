@@ -14,11 +14,11 @@ export class GetDepartmentTypeService {
         return await this.getDepartment(body);
     }
     async getDepartment(@Body() body){
-        const site_id = body.site_id;
-        let sql = `select department_id,department_code,department_name_th,department_name_en,department_info from m_type_department where site_id = $1;`
+        const company_id = body.company_id;
+        let sql = `select department_id,department_code,department_name_th,department_name_en,department_info from m_type_department where company_id = $1;`
         const query = {
             text:sql
-            ,values:[site_id]
+            ,values:[company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         console.log(res);

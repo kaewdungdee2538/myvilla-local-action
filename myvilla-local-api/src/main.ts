@@ -6,10 +6,11 @@ import * as bodyParser from 'body-parser';
 import * as formData from 'express-form-data';
 import * as os from 'os';
 import * as cookieParser from 'cookie-parser';
+import { LoadSettingLocalUtils } from './utils/load_setting_local.utils';
 
 const connect = new dbConnection;
 const port = process.env.PORT_API || 8080;
-
+const loadSettingLocal = new LoadSettingLocalUtils(connect);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
     bodyParser:true,

@@ -15,11 +15,11 @@ export class VisitorGetPriceofcardlossService {
     }
 
     async getPriceCardloss(@Body() body) {
-        const site_id = body.site_id;
-        let sql = `select setting_value from m_setting where delete_flag = 'N' and site_id = $1;`
+        const company_id = body.company_id;
+        let sql = `select setting_local_value from m_setting_local where delete_flag = 'N' and setting_local_param = 'price_of_cardloss' and company_id = $1;`
         const query = {
             text: sql
-            , values: [site_id]
+            , values: [company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if (res.error)
@@ -34,7 +34,7 @@ export class VisitorGetPriceofcardlossService {
         throw new StatusException(
             {
                 error: null
-                , result: { price_of_cardloss: res.result[0].setting_value }
+                , result: { price_of_cardloss: res.result[0].setting_local_value }
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 400
             }

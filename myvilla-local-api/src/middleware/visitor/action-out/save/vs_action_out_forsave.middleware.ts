@@ -20,14 +20,14 @@ export class VsActionOutForSaveMiddleWare {
         //     return this.errMessageUtilsTh.errVisitorSlotIdProhibitSpecial;
         // else if (!this.formatUtils.IsNumber(body.visitor_record_id))
         //     return this.errMessageUtilsTh.errVisitorSlotIdNotNumber;
-        if (!body.site_id)
-            return this.errMessageUtilsTh.errSiteIDNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.site_id))
-            return this.errMessageUtilsTh.errSiteIDProhibitSpecial;
-        else if (!this.formatUtils.IsNumber(body.site_id))
-            return this.errMessageUtilsTh.errSiteIDNotNumber;
-        else if (this.formatUtils.HaveSpecialFormat(body.site_code))
-            return this.errMessageUtilsTh.errSiteCodeProhibitSpecial;
+        if (!body.company_id)
+            return this.errMessageUtilsTh.errCompanyIDNotFound;
+        else if (this.formatUtils.HaveSpecialFormat(body.company_id))
+            return this.errMessageUtilsTh.errCompanyIDProhibitSpecial;
+        else if (!this.formatUtils.IsNumber(body.company_id))
+            return this.errMessageUtilsTh.errCompanyIDNotNumber;
+        else if (this.formatUtils.HaveSpecialFormat(body.company_code))
+            return this.errMessageUtilsTh.errCompanyCodeProhibitSpecial;
         else if (!body.guardhouse_out_id)
             return this.errMessageUtilsTh.errGuardHouseIDNotFound;
         else if (this.formatUtils.HaveSpecialFormat(body.guardhouse_out_id))
@@ -42,8 +42,6 @@ export class VsActionOutForSaveMiddleWare {
             return this.errMessageUtilsTh.errEmployeeIDProhibitSpecail;
         else if (!this.formatUtils.IsNumber(body.employee_out_id))
             return this.errMessageUtilsTh.errEmployeeIDNotNumber;
-        else if (!body.employee_out_info)
-            return this.errMessageUtilsTh.errEmployeeInfoNotFound;
         else if (!body.pos_id)
             return this.errMessageUtilsTh.errPosIDNotFound
         else if (this.formatUtils.HaveSpecialFormat(body.pos_id))

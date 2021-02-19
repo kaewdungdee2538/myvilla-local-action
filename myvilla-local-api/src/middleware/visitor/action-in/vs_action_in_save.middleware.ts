@@ -40,14 +40,14 @@ export class VsActionInSaveMiddleware {
             return this.errMessageUtilsTh.errVisitorCartypeNameEnNotFound;
         else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_en))
             return this.errMessageUtilsTh.errVisitorCartypeNameEnProhibitSpecial;
-        else if (!body.site_id)
-            return this.errMessageUtilsTh.errSiteIDNotFound;
-        else if (!this.formatUtils.IsNumber(body.site_id))
-            return this.errMessageUtilsTh.errSiteIDNotNumber;
-        else if (this.formatUtils.HaveSpecialFormat(body.site_id))
-            return this.errMessageUtilsTh.errSiteIDProhibitSpecial;
-        else if (this.formatUtils.HaveSpecialFormat(body.site_code))
-            return this.errMessageUtilsTh.errSiteCodeProhibitSpecial;
+        else if (!body.company_id)
+            return this.errMessageUtilsTh.errCompanyIDNotFound;
+        else if (!this.formatUtils.IsNumber(body.company_id))
+            return this.errMessageUtilsTh.errCompanyIDNotNumber;
+        else if (this.formatUtils.HaveSpecialFormat(body.company_id))
+            return this.errMessageUtilsTh.errCompanyIDProhibitSpecial;
+        else if (this.formatUtils.HaveSpecialFormat(body.company_code))
+            return this.errMessageUtilsTh.errCompanyCodeProhibitSpecial;
         else if (!body.guardhouse_in_id)
             return this.errMessageUtilsTh.errGuardHouseIDNotFound;
         else if (!this.formatUtils.IsNumber(body.guardhouse_in_id))

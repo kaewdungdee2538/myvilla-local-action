@@ -11,25 +11,25 @@ export class AuthService {
         private readonly jwtService: JwtService,
         private readonly dbconnecttion: dbConnection) { }
 
-    async validateUser(username: string, password: string): Promise<any> {
-        console.log(username + password)
+    async validateUser(user:any): Promise<any> {
+        console.log(user.username + user.password)
         let sql = `select employee_id, employee_code,first_name_th,last_name_th,username,(passcode = crypt($2, passcode)) as password_status FROM m_employee me `;
         sql += ` inner join m_employee_privilege mep on me.employee_privilege_id = mep.employee_privilege_id`;
-        sql += ` WHERE me.username = $1 and me.delete_flag = 'N' and mep.delete_flag ='N' and mep.login_general_status='Y';`;
+        sql += ` WHERE me.username = $1 and me.delete_flag = 'N' and mep.delete_flag ='N' and mep.login_general_status='Y' and me.company_id = $3;`;
         const querys = {
             text: sql
-            , values: [username, password]
+            , values: [user.username, user.password,user.company_id]
         }
         const result = await this.dbconnecttion.getPgData(querys);
         return result;
     }
     async login(user: any) {
-        const response = await this.validateUser(user.username, user.password);
+        const response = await this.validateUser(user);
         console.log(response);
         console.log(await response.result.length);
         if (await response.error) {
             throw new StatusException({
-                error: response.error,
+                error: 'Login Fail !!',
                 result: null,
                 message: 'Login Fail !!',
                 statusCode: 500

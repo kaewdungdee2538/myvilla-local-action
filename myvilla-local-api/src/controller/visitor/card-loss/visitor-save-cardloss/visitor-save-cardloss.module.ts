@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { CardManageService } from 'src/middleware/card-manage/card-manage.service';
+import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { vsCardLossSaveMiddleware } from 'src/middleware/visitor/card-loss/save/vs_card_loss_save.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -17,6 +18,7 @@ import { VisitorSaveCardlossService } from './visitor-save-cardloss.service';
     ,ErrMessageUtilsTH
     ,vsCardLossSaveMiddleware
     ,CardManageService
+    ,VsActionInCheckEmployeeMiddleWare
   ]
 })
 export class VisitorSaveCardlossModule {

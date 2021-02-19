@@ -25,10 +25,10 @@ export class VsActionOutSlotOrCardMiddleWare {
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberSlotNumberProhibitSpecial;
             else if (!this.formatUtils.IsNumber(body.visitor_slot_number))
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberSlotNumberNotNumber;
-            const getSlotInBase = await this.slotManageService.getSlotNumberInDataBase({ site_id: body.site_id, visitor_slot_number: body.visitor_slot_number });
+            const getSlotInBase = await this.slotManageService.getSlotNumberInDataBase({ company_id: body.company_id, visitor_slot_number: body.visitor_slot_number });
             if (!getSlotInBase)
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberNotInDataBase;
-            const getslotCheckIn = await this.slotManageService.getSlotNumberCheckIn({ site_id: body.site_id, visitor_slot_number: body.visitor_slot_number });
+            const getslotCheckIn = await this.slotManageService.getSlotNumberCheckIn({ company_id: body.company_id, visitor_slot_number: body.visitor_slot_number });
             if (!getslotCheckIn)
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberIsNotCheckIn;
             return null;
@@ -47,7 +47,7 @@ export class VsActionOutSlotOrCardMiddleWare {
                     return this.errMessageUtilsTh.errGetCardNotNumber;
             }
             const inputObj = {
-                site_id: body.site_id
+                company_id: body.company_id
                 , card_code: !body.card_code ? '' : body.card_code
                 , card_name: !body.card_name ? '' : body.card_name
             }

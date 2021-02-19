@@ -5,10 +5,10 @@ export class ErrMessageUtilsTH{
 
     errRecordInNotFound = 'ไม่พบข้อมูลการทำรายการเข้า'
 
-    errSiteIDNotFound = 'ไม่พบรหัสหมู่บ้าน'
-    errSiteIDNotNumber = 'รหัสหมู่บ้านต้องเป็นตัวเลยเท่านั้น'
-    errSiteIDProhibitSpecial = 'รหัสหมู่บ้านห้ามมีอักขระพิเศษ'
-    errSiteCodeProhibitSpecial = 'โค้ดหมู่บ้านห้ามีอักขระพิเศษ'
+    errCompanyIDNotFound = 'ไม่พบรหัสหมู่บ้าน'
+    errCompanyIDNotNumber = 'รหัสหมู่บ้านต้องเป็นตัวเลยเท่านั้น'
+    errCompanyIDProhibitSpecial = 'รหัสหมู่บ้านห้ามมีอักขระพิเศษ'
+    errCompanyCodeProhibitSpecial = 'โค้ดหมู่บ้านห้ามีอักขระพิเศษ'
     errGuardHouseIDNotFound = 'ไม่พบรหัสป้อม'
     errGuardHouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
     errGuardHouseIDProhibitSpecial = 'รหัสป้อมห้ามมีอักชระพิเศษ'
@@ -53,9 +53,9 @@ export class ErrMessageUtilsTH{
     errEmployeeLastNameProhibitSpecial = 'นามสกุลพนักงาน ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errEmployeeInfoNotFound = 'ไม่พบข้อมูลพนักงาน'
 
-    errGetSlotVisitorNumberSiteIDNotFound = 'ไม่พบ site id'
-    errGetSlotVisitorNumberSiteIDProhibitSpecial = 'site id ห้ามมีอักขระพิเศษหรือช่องว่าง'
-    errGetSlotVisitorNumberSiteIDNotNumber ='site id ต้องเป็นตัวเลขเท่านั้น'
+    errGetSlotVisitorNumberCompanyIDNotFound = 'ไม่พบ company id'
+    errGetSlotVisitorNumberCompanyIDProhibitSpecial = 'company id ห้ามมีอักขระพิเศษหรือช่องว่าง'
+    errGetSlotVisitorNumberCompanyIDNotNumber ='company id ต้องเป็นตัวเลขเท่านั้น'
     errGetSlotVisitorNumberSlotNumberNotFound = 'ไม่พบเลข Slot'
     errGetSlotVisitorNumberSlotNumberProhibitSpecial = 'เลข Slot ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errGetSlotVisitorNumberSlotNumberNotNumber ='เลข Slot ต้องเป็นตัวเลขเท่านั้น'
@@ -95,9 +95,9 @@ export class ErrMessageUtilsTH{
     errHomeIDNotInDataBase = 'ไม่พบบ้านเลขที่ในระบบ'
     errHomeGetFail = 'เรียกดูข้อมูลลูกบ้านล้มเหลว'
 
-    errGetSiteIDNotFound = 'ไม่พบรหัส Site'
-    errGetSiteIDNotNumber = 'รหัส Site ต้องเป็นตัวเลขเท่านั้น'
-    errGetSiteIDProhibitSpecial = 'รหัส Site ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errGetCompanyIDNotFound = 'ไม่พบรหัส Company'
+    errGetCompanyIDNotNumber = 'รหัส Company ต้องเป็นตัวเลขเท่านั้น'
+    errGetCompanyIDProhibitSpecial = 'รหัส Company ห้ามมีอักขระพิเศษ หรือช่องว่าง'
     
     errGetGuardhouseIDNotFound = 'ไม่พบรหัสป้อม'
     errGetGuardhouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
@@ -158,5 +158,15 @@ export class ErrMessageUtilsTH{
     errCardLossCardAfterNotInDatabase = 'ไม่พบข้อมูลบัตรใหม่อยู่ในระบบ'
     errCardLossCardAfterIsNotCheckIn = 'บัตรใหม่ถูกงานใช้อยู่แล้ว'
 
-    
+    errVisitorRecordCodeNotFound = 'ไม่พบ uuid สำหรับขอพิมพ์ใบเสร็จ'
+    errSlipInGetNotRow = 'ไม่พบข้อมูลขาเข้า'
+
+    errฺBookingTbvCodeNotFound = 'ไม่พบ QR Code จากการจอง'
+    errฺBookingTbvCodeProhibitSpecial = 'QR Code ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errBookingNotFound = 'ไม่พบข้อมูลการจอง หรือหมดเวลาจองไปแล้ว'
+    errBookingQRNotFound = 'ไม่พบ QR Code ในระบบ'
+    errBookingQRCodeNotIn = 'QR Code ไม่ได้ทำรายการเข้า'
+
+    errBookingGetError = 'ตรวจสอบ Booking Error กรุณาติดต่อเจ้าหน้าที่'
+    errBookingNotVerifyEstamp = 'ไม่พบการ E-Stamp จากลูกบ้าน'
 }

@@ -10,9 +10,9 @@ export class ActionInService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async ActionSaveIn(files:any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any) {
-        console.log(cardObj);
-        const visitor_record_uuid = await this.getUuidFormPg();
+    async ActionSaveIn(files: any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any,getEmployeeID:any) {
+        console.log(getEmployeeID);
+        const visitor_record_code = await this.getUuidFormPg();
         const visitor_slot_number = body.visitor_slot_number;
         const card_id = !cardObj ? 0 : cardObj.card_id;
         const card_code = !cardObj ? '' : cardObj.card_code;
@@ -27,18 +27,28 @@ export class ActionInService {
         const img_visitor_in = {
             images
         }
-        const site_id = body.site_id;
-        const site_code = body.site_code;
+        const company_id = body.company_id;
+        const company_code = body.company_code;
         const guardhouse_in_id = body.guardhouse_in_id;
         const guardhouse_in_code = body.guardhouse_in_code;
         const license_plate = body.license_plate;
         const employee_in_id = body.employee_in_id;
-        const employee_in_info = body.employee_in_info;
+        const employee_in_info = getEmployeeID;
         const home_id = getHomeID.home_id;
-        const home_info = getHomeID.home_info;
+        const home_info = {
+            home_id: getHomeID.home_id
+            , home_code: getHomeID.home_code
+            , home_name: getHomeID.home_name
+            , home_address: getHomeID.home_address
+            , home_type : getHomeID.home_type
+            , home_data: getHomeID.home_data
+            , home_remark: getHomeID.home_remark
+            , home_privilege_line_amount: getHomeID.home_privilege_line_amount
+            , home_privilege_card_amount: getHomeID.home_privilege_card_amount
+        };
         const cartype_category_id = body.cartype_category_id;
         const cartype_category_info = body.cartype_category_info;
-        console.log(visitor_record_uuid);
+        console.log(visitor_record_code);
 
         let sql1 = `insert into t_visitor_record(`;
         sql1 += 'visitor_slot_id'
@@ -48,7 +58,7 @@ export class ActionInService {
         sql1 += ',action_info'
         sql1 += ',img_visitor_in'
         sql1 += ',action_type'
-        sql1 += ',site_id,site_code'
+        sql1 += ',company_id,company_code'
         sql1 += ',guardhouse_in_id,guardhouse_in_code'
         sql1 += ',datetime_action'
         sql1 += ',parking_in_datetime'
@@ -59,7 +69,7 @@ export class ActionInService {
         sql1 += ',home_id,home_info'
         sql1 += ',card_id'
         sql1 += ',cartype_category_id,cartype_category_info'
-        sql1 += ',visitor_record_uuid'
+        sql1 += ',visitor_record_code'
         sql1 += ') values('
         sql1 += `$1`
         sql1 += `,$2,$3`
@@ -93,8 +103,8 @@ export class ActionInService {
                 , visitor_info
                 , action_info
                 , img_visitor_in
-                , site_id
-                , site_code
+                , company_id
+                , company_code
                 , guardhouse_in_id
                 , guardhouse_in_code
                 , license_plate
@@ -106,7 +116,7 @@ export class ActionInService {
                 , card_id
                 , cartype_category_id
                 , cartype_category_info
-                , visitor_record_uuid
+                , visitor_record_code
             ]
         }
         let query2;
@@ -114,21 +124,21 @@ export class ActionInService {
             let sql2 = `update m_visitor_slot set status_flag = 'Y'`;
             sql2 += ',update_by = $1,update_date = now()'
             // sql2 += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
-            sql2 += `,visitor_record_uuid = $2`
+            sql2 += `,visitor_record_code = $2`
             sql2 += ` where visitor_slot_id = $3`
             query2 = {
                 text: sql2
-                , values: [employee_in_id, visitor_record_uuid,visitor_slot_id]
+                , values: [employee_in_id, visitor_record_code, visitor_slot_id]
             }
         } else {
             let sql = `update m_card set status_flag = 'Y'`
             sql += ',update_by = $1,update_date = now()'
             // sql += ',visitor_record_id = (select max(visitor_record_id) from t_visitor_record)'
-            sql += `,visitor_record_uuid = $2`
+            sql += `,visitor_record_code = $2`
             sql += ' where card_id = $3'
             query2 = {
                 text: sql
-                , values: [employee_in_id,visitor_record_uuid, card_id]
+                , values: [employee_in_id, visitor_record_code, card_id]
             }
         }
 
@@ -147,7 +157,7 @@ export class ActionInService {
             throw new StatusException(
                 {
                     error: null
-                    , result: this.errMessageUtilsTh.messageSuccess
+                    , result: {visitor_record_code}
                     , message: this.errMessageUtilsTh.messageSuccess
                     , statusCode: 200
                 }, 200
@@ -155,31 +165,31 @@ export class ActionInService {
         }
     }
 
-    async getUuidFormPg(){
-        const sql = 'select uuid_generate_v4();'
+    async getUuidFormPg() {
+        const sql = `select fun_generate_uuid('VS',8) as _uuid;`
         const res = await this.dbconnecttion.getPgData(sql);
         if (res.error)
             return res.error;
         else if (res.result.length === 0)
             return null;
         else
-            return res.result[0].uuid_generate_v4;
+            return res.result[0]._uuid;
     }
 
     async getVisitorSlotID(@Body() body) {
         const visitor_slot_number = body.visitor_slot_number;
-        const site_id = body.site_id;
+        const company_id = body.company_id;
         const guardhouse_in_id = body.guardhouse_in_id;
         let sql = `select visitor_slot_id,visitor_slot_number `
         sql += ',visitor_slot_code,visitor_slot_name'
         sql += ' from m_visitor_slot'
         sql += ` where visitor_slot_number = $1`
-        sql += ` and site_id = $2 and guardhouse_id =$3;`;
+        sql += ` and company_id = $2 and guardhouse_id =$3;`;
         const quesy = {
             text: sql
             , values: [
                 visitor_slot_number
-                , site_id
+                , company_id
                 , guardhouse_in_id
             ]
         }
@@ -193,17 +203,17 @@ export class ActionInService {
     }
 
     async getCardID(@Body() body) {
-        const site_id = body.site_id;
+        const company_id = body.company_id;
         const card_code = body.card_code;
         const card_name = body.card_name;
         let sql = `select card_id,card_code,card_name`
         sql += ` from m_card`
         sql += ` where delete_flag = 'N' and status_flag = 'N'`
-        sql += ` and site_id = $1`
+        sql += ` and company_id = $1`
         sql += ` and (card_code = $2 or card_name = $3);`
         const query = {
             text: sql
-            , values: [site_id, card_code, card_name]
+            , values: [company_id, card_code, card_name]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if (res.error)

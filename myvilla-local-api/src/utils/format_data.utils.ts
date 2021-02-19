@@ -1,7 +1,14 @@
 const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+const formatuuid = /[ `!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/;
 export class FormatDataUtils {
     HaveSpecialFormat(input: string) {
         if (format.test(input))
+            return true;
+        return false;
+    }
+
+    HaveSpecialUuidFormat(input:string){
+        if (formatuuid.test(input))
             return true;
         return false;
     }

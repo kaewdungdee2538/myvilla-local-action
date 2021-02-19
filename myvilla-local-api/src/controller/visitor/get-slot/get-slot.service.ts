@@ -10,10 +10,10 @@ export class GetSlotService {
 
     async getSlotNotUse(@Body() body) {
         console.log({ body });
-        const building_id = body.site_id;
+        const building_id = body.company_id;
         const guardhouse_id = body.guardhouse_id;
         let sql = `select min(visitor_slot_number) as visitor_slot_number,min(visitor_slot_id) as visitor_slot_id from m_visitor_slot where status_flag ='N'`;
-        sql += ` and site_id = $1 and guardhouse_id = $2`;
+        sql += ` and company_id = $1 and guardhouse_id = $2`;
 
         const querys = {
             text: sql
@@ -26,11 +26,11 @@ export class GetSlotService {
 
     async getSlotNotUseById(@Body() body){
         console.log({ body });
-        const building_id = body.site_id;
+        const building_id = body.company_id;
         const guardhouse_id = body.guardhouse_id;
         const visitor_slot_number = body.visitor_slot_number;
         let sql = `select min(visitor_slot_number) as visitor_slot_number,min(visitor_slot_id) as visitor_slot_id from m_visitor_slot where status_flag ='N'`;
-        sql += ` and site_id = $1 and guardhouse_id = $2 and visitor_slot_number = $3`;
+        sql += ` and company_id = $1 and guardhouse_id = $2 and visitor_slot_number = $3`;
 
         const querys = {
             text: sql

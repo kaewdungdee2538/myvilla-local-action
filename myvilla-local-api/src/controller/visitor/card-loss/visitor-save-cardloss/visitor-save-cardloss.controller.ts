@@ -7,6 +7,7 @@ import { CardLossInterceptor } from 'src/interceptor/visitor/cardloss/cardloss.i
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { vsCardLossSaveMiddleware } from 'src/middleware/visitor/card-loss/save/vs_card_loss_save.middleware';
+import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 
 @Controller('bannayuu/api/visitor/cardloss/save-cardloss')
 export class VisitorSaveCardlossController {
@@ -14,6 +15,7 @@ export class VisitorSaveCardlossController {
         private readonly visitorCardlossService: VisitorSaveCardlossService,
         private readonly errMessageUtilsTh: ErrMessageUtilsTH,
         private readonly VsCardLossSaveMiddleware: vsCardLossSaveMiddleware
+        , private readonly vsActionInCheckEmployeeMiddleware: VsActionInCheckEmployeeMiddleWare
     ) { }
     @Post('saveandout')
     @UseInterceptors(
@@ -59,8 +61,17 @@ export class VisitorSaveCardlossController {
                     , statusCode: 400
                 }, 400
             )
-        //---------------------Save
-        return await this.visitorCardlossService.saveCardloss(body, imagesNameObj);
+        const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
+        if (employeeObj)
+            //---------------------Save
+            return await this.visitorCardlossService.saveCardloss(body, imagesNameObj, employeeObj);
+        else throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errEmployeeInfoNotFound
+                , result: null
+                , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
+                , statusCode: 400
+            }, 400)
 
     }
 
@@ -118,9 +129,17 @@ export class VisitorSaveCardlossController {
                     , statusCode: 400
                 }, 400
             )
-            
-        //---------------------Save
-        return await this.visitorCardlossService.saveCardlossNotOut(body, imagesNameObj);
+        const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
+        if (employeeObj)
+            //---------------------Save
+            return await this.visitorCardlossService.saveCardlossNotOut(body, imagesNameObj,employeeObj);
+        else throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errEmployeeInfoNotFound
+                , result: null
+                , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
+                , statusCode: 400
+            }, 400)
     }
 
 }

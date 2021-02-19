@@ -10,9 +10,9 @@ export class VsGetSlotMiddleware implements NestMiddleware {
         private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
     use(req: Request, res: Response, next: () => void) {
-        const messageCheckVisitor = this.checkSiteID(req);
+        const messageCheckVisitor = this.checkCompanyID(req);
         if (messageCheckVisitor) {
-            console.log('Middleware action in : '+messageCheckVisitor)
+            console.log('Middleware action in : ' + messageCheckVisitor)
             res.send({
                 response: {
                     error: messageCheckVisitor
@@ -25,15 +25,15 @@ export class VsGetSlotMiddleware implements NestMiddleware {
             next();
     }
 
-    checkSiteID(req: Request){
+    checkCompanyID(req: Request) {
         const body = req.body;
-        if (!body.site_id) {
-            return this.errMessageUtilsTh.errGetSlotVisitorNumberSiteIDNotFound;
+        if (!body.company_id) {
+            return this.errMessageUtilsTh.errGetSlotVisitorNumberCompanyIDNotFound;
         } else {
-            if(this.formatUtils.HaveSpecialFormat(body.site_id))
-                return this.errMessageUtilsTh.errGetSlotVisitorNumberSiteIDProhibitSpecial;
-            // else if(!this.formatUtils.IsNumber(body.site_id))
-            //     return this.errMessageUtilsTh.errGetSlotVisitorNumberNotNumber;
+            if (this.formatUtils.HaveSpecialFormat(body.company_id))
+                return this.errMessageUtilsTh.errGetSlotVisitorNumberCompanyIDProhibitSpecial;
+            else if (!this.formatUtils.IsNumber(body.company_id))
+                return this.errMessageUtilsTh.errGetSlotVisitorNumberCompanyIDNotNumber;
             return null;
         }
     }
@@ -49,7 +49,7 @@ export class VsGetSlotBySlotNumberMiddleware implements NestMiddleware {
     use(req: Request, res: Response, next: () => void) {
         const messageCheckVisitor = this.checkSlotNumber(req);
         if (messageCheckVisitor) {
-            console.log('Middleware action in : '+messageCheckVisitor)
+            console.log('Middleware action in : ' + messageCheckVisitor)
             res.send({
                 response: {
                     error: messageCheckVisitor
@@ -62,14 +62,14 @@ export class VsGetSlotBySlotNumberMiddleware implements NestMiddleware {
             next();
     }
 
-    checkSlotNumber(req: Request){
+    checkSlotNumber(req: Request) {
         const body = req.body;
         if (!body.visitor_slot_number) {
             return this.errMessageUtilsTh.errGetSlotVisitorNumberSlotNumberNotFound;
         } else {
-            if(this.formatUtils.HaveSpecialFormat(body.visitor_slot_number))
+            if (this.formatUtils.HaveSpecialFormat(body.visitor_slot_number))
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberSlotNumberProhibitSpecial;
-            else if(!this.formatUtils.IsNumber(body.visitor_slot_number))
+            else if (!this.formatUtils.IsNumber(body.visitor_slot_number))
                 return this.errMessageUtilsTh.errGetSlotVisitorNumberSlotNumberNotNumber;
             return null;
         }

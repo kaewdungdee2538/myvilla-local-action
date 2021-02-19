@@ -14,7 +14,7 @@ export class GetCartypeCategoryService {
     }
 
     async getCartypeCategoryInfo(@Body() body){
-        const site_id = body.site_id;
+        const company_id = body.company_id;
         const cartype_id = body.cartype_id;
         let sql = `select cartype_category_id,cartype_category_code`
         sql += `,cartype_category_name_contraction`
@@ -22,11 +22,11 @@ export class GetCartypeCategoryService {
         sql += `,cartype_category_info,cartype_id`
         sql += ` from m_cartype_category`;
         sql += ` where delete_flag ='N'`
-        sql += ` and site_id = $1 and cartype_id = $2`
+        sql += ` and company_id = $1 and cartype_id = $2`
         sql += ` order by 1;`
         const query = {
             text: sql
-            , values: [site_id,cartype_id]
+            , values: [company_id,cartype_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if (res.error)

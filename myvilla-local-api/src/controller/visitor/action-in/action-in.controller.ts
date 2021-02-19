@@ -117,7 +117,7 @@ export class ActionInController {
                 }, 400
             )
         } else {
-            const getEmployeeID = await this.vsActionCheckEmployee.CheckEmployee(body);
+            const getEmployeeID = await this.vsActionCheckEmployee.CheckInEmployee(body);
             if (!getEmployeeID) throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
@@ -128,7 +128,7 @@ export class ActionInController {
             )
             const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
             if (await getHomeID) {
-                return await this.getSlotOrGetCard(imagesNameObj, body, getHomeID);
+                return await this.getSlotOrGetCard(imagesNameObj, body, getHomeID,getEmployeeID);
             } else throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errHomeIDNotInDataBase
@@ -143,13 +143,13 @@ export class ActionInController {
     }
 
 
-    async getSlotOrGetCard(files: any, @Body() body, getHomeID: any) {
+    async getSlotOrGetCard(files: any, @Body() body, getHomeID: any,getEmployeeID:any) {
         console.log('Get slot Or Get Card');
         if (body.visitor_slot_number) {
             console.log('Get slot');
             const getVisitorSlotID = await this.actionINService.getVisitorSlotID(body);
             if (getVisitorSlotID)
-                return this.actionINService.ActionSaveIn(files, body, getVisitorSlotID[0].visitor_slot_id, null, getHomeID);
+                return this.actionINService.ActionSaveIn(files, body, getVisitorSlotID[0].visitor_slot_id, null, getHomeID,getEmployeeID);
             throw new StatusException(
                 {
                     error: getVisitorSlotID.error
@@ -163,7 +163,7 @@ export class ActionInController {
         const getCardID = await this.actionINService.getCardID(body);
         console.log('Get Card'+JSON.stringify(getCardID));
         if (getCardID)
-            return this.actionINService.ActionSaveIn(files, body, null, getCardID, getHomeID);
+            return this.actionINService.ActionSaveIn(files, body, null, getCardID, getHomeID,getEmployeeID);
         throw new StatusException(
             {
                 error: getCardID.error

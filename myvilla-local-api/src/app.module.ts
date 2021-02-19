@@ -3,6 +3,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { BActionInModule } from './controller/booking/b-action-in/b-action-in.module';
+import { BActionOutModule } from './controller/booking/b-action-out/b-action-out.module';
+import { GetBookingInfoModule } from './controller/booking/get-booking-info/get-booking-info.module';
+import { GetBookingOutInfoModule } from './controller/booking/get-booking-out-info/get-booking-out-info.module';
 import { GetImageModule } from './controller/image/get-image/get-image.module';
 import { ResetVisitorModule } from './controller/reset-data/reset-visitor/reset-visitor.module';
 import { ActionInModule } from './controller/visitor/action-in/action-in.module';
@@ -16,6 +20,7 @@ import { GetCartypeModule } from './controller/visitor/get-cartype/get-cartype.m
 import { GetDepartmentTypeModule } from './controller/visitor/get-department-type/get-department-type.module';
 import { GetHomeModule } from './controller/visitor/get-home/get-home.module';
 import { GetIndividualTypeModule } from './controller/visitor/get-individual-type/get-individual-type.module';
+import { GetSlipModule } from './controller/visitor/get-slip/get-slip.module';
 import { GetSlotModule } from './controller/visitor/get-slot/get-slot.module';
 import { VisitorPendantModule } from './controller/visitor/visitor-pendant/visitor-pendant.module';
 import { loggerMiddleware } from './middleware/logger.middleware';
@@ -38,6 +43,11 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , VisitorGetPriceofcardlossModule
     , VisitorSaveCardlossModule
     , CheckCardModule
+    , GetSlipModule
+    , BActionInModule
+    , GetBookingInfoModule
+    , GetBookingOutInfoModule
+    , BActionOutModule
   ],
   controllers: [AppController],
   providers: [AppService],

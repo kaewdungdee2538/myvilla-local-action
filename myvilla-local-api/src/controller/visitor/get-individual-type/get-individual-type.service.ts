@@ -16,11 +16,11 @@ export class GetIndividualTypeService {
     }
 
     async getIndividual(@Body() body) {
-        const site_id = body.site_id;
-        let sql = `select individual_id,individual_code,individual_name_th,individual_name_en,individual_info from m_type_individual where site_id = $1;`
+        const company_id = body.company_id;
+        let sql = `select individual_id,individual_code,individual_name_th,individual_name_en,individual_info from m_type_individual where company_id = $1;`
         const query = {
             text: sql
-            , values: [site_id]
+            , values: [company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         console.log(res);

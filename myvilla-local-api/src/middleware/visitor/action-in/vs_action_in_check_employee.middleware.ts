@@ -6,21 +6,40 @@ export class VsActionInCheckEmployeeMiddleWare {
     constructor(
         private readonly dbconnecttion: dbConnection,
     ) { }
-    async CheckEmployee(body: any) {
-        return await this.checkHaveEmployee(body);
+    async CheckInEmployee(body: any) {
+        return await this.checkHaveInEmployee(body);
     }
 
-    async checkHaveEmployee(body: any) {
+    async CheckOutEmployee(body: any) {
+        return await this.checkHaveOutEmployee(body);
+    }
+
+    async checkHaveInEmployee(body: any) {
         const employee_in_id = body.employee_in_id
-        let sql = `select * from m_employee where employee_id = $1`
+        const company_id = body.company_id
+        let sql = `select employee_id,employee_code,prefix_name_th,first_name_th,last_name_th from m_employee where employee_id = $1 and company_id = $2`
         const query = {
             text: sql
-            , values: [employee_in_id]
+            , values: [employee_in_id,company_id]
         }
 
         const result = await this.dbconnecttion.getPgData(query);
         if (result.error || result.result.length === 0) return null;
-        else return true;
+        else return result.result[0];
+    }
+
+    async checkHaveOutEmployee(body: any) {
+        const employee_out_id = body.employee_out_id
+        const company_id = body.company_id
+        let sql = `select employee_id,employee_code,prefix_name_th,first_name_th,last_name_th from m_employee where employee_id = $1 and company_id = $2`
+        const query = {
+            text: sql
+            , values: [employee_out_id,company_id]
+        }
+
+        const result = await this.dbconnecttion.getPgData(query);
+        if (result.error || result.result.length === 0) return null;
+        else return result.result[0];
     }
 
 }

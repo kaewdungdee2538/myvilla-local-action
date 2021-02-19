@@ -12,14 +12,14 @@ export class vsCardLossSaveMiddleware {
     ) { }
 
     checkValues(body: any) {
-        if (!body.site_id)
-            return this.errMessageUrilTh.errSiteIDNotFound;
-        else if (this.formatDataUtils.HaveSpecialFormat(body.site_id))
-            return this.errMessageUrilTh.errSiteIDProhibitSpecial;
-        else if (!this.formatDataUtils.IsNumber(body.site_id))
-            return this.errMessageUrilTh.errSiteIDNotNumber;
-        else if (this.formatDataUtils.HaveSpecialFormat(body.site_code))
-            return this.errMessageUrilTh.errSiteCodeProhibitSpecial;
+        if (!body.company_id)
+            return this.errMessageUrilTh.errCompanyIDNotFound;
+        else if (this.formatDataUtils.HaveSpecialFormat(body.company_id))
+            return this.errMessageUrilTh.errCompanyIDProhibitSpecial;
+        else if (!this.formatDataUtils.IsNumber(body.company_id))
+            return this.errMessageUrilTh.errCompanyIDNotNumber;
+        else if (this.formatDataUtils.HaveSpecialFormat(body.company_code))
+            return this.errMessageUrilTh.errCompanyCodeProhibitSpecial;
         else if (!body.visitor_record_id)
             return this.errMessageUrilTh.errVisitorRecordIdNotFound
         else if (this.formatDataUtils.HaveSpecialFormat(body.visitor_record_id))
@@ -34,11 +34,11 @@ export class vsCardLossSaveMiddleware {
             return this.errMessageUrilTh.errGuardHouseIDNotNumber;
         else if (this.formatDataUtils.HaveSpecialFormat(body.guardhouse_code))
             return this.errMessageUrilTh.errGuardHouseCodeProhibitSpecial;
-        else if (!body.employee_id)
+        else if (!body.employee_out_id)
             return this.errMessageUrilTh.errEmployeeIDNotFound;
-        else if (this.formatDataUtils.HaveSpecialFormat(body.employee_id))
+        else if (this.formatDataUtils.HaveSpecialFormat(body.employee_out_id))
             return this.errMessageUrilTh.errEmployeeIDProhibitSpecail;
-        else if (!this.formatDataUtils.IsNumber(body.employee_id))
+        else if (!this.formatDataUtils.IsNumber(body.employee_out_id))
             return this.errMessageUrilTh.errEmployeeIDNotNumber;
         else if (!body.pos_id)
             return this.errMessageUrilTh.errPosIDNotFound;
@@ -107,7 +107,7 @@ export class vsCardLossSaveMiddleware {
         else if (!this.formatDataUtils.IsNumber(body.card_name_after))
             return this.errMessageUrilTh.errCardlossCardNameAfterNotNumber
         const inputObjBefore = {
-            site_id: body.site_id
+            company_id: body.company_id
             , card_code: !body.card_code_before ? '' : body.card_code_before
             , card_name: !body.card_name_before ? '' : body.card_name_before
         }
@@ -119,7 +119,7 @@ export class vsCardLossSaveMiddleware {
             return this.errMessageUrilTh.errCardLossCardBeforeIsNotCheckIn;
 
         const inputObjAfter = {
-            site_id: body.site_id
+            company_id: body.company_id
             , card_code: !body.card_code_after ? '' : body.card_code_after
             , card_name: !body.card_name_after ? '' : body.card_name_after
         }

@@ -15,12 +15,17 @@ export class GetHomeService {
     }
 
     async getHomeInfoFomrBase(@Body() body) {
-        const site_id = body.site_id;
-        let sql = `select home_id,home_number,home_info from m_home where delete_flag ='N'`
-        sql += ` and site_id = $1 order by home_number;`
+        const company_id = body.company_id;
+        let sql = `select home_id,home_code,home_name
+        ,home_address
+        ,home_type,home_data,home_remark
+        ,home_privilege_line_amount
+        ,home_privilege_card_amount
+        from m_home where delete_flag ='N'
+        and company_id = $1 order by home_address;`
         const query = {
             text: sql
-            , values: [site_id]
+            , values: [company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if (res.error)

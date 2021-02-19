@@ -22,13 +22,13 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
             console.log('token expired');
         }   
         if (err || !user) {
-            console.log(`Authentication Forbidden ${user}`);
+            console.log(`Authentication Unauthorized ${user}`);
             throw err || new StatusException({
-                error: 'Forbidden',
+                error: 'Unauthorized',
                 result: null,
-                message: 'Forbidden',
-                statusCode: 403
-            }, 403)
+                message: 'Unauthorized',
+                statusCode: 401
+            }, 401)
         }
         
         return user;

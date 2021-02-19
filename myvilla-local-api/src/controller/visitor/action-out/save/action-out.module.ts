@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CardManageService } from 'src/middleware/card-manage/card-manage.service';
 import { SlotManageService } from 'src/middleware/slot-manage/slot-manage.service';
+import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { VsActionOutForSaveMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_forsave.middleware';
 import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_slotorcard.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -22,6 +23,7 @@ import { ActionOutSaveService } from './action-out.service';
     ,VsActionOutForSaveMiddleWare
     ,CardManageService
     ,SlotManageService
+    ,VsActionInCheckEmployeeMiddleWare
   ]
 })
 export class ActionOutSaveModule {}

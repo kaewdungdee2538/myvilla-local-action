@@ -26,12 +26,12 @@ export class vsGetHomeMiddleware implements NestMiddleware {
 
     checkHomeInputValues(req: Request) {
         const body = req.body;
-        if (!body.site_id)
-            return this.errMessageUrilTh.errGetSiteIDNotFound;
-        else if (this.formatDataUtils.HaveSpecialFormat(body.site_id))
-            return this.errMessageUrilTh.errGetSiteIDProhibitSpecial;
-        else if (!this.formatDataUtils.IsNumber(body.site_id))
-            return this.errMessageUrilTh.errGetSiteIDNotNumber;
+        if (!body.company_id)
+            return this.errMessageUrilTh.errGetCompanyIDNotFound;
+        else if (this.formatDataUtils.HaveSpecialFormat(body.company_id))
+            return this.errMessageUrilTh.errGetCompanyIDProhibitSpecial;
+        else if (!this.formatDataUtils.IsNumber(body.company_id))
+            return this.errMessageUrilTh.errGetCompanyIDNotNumber;
         else if (!body.guardhouse_id)
             return this.errMessageUrilTh.errGetGuardhouseIDNotFound;
         else if (this.formatDataUtils.HaveSpecialFormat(body.guardhouse_id))

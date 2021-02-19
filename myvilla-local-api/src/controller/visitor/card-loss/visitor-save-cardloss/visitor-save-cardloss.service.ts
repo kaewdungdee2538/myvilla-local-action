@@ -10,31 +10,31 @@ export class VisitorSaveCardlossService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async saveCardloss(@Body() body, files: any) {
+    async saveCardloss(@Body() body, files: any,employeeObj:any) {
         const slotOrcardIsLoss = await this.checkSlotOrCardIsLoss(body);
         console.log(slotOrcardIsLoss);
         if (slotOrcardIsLoss.visitor_slot_id)
-            return await this.saveSlotAndOut(body, files, slotOrcardIsLoss);
-        return await this.saveCardAndOut(body, files, slotOrcardIsLoss);
+            return await this.saveSlotAndOut(body, files, slotOrcardIsLoss,employeeObj);
+        return await this.saveCardAndOut(body, files, slotOrcardIsLoss,employeeObj);
     }
 
-    async saveCardlossNotOut(@Body() body,files:any){
+    async saveCardlossNotOut(@Body() body,files:any,employeeObj:any){
         const cardObj = await this.checkRecordInBase(body)
         if(cardObj)
-            return await this.saveCardNotOut(body,files,cardObj)
+            return await this.saveCardNotOut(body,files,cardObj,employeeObj)
     }
-    async saveSlotAndOut(@Body() body, files: any, slotObj: any) {
+    async saveSlotAndOut(@Body() body, files: any, slotObj: any,employeeObj:any) {
         console.log('save slot')
         const images = files;
-        const cardloss_image = { images }
+        const image_cardproblem = { images }
         const image_vehicle = { images: { image_vehicle: files.image_customer } }
         const visitor_record_id = body.visitor_record_id;
-        const site_id = body.site_id;
-        const site_code = body.site_code;
+        const company_id = body.company_id;
+        const company_code = body.company_code;
         const guardhouse_id = body.guardhouse_id;
         const guardhouse_code = body.guardhouse_code;
-        const employee_id = body.employee_id;
-        const employee_info = body.employee_info;
+        const employee_out_id = body.employee_out_id;
+        const employee_out_info = employeeObj;
         const cardloss_price = body.cardloss_price;
         const customer_payment = body.customer_payment;
         const change_money = body.change_money;
@@ -43,61 +43,70 @@ export class VisitorSaveCardlossService {
             cardloss_price
             , customer_payment
             , change_money
-            , employee_id
-            , employee_info
+            , employee_out_id
+            , employee_out_info
             , visitor_record_id
         }
         const pos_id = body.pos_id;
-        let sql1 = `update t_visitor_record`
-        sql1 += ` set img_visitor_out = $1`
-        sql1 += `,parking_out_datetime = now(),parking_payment_datetime = now()`
-        sql1 += `,action_out_flag = 'Y'`
-        sql1 += `,payment_status_flag = 'CARDLOSS'`
-        sql1 += `,losscard_fines = $2`
-        sql1 += `,total_price = $3`
-        sql1 += `,guardhouse_out_id = $4`
-        sql1 += `,guardhouse_out_code = $5`
-        sql1 += `,employee_out_id = $6`
-        sql1 += `,employee_out_info = $7`
-        sql1 += `,cardloss_image = $8`
-        sql1 += `,cardloss_info = $9`
-        sql1 += `,cardloss_flag = 'Y',cardloss_datetime = now()`
-        sql1 += `,datetime_action = now()`
-        sql1 += `,action_type = 'OUT'`
-        sql1 += `,pos_id = $10`
-        sql1 += ` where visitor_record_id = $11`
-        sql1 += ` and action_out_flag ='N';`
 
+        let sql = `update t_visitor_record set action_out_flag = 'REPRINT' where visitor_record_id = $1;`
+        const query = {
+            text:sql
+            , values:[visitor_record_id]
+        }
 
+        let sql1 = `insert into t_visitor_record(
+        visitor_record_code,ref_visitor_record_id,tbv_code
+        ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+        ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+        ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+        ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+        ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+        ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
+        ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
+        ,losscard_fines,discount_info,parking_payment,total_price
+        ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
+        ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+        ) select
+        visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+        ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+        ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+        ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+        ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+        ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+        ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
+        ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'REPRINT' as payment_status_flag
+        ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
+        ,$8 as pos_id,'Y' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'REPRINT' as action_type
+        ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
+        from t_visitor_record
+        where visitor_record_id = $13
+        limit 1;
+        `
         const query1 = {
             text: sql1
             , values: [
-                image_vehicle
-                , cardloss_price
-                , cardloss_price
-                , guardhouse_id
-                , guardhouse_code
-                , employee_id
-                , employee_info
-                , cardloss_image
-                , cardloss_info
-                , pos_id
-                , visitor_record_id
+                guardhouse_id,guardhouse_code,image_vehicle
+                ,employee_out_id,employee_out_info
+                ,cardloss_price,cardloss_price
+                ,pos_id,company_id,company_code
+                ,cardloss_info,image_cardproblem
+                ,visitor_record_id
             ]
         }
         let sql2 = `update m_visitor_slot`
         sql2 += ` set visitor_record_id = null`
-        sql2 += `,visitor_record_uuid = null`
+        sql2 += `,visitor_record_code = null`
         sql2 += `,update_by = $1`
         sql2 += `,update_date = now()`
         sql2 += `,status_flag = 'N'`
-        sql2 += ` where site_id = $2`
+        sql2 += ` where company_id = $2`
         sql2 += ` and visitor_slot_id = $3;`
         const query2 = {
             text: sql2
-            , values: [employee_id, site_id, visitor_slot_id]
+            , values: [employee_out_id, company_id, visitor_slot_id]
         }
-        const querys = [query1, query2]
+        const querys = [query,query1, query2]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
             {
@@ -107,26 +116,27 @@ export class VisitorSaveCardlossService {
                 , statusCode: 400
             }, 400)
         else throw new StatusException(
-            {
-                error: null
-                , result: this.errMessageUtilsTh.messageSuccess
-                , message: this.errMessageUtilsTh.messageSuccess
-                , statusCode: 200
-            }, 200)
+                {
+                    error: null
+                    , result: this.errMessageUtilsTh.messageSuccess
+                    , message: this.errMessageUtilsTh.messageSuccess
+                    , statusCode: 200
+                }, 200)
     }
 
-    async saveCardAndOut(@Body() body, files: any, cardObj: any) {
+    async saveCardAndOut(@Body() body, files: any, cardObj: any,employeeObj:any) {
         console.log('save card')
         const images = files;
-        const cardloss_image = { images }
+        const image_cardproblem = { images }
         const image_vehicle = { images: { image_vehicle: files.image_customer } }
         const visitor_record_id = body.visitor_record_id;
-        const site_id = body.site_id;
-        const site_code = body.site_code;
+        const visitor_record_code = cardObj.visitor_record_code;
+        const company_id = body.company_id;
+        const company_code = body.company_code;
         const guardhouse_id = body.guardhouse_id;
         const guardhouse_code = body.guardhouse_code;
-        const employee_id = body.employee_id;
-        const employee_info = body.employee_info;
+        const employee_out_id = body.employee_out_id;
+        const employee_out_info = employeeObj;
         const cardloss_price = body.cardloss_price;
         const customer_payment = body.customer_payment;
         const change_money = body.change_money;
@@ -137,65 +147,77 @@ export class VisitorSaveCardlossService {
             cardloss_price
             , customer_payment
             , change_money
-            , employee_id
-            , employee_info
+            , employee_out_id
+            , employee_out_info
             , visitor_record_id
+            , visitor_record_code
         }
         const pos_id = body.pos_id;
-        let sql1 = `update t_visitor_record`
-        sql1 += ` set img_visitor_out = $1`
-        sql1 += `,parking_out_datetime = now(),parking_payment_datetime = now()`
-        sql1 += `,action_out_flag = 'Y'`
-        sql1 += `,payment_status_flag = 'CARDLOSS'`
-        sql1 += `,losscard_fines = $2`
-        sql1 += `,total_price = $3`
-        sql1 += `,guardhouse_out_id = $4`
-        sql1 += `,guardhouse_out_code = $5`
-        sql1 += `,employee_out_id = $6`
-        sql1 += `,employee_out_info = $7`
-        sql1 += `,cardloss_image = $8`
-        sql1 += `,cardloss_info = $9`
-        sql1 += `,cardloss_flag = 'Y',cardloss_datetime = now()`
-        sql1 += `,datetime_action = now()`
-        sql1 += `,action_type = 'OUT'`
-        sql1 += `,pos_id = $10`
-        sql1 += ` where visitor_record_id = $11`
-        sql1 += ` and action_out_flag ='N';`
+
+        let sql0 = `update t_visitor_record set action_out_flag = 'CARDLOST' where visitor_record_id = $1;`
+        const query0 = {
+            text:sql0
+            , values:[visitor_record_id]
+        }
+
+        let sql1 = `insert into t_visitor_record(
+            visitor_record_code,ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
+            ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
+            ,losscard_fines,discount_info,parking_payment,total_price
+            ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
+            ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+            ) select
+            (select fun_generate_uuid('VS',8)) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
+            ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'CARDLOST' as payment_status_flag
+            ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
+            ,$8 as pos_id,'Y' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'CARDLOST' as action_type
+            ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
+            from t_visitor_record
+            where visitor_record_id = $13
+            limit 1
+            `
 
 
         const query1 = {
             text: sql1
             , values: [
-                image_vehicle
-                , cardloss_price
-                , cardloss_price
-                , guardhouse_id
-                , guardhouse_code
-                , employee_id
-                , employee_info
-                , cardloss_image
-                , cardloss_info
-                , pos_id
-                , visitor_record_id
+                guardhouse_id,guardhouse_code,image_vehicle
+                ,employee_out_id,employee_out_info
+                ,cardloss_price,cardloss_price
+                ,pos_id,company_id,company_code
+                ,cardloss_info,image_cardproblem
+                ,visitor_record_id
             ]
         }
         let sql2 = `update m_card`
         sql2 += ` set visitor_record_id = null`
-        sql2 += `,visitor_record_uuid = null`
+        sql2 += `,visitor_record_code = null`
         sql2 += `,update_by = $1`
         sql2 += `,update_date = now()`
         sql2 += `,status_flag = 'N'`
         sql2 += `,delete_flag = 'Y'`
-        sql2 += `,cardloss_flag = 'Y'`
-        sql2 += `,cardloss_datetime = now()`
-        sql2 += `,cardloss_info = $2`
-        sql2 += ` where site_id = $3`
+        sql2 += `,cardproblem_flag = 'Y'`
+        sql2 += `,cardproblem_datetime = now()`
+        sql2 += `,cardproblem_info = $2`
+        sql2 += ` where company_id = $3`
         sql2 += ` and card_id = $4;`
         const query2 = {
             text: sql2
-            , values: [employee_id, cardloss_info, site_id, card_id]
+            , values: [employee_out_id, cardloss_info, company_id, card_id]
         }
-        const querys = [query1, query2]
+        const querys = [query0,query1, query2]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
             {
@@ -216,9 +238,20 @@ export class VisitorSaveCardlossService {
     
     async checkSlotOrCardIsLoss(@Body() body) {
         const visitor_record_id = body.visitor_record_id;
-        let sql = `select visitor_slot_id,visitor_slot_number`
-        sql += `,card_id,card_code,card_name from t_visitor_record`
-        sql += ` where visitor_record_id = $1 and action_out_flag = 'N';`;
+        let sql = `select visitor_record_id,visitor_record_code,tbv_code`
+        sql += `,visitor_slot_id,visitor_slot_number`
+        sql += `,card_id,card_code,card_name `
+        sql += `,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en`
+        sql += `,cartype_category_id,cartype_category_info`
+        sql += `,visitor_info,action_info`
+        sql += `,home_id,home_info,guardhouse_in_id,guardhouse_in_code`
+        sql += ',parking_in_datetime'
+        sql += `,license_plate`
+        sql += `,img_visitor_in`
+        sql += `,employee_in_id,employee_in_info`
+        sql += `,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag`
+        sql += ` from t_visitor_record`
+        sql += ` where tbv_code is null and visitor_record_id = $1 and action_out_flag = 'N';`;
         const query = {
             text: sql
             , values: [visitor_record_id]
@@ -244,7 +277,7 @@ export class VisitorSaveCardlossService {
     //---------------------------Save card loss not out
     async checkRecordInBase(@Body() body){
         const visitor_record_id = body.visitor_record_id;
-        let sql = `select card_id,card_code,card_name,visitor_record_uuid ` 
+        let sql = `select card_id,card_code,card_name,visitor_record_code ` 
         sql += ` from t_visitor_record `
         sql += ` where visitor_record_id = $1 and action_out_flag = 'N';`
         const query = {
@@ -269,19 +302,20 @@ export class VisitorSaveCardlossService {
         return res.result[0]; 
     }
 
-    async saveCardNotOut(@Body() body, files: any,cardObj: any){
+    async saveCardNotOut(@Body() body, files: any,cardObj: any,employeeObj:any){
         console.log('save card not out')
         const images = files;
-        const cardloss_image = { images }
+        const image_cardproblem = { images }
         const image_vehicle = { images: { image_vehicle: files.image_customer } }
         const visitor_record_id = body.visitor_record_id;
-        const visitor_record_uuid = cardObj.visitor_record_uuid;
-        const site_id = body.site_id;
-        const site_code = body.site_code;
+        const visitor_record_code = cardObj.visitor_record_code;
+        const visitor_record_code_new = await this.getUuidFormPg();
+        const company_id = body.company_id;
+        const company_code = body.company_code;
         const guardhouse_id = body.guardhouse_id;
         const guardhouse_code = body.guardhouse_code;
-        const employee_id = body.employee_id;
-        const employee_info = body.employee_info;
+        const employee_out_id = body.employee_out_id;
+        const employee_out_info = employeeObj;
         const cardloss_price = body.cardloss_price;
         const customer_payment = body.customer_payment;
         const change_money = body.change_money;
@@ -295,8 +329,8 @@ export class VisitorSaveCardlossService {
             cardloss_price
             , customer_payment
             , change_money
-            , employee_id
-            , employee_info
+            , employee_out_id
+            , employee_out_info
             , visitor_record_id
             , card_id_before
             , card_code_before
@@ -304,72 +338,88 @@ export class VisitorSaveCardlossService {
             , card_id_after
             , card_code_after
             , card_name_after
+            , visitor_record_code
         }
         const pos_id = body.pos_id;
-        let sql1 = `update t_visitor_record`
-        sql1 += ` set img_visitor_out = $1`
-        sql1 += `,parking_payment_datetime = now()`
-        sql1 += `,payment_status_flag = 'CARDLOSS'`
-        sql1 += `,losscard_fines = $2`
-        sql1 += `,total_price = $3`
-        sql1 += `,guardhouse_out_id = $4`
-        sql1 += `,guardhouse_out_code = $5`
-        sql1 += `,employee_out_id = $6`
-        sql1 += `,employee_out_info = $7`
-        sql1 += `,cardloss_image = $8`
-        sql1 += `,cardloss_info = $9`
-        sql1 += `,cardloss_flag = 'Y',cardloss_datetime = now()`
-        sql1 += `,datetime_action = now()`
-        sql1 += `,pos_id = $10`
-        sql1 += `,card_id = $11,card_code = $12,card_name = $13`
-        sql1 += ` where visitor_record_id = $14`
-        sql1 += ` and action_out_flag ='N';`
+        console.log(visitor_record_code_new)
+
+        let sql0 = `update t_visitor_record set action_out_flag = 'CARDLOST' where visitor_record_id = $1;`
+        const query0 = {
+            text:sql0
+            , values:[visitor_record_id]
+        }
+
+        let sql1 = `insert into t_visitor_record(
+            visitor_record_code,ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
+            ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
+            ,losscard_fines,discount_info,parking_payment,total_price
+            ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
+            ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+            ) select
+            $17 as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,$14 as card_id,$15 as card_code,$16 as card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
+            ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'CARDLOST' as payment_status_flag
+            ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
+            ,$8 as pos_id,'N' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'CARDLOST' as action_type
+            ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
+            from t_visitor_record
+            where visitor_record_id = $13
+            limit 1
+            `
+
+
         const query1 = {
             text: sql1
             , values: [
-                image_vehicle
-                , cardloss_price
-                , cardloss_price
-                , guardhouse_id
-                , guardhouse_code
-                , employee_id
-                , employee_info
-                , cardloss_image
-                , cardloss_info
-                , pos_id
-                , card_id_after
-                , card_code_after
-                , card_name_after
-                , visitor_record_id
+                guardhouse_id,guardhouse_code,image_vehicle
+                ,employee_out_id,employee_out_info
+                ,cardloss_price,cardloss_price
+                ,pos_id,company_id,company_code
+                ,cardloss_info,image_cardproblem
+                ,visitor_record_id
+                ,card_id_after,card_code_after,card_name_after
+                ,visitor_record_code_new
             ]
         }
+
         let sql2 = `update m_card`
         sql2 += ` set visitor_record_id = null`
-        sql2 += `,visitor_record_uuid = null`
+        sql2 += `,visitor_record_code = null`
         sql2 += `,update_by = $1`
         sql2 += `,update_date = now()`
         sql2 += `,status_flag = 'N'`
         sql2 += `,delete_flag = 'Y'`
-        sql2 += `,cardloss_flag = 'Y'`
-        sql2 += `,cardloss_datetime = now()`
-        sql2 += `,cardloss_info = $2`
-        sql2 += ` where site_id = $3`
+        sql2 += `,cardproblem_flag = 'Y'`
+        sql2 += `,cardproblem_datetime = now()`
+        sql2 += `,cardproblem_info = $2`
+        sql2 += ` where company_id = $3`
         sql2 += ` and card_id = $4;`
         const query2 = {
             text: sql2
-            , values: [employee_id, cardloss_info, site_id, card_id_before]
+            , values: [employee_out_id, cardloss_info, company_id, card_id_before]
         }
         let sql3 = `update m_card`
-        sql3 += ` set visitor_record_uuid = $1`
+        sql3 += ` set visitor_record_code = $1`
         sql3 += `,update_by = $2`
         sql3 += `,update_date = now(),status_flag = 'Y'`
-        sql3 += ` where site_id = $3`
+        sql3 += ` where company_id = $3`
         sql3 += ` and card_id = $4;`
         const query3 = {
             text:sql3
-            ,values:[visitor_record_uuid,employee_id,site_id,card_id_after]
+            ,values:[visitor_record_code_new,employee_out_id,company_id,card_id_after]
         }
-        const querys = [query1, query2, query3]
+        const querys = [query0,query1, query2, query3]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
             {
@@ -385,6 +435,18 @@ export class VisitorSaveCardlossService {
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 200
             }, 200)
+    }
+    
+
+    async getUuidFormPg() {
+        const sql = `select fun_generate_uuid('VS',8) as _uuid;`
+        const res = await this.dbconnecttion.getPgData(sql);
+        if (res.error)
+            return res.error;
+        else if (res.result.length === 0)
+            return null;
+        else
+            return res.result[0]._uuid;
     }
 
 

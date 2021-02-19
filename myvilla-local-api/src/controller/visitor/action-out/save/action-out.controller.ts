@@ -32,19 +32,6 @@ export class ActionOutSaveController {
             }),
             fileFilter: imageFileFilter,
         })
-        // FilesInterceptor('image', 20, {
-        //     storage: diskStorage({
-        //         destination: getCurrentDatePathFileSaveOut,
-        //         filename: editFileName,
-        //     }),
-        //     fileFilter: imageFileFilter,
-        // }), FilesInterceptor('image2', 20, {
-        //     storage: diskStorage({
-        //         destination: getCurrentDatePathFileSaveOut,
-        //         filename: editFileName,
-        //     }),
-        //     fileFilter: imageFileFilter,
-        // }),
     )
     async ActionSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

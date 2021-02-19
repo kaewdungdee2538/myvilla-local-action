@@ -14,15 +14,15 @@ export class GetCartypeService {
     }
 
     async getCartypeInfo(@Body() body) {
-        const site_id = body.site_id;
+        const company_id = body.company_id;
         let sql = `select cartype_id,cartype_code,cartype_name_contraction`
         sql += `,cartype_name_th,cartype_name_en,cartype_info `
         sql += ` from m_cartype where delete_flag = 'N'`
-        sql += ` and site_id = $1 order by 1;`
+        sql += ` and company_id = $1 order by 1;`
 
         const query = {
             text: sql
-            , values: [site_id]
+            , values: [company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if (await res.error)
