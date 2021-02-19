@@ -73,9 +73,10 @@ export class BActionOutController {
             }, 400)
         else {
             const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
-            if (employeeObj)
-                //--------------------Save Out
-                return this.bActionOUTService.saveBActionOut(body, imagesNameObj,employeeObj);
+            if (employeeObj){
+                 //--------------------Save Out
+                 return this.bActionOUTService.saveBActionOut(body, imagesNameObj,employeeObj);
+            }
             else throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errEmployeeInfoNotFound

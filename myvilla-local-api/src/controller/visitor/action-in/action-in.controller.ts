@@ -126,7 +126,7 @@ export class ActionInController {
                     , statusCode: 400
                 }, 400
             )
-            const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
+            const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body,body.home_id);
             if (await getHomeID) {
                 return await this.getSlotOrGetCard(imagesNameObj, body, getHomeID,getEmployeeID);
             } else throw new StatusException(

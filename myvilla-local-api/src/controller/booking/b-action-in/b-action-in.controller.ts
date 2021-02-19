@@ -135,7 +135,16 @@ export class BActionInController {
                 , statusCode: 400
             }, 400
         )
-        const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body);
+        const getHomeIDFromTBV = await this.bActionInMiddleware.getHomeIDFromTbvCode(body);
+        console.log('getHomeIDFromTBV'+getHomeIDFromTBV)
+        if(!getHomeIDFromTBV) throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errHomeIDNotInDataBase
+                , result: null
+                , message: this.errMessageUtilsTh.errHomeIDNotInDataBase
+                , statusCode: 400
+            }, 400)
+        const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body,getHomeIDFromTBV);
         if (await getHomeID) {
 
             return await this.bActionINService.saveBookingIn(body, imagesNameObj, getHomeID, checkTBVCode,getEmployeeID);

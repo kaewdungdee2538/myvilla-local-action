@@ -62,12 +62,12 @@ export class VsActionInSaveMiddleware {
             return this.errMessageUtilsTh.errEmployeeIDProhibitSpecail;
         else if (!this.formatUtils.IsNumber(body.employee_in_id))
             return this.errMessageUtilsTh.errEmployeeIDNotNumber
-        else if (!body.home_id)
-            return this.errMessageUtilsTh.errHomeIDNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.home_id))
-            return this.errMessageUtilsTh.errHomeIdProhibitSpecial;
-        else if (!this.formatUtils.IsNumber(body.home_id))
-            return this.errMessageUtilsTh.errHomeIDNotNumber;
+        // else if (!body.home_id)
+        //     return this.errMessageUtilsTh.errHomeIDNotFound;
+        // else if (this.formatUtils.HaveSpecialFormat(body.home_id))
+        //     return this.errMessageUtilsTh.errHomeIdProhibitSpecial;
+        // else if (!this.formatUtils.IsNumber(body.home_id))
+        //     return this.errMessageUtilsTh.errHomeIDNotNumber;
         return null;
     }
 

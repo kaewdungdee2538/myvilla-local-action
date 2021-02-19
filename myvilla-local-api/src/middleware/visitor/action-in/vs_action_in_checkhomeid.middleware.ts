@@ -11,12 +11,12 @@ export class VsActionInCheckHomeIDMiddleWare {
         private readonly formatUtils: FormatDataUtils,
         private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
-    async CheckHomeID(body: any) {
-        return await this.checkHaveHomeID(body);
+    async CheckHomeID(body: any,getHomeIDFromTBV:any) {
+        return await this.checkHaveHomeID(body,getHomeIDFromTBV);
     }
 
-    async checkHaveHomeID(body: any) {
-        const home_id = body.home_id
+    async checkHaveHomeID(body: any,getHomeIDFromTBV:any) {
+        const home_id = getHomeIDFromTBV
         const company_id = body.company_id
         console.log(company_id)
         let sql = `select * from m_home where home_id = $1 and company_id =$2;`
