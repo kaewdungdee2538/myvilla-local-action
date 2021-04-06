@@ -9,12 +9,15 @@ import { GetBookingInfoModule } from './controller/booking/get-booking-info/get-
 import { GetBookingOutInfoModule } from './controller/booking/get-booking-out-info/get-booking-out-info.module';
 import { GetImageModule } from './controller/image/get-image/get-image.module';
 import { ResetVisitorModule } from './controller/reset-data/reset-visitor/reset-visitor.module';
+import { SosModule } from './controller/sos/sos/sos.module';
 import { ActionInModule } from './controller/visitor/action-in/action-in.module';
 import { GetInModule } from './controller/visitor/action-out/get-in/get-in.module';
 import { ActionOutSaveModule } from './controller/visitor/action-out/save/action-out.module';
 import { VisitorGetPriceofcardlossModule } from './controller/visitor/card-loss/visitor-get-priceofcardloss/visitor-get-priceofcardloss.module';
 import { VisitorSaveCardlossModule } from './controller/visitor/card-loss/visitor-save-cardloss/visitor-save-cardloss.module';
 import { CheckCardModule } from './controller/visitor/check-card/check-card.module';
+import { VsEstampModule } from './controller/visitor/estamp/vs-estamp.module';
+import { GetCartypeCategoryAllModule } from './controller/visitor/get-cartype-category-all/get-cartype-category-all.module';
 import { GetCartypeCategoryModule } from './controller/visitor/get-cartype-category/get-cartype-category.module';
 import { GetCartypeModule } from './controller/visitor/get-cartype/get-cartype.module';
 import { GetDepartmentTypeModule } from './controller/visitor/get-department-type/get-department-type.module';
@@ -48,6 +51,9 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , GetBookingInfoModule
     , GetBookingOutInfoModule
     , BActionOutModule
+    , GetCartypeCategoryAllModule
+    , VsEstampModule
+    , SosModule
   ],
   controllers: [AppController],
   providers: [AppService],

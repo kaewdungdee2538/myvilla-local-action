@@ -12,6 +12,7 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { BActionInService } from './b-action-in.service';
+import {configfile} from '../../../conf/config-setting'
 @Controller('bannayuu/api/booking/b-action-in')
 export class BActionInController {
     constructor(
@@ -38,6 +39,7 @@ export class BActionInController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
+            limits: { fileSize: 1024 * 1024 * 5 }
         })
         // FilesInterceptor('image', 20, {
         //     storage: diskStorage({
@@ -49,15 +51,15 @@ export class BActionInController {
     )
     async saveBookingIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
-        const pathMain = process.env.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_card) {
             throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errImageCardNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errImageCardNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         } else if (!files.image_vehicle) {
             throw new StatusException(
@@ -65,8 +67,8 @@ export class BActionInController {
                     error: this.errMessageUtilsTh.errImageVehicleNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errImageVehicleNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         }
         const pathDriver = files.image_card.map(file => {
@@ -84,8 +86,8 @@ export class BActionInController {
         //---------------------Middle ware
         const VisitorSaveInMiddleware = this.vsActionSaveIn.CheckSaveIn(body);
         let VisitorInfoMiddleware = null;
-       
-        if (await this.loadSettingLocalUtils.getBookingMode(body.company_id) === 'qr_and_verifycard')
+
+        if (await this.loadSettingLocalUtils.getBookingInMode(body.company_id) === 'qr_and_identitycard')
             VisitorInfoMiddleware = this.vsActionInforMiddleware.CheclVisitorinfo(body);
         const BookingMiddleware = await this.bActionInMiddleware.CheckSaveIn(body);
 
@@ -95,8 +97,8 @@ export class BActionInController {
                     error: VisitorSaveInMiddleware
                     , result: null
                     , message: VisitorSaveInMiddleware
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         } else if (VisitorInfoMiddleware) {
             throw new StatusException(
@@ -104,8 +106,8 @@ export class BActionInController {
                     error: VisitorInfoMiddleware
                     , result: null
                     , message: VisitorInfoMiddleware
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         } else if (BookingMiddleware) {
             throw new StatusException(
@@ -113,8 +115,8 @@ export class BActionInController {
                     error: BookingMiddleware
                     , result: null
                     , message: BookingMiddleware
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         }
         //----------------Check Booking
@@ -124,37 +126,46 @@ export class BActionInController {
                 error: this.errMessageUtilsTh.errBookingNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errBookingNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         const getEmployeeID = await this.vsActionCheckEmployee.CheckInEmployee(body);
         if (!getEmployeeID) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
                 , result: null
                 , message: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
-                , statusCode: 400
-            }, 400
+                , statusCode: 200
+            }, 200
         )
         const getHomeIDFromTBV = await this.bActionInMiddleware.getHomeIDFromTbvCode(body);
-        console.log('getHomeIDFromTBV'+getHomeIDFromTBV)
-        if(!getHomeIDFromTBV) throw new StatusException(
+        console.log('getHomeIDFromTBV' + getHomeIDFromTBV)
+        if (!getHomeIDFromTBV) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errHomeIDNotInDataBase
                 , result: null
                 , message: this.errMessageUtilsTh.errHomeIDNotInDataBase
-                , statusCode: 400
-            }, 400)
-        const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body,getHomeIDFromTBV);
+                , statusCode: 200
+            }, 200)
+        const getCartype = await this.vsActionCheckEmployee.checkCartypeCategory(body);
+        if (!getCartype) throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errCartypeCategoryNotInbase
+                , result: null
+                , message: this.errMessageUtilsTh.errCartypeCategoryNotInbase
+                , statusCode: 200
+            }, 200
+        )
+        const getHomeID = await this.vsActionCheckHomeID.CheckHomeID(body, getHomeIDFromTBV);
         if (await getHomeID) {
 
-            return await this.bActionINService.saveBookingIn(body, imagesNameObj, getHomeID, checkTBVCode,getEmployeeID);
+            return await this.bActionINService.saveBookingIn(body, imagesNameObj, getHomeID, checkTBVCode, getEmployeeID,getCartype);
         } else throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errHomeIDNotInDataBase
                 , result: null
                 , message: this.errMessageUtilsTh.errHomeIDNotInDataBase
-                , statusCode: 400
-            }, 400
+                , statusCode: 200
+            }, 200
         )
     }
 }

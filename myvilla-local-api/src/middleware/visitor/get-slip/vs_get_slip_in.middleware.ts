@@ -17,7 +17,7 @@ export class vsGetSlipInMiddleware implements NestMiddleware {
                     error: messageSlipInfo
                     , result: null
                     , message: messageSlipInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

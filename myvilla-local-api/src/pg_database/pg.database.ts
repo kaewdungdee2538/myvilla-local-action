@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import {configfile} from '../conf/config-setting'
 import { createConnection } from "typeorm";
 var connection;
 export class dbConnection {
@@ -6,11 +6,11 @@ export class dbConnection {
         try {
             connection = await createConnection({
                 type: 'postgres',
-                host: process.env.HOST,
+                host: configfile.HOST,
                 port: 5432,
                 username: 'cit',
                 password: 'db13apr',
-                database: process.env.DATABASE
+                database: configfile.DATABASE
             });
             console.log('Create PG Connection Success.');
             return true;

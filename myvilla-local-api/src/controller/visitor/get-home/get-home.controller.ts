@@ -4,7 +4,7 @@ import { GetHomeService } from './get-home.service';
 @Controller('bannayuu/api/visitor/get-home')
 export class GetHomeController {
     constructor(private readonly getHomeService:GetHomeService){}
-    @Get('homeinfo')
+    @Post('homeinfo')
     getHomeInfo(@Body() body){
         return this.getHomeService.getHomeInfo(body);
     }

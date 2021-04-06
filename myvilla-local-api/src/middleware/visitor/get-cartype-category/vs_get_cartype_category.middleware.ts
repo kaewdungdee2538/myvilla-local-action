@@ -17,7 +17,7 @@ export class vsGetCartypeCategoryMiddleware implements NestMiddleware {
                     error: messageCheckCartypeInfo
                     , result: null
                     , message: messageCheckCartypeInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

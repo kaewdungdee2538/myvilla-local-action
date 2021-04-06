@@ -29,23 +29,23 @@ export class AuthService {
         console.log(await response.result.length);
         if (await response.error) {
             throw new StatusException({
-                error: 'Login Fail !!',
+                error: this.errMessageUtilsTh.errLoginFail,
                 result: null,
-                message: 'Login Fail !!',
-                statusCode: 500
-            }, 500);
+                message: this.errMessageUtilsTh.errLoginFail,
+                statusCode: 200
+            }, 200);
         } else if (await response.result.length === 0) {
             throw new StatusException({
-                error: 'Username or password is invalid !!',
+                error: this.errMessageUtilsTh.errLoginUserOrPasswordNotValid,
                 result: null,
-                message: 'Username or password is invalid !!',
-                statusCode: 400
-            }, 400);
+                message: this.errMessageUtilsTh.errLoginUserOrPasswordNotValid,
+                statusCode: 200
+            }, 200);
         } else if (await response.result[0].password_status) {
             const payload = { employee: response.result[0] };
             console.log(payload);
             const access_token = this.jwtService.sign(
-                payload, { expiresIn: '1m' })
+                payload, { expiresIn: '1d' })
             console.log('login : ' + JSON.stringify(payload) + 'access_token : ' + access_token);
             throw new StatusException({
                 error: null,
@@ -57,11 +57,11 @@ export class AuthService {
             }, 200);
         } else {
             throw new StatusException({
-                error: 'Username or password is invalid !!',
+                error: this.errMessageUtilsTh.errLoginUserOrPasswordNotValid,
                 result: null,
-                message: 'Username or password is invalid !!',
-                statusCode: 400
-            }, 400);
+                message: this.errMessageUtilsTh.errLoginUserOrPasswordNotValid,
+                statusCode: 200
+            }, 200);
         }
     }
 }

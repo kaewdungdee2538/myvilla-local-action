@@ -18,6 +18,12 @@ export class VsActionOutSlotOrCardMiddleWare {
         return await this.checkSlotOrCard(body);
     }
     async checkSlotOrCard(body: any) {
+        if (body.visitor_slot_number === "null")
+            body.visitor_slot_number = null;
+        if (body.card_code === "null")
+            body.card_code = null;
+        if (body.card_name === "null")
+            body.card_name = null;
         if ((body.visitor_slot_number && (body.card_code || body.card_name)) || (!body.visitor_slot_number && !body.card_code && !body.card_name))
             return this.errMessageUtilsTh.errGetCardOrSlotNumberVisitor;
         else if (body.visitor_slot_number) {

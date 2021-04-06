@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body,Post, Controller, Get } from '@nestjs/common';
 import { RegistryImageService } from 'src/controller/image/registry-image/registry-image.service';
 import { GetInService } from './get-in.service';
 
@@ -7,7 +7,7 @@ export class GetInController {
     constructor(
         private readonly getInService :GetInService
         ){}
-    @Get('getaction-info')
+    @Post('getaction-info')
     getActionInInfo(@Body() body){
         return this.getInService.getActionInInfo(body);
     }

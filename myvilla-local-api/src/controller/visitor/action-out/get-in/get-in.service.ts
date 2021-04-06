@@ -19,9 +19,9 @@ export class GetInService {
                     error: visitor_record_code.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400
+                , 200
             )
         else if (visitor_record_code.result[0].visitor_record_code) {
             const visitorInfo = {
@@ -36,9 +36,9 @@ export class GetInService {
                     error: this.errMessageUtilsTh.errGetDataActionInInfoNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errGetDataActionInInfoNotFound
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400
+                , 200
             )
     }
     async getVSRecordID(@Body() body) {
@@ -92,15 +92,15 @@ export class GetInService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else if (res.result.length === 0)
             throw new StatusException({
                 error: this.errMessageUtilsTh.errGetDataActionInInfoNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errGetDataActionInInfoNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else {
             // const files = res.result[0].image_token.images;
             // console.log(files.image_card);

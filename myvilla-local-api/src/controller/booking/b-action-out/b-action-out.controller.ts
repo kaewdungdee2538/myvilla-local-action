@@ -10,6 +10,7 @@ import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
 import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import {configfile} from '../../../conf/config-setting'
 @Controller('bannayuu/api/booking/b-action-out')
 export class BActionOutController {
 
@@ -33,18 +34,19 @@ export class BActionOutController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
+            limits:{fileSize: 1024*1024*5}
         })
     )
     async saveBookingSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
-        const pathMain = process.env.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_vehicle) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errImageVehicleNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errImageVehicleNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         const pathVehicle = files.image_vehicle.map(file => {
             return file.path.replace(pathMain, '');
         })
@@ -59,8 +61,8 @@ export class BActionOutController {
                 error: tbvCodeMiddleware
                 , result: null
                 , message: tbvCodeMiddleware
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
 
         //-----------เช็ค setting ว่าเปิดระบบให้เป็นแบบตรวจสอบ Estamp ก่อนถึงออกจากระบบได้หรือไม่
         const checkEstamp = await this.bgetBookingOutInfoMiddleware.checkBookingOutEstamp(body)
@@ -69,8 +71,8 @@ export class BActionOutController {
                 error: checkEstamp
                 , result: null
                 , message: checkEstamp
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else {
             const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
             if (employeeObj){
@@ -82,8 +84,8 @@ export class BActionOutController {
                     error: this.errMessageUtilsTh.errEmployeeInfoNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                    , statusCode: 400
-                }, 400)
+                    , statusCode: 200
+                }, 200)
         }
 
     }

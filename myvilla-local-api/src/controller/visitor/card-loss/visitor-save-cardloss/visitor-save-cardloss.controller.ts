@@ -1,3 +1,4 @@
+import {configfile} from '../../../../conf/config-setting'
 import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
@@ -28,19 +29,20 @@ export class VisitorSaveCardlossController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
+            limits:{fileSize: 1024*1024*5}
         })
     )
     async saveCardLoss(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
-        const pathMain = process.env.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_customer) {
             throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errImageCustomerNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errImageCustomerNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                },200
             )
         }
         const pathCustomer = files.image_customer.map(file => {
@@ -58,8 +60,8 @@ export class VisitorSaveCardlossController {
                     error: middlewareSaveCardLoss
                     , result: null
                     , message: middlewareSaveCardLoss
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
         if (employeeObj)
@@ -70,8 +72,8 @@ export class VisitorSaveCardlossController {
                 error: this.errMessageUtilsTh.errEmployeeInfoNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
 
     }
 
@@ -90,15 +92,15 @@ export class VisitorSaveCardlossController {
     )
     async saveCardLossNotOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
-        const pathMain = process.env.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_customer) {
             throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errImageCustomerNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errImageCustomerNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         }
         const pathCustomer = files.image_customer.map(file => {
@@ -116,8 +118,8 @@ export class VisitorSaveCardlossController {
                     error: middlewareSaveCardLoss
                     , result: null
                     , message: middlewareSaveCardLoss
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         const middlewareForCheckCardBefore = await this.VsCardLossSaveMiddleware.checkCardBefore(body);
         if (middlewareForCheckCardBefore)
@@ -126,8 +128,8 @@ export class VisitorSaveCardlossController {
                     error: middlewareForCheckCardBefore
                     , result: null
                     , message: middlewareForCheckCardBefore
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
         if (employeeObj)
@@ -138,8 +140,8 @@ export class VisitorSaveCardlossController {
                 error: this.errMessageUtilsTh.errEmployeeInfoNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
     }
 
 }

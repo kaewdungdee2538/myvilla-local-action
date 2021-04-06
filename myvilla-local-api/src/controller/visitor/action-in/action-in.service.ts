@@ -10,17 +10,17 @@ export class ActionInService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async ActionSaveIn(files: any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any,getEmployeeID:any) {
+    async ActionSaveIn(files: any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any,getEmployeeID:any,getCartype:any) {
         console.log(getEmployeeID);
         const visitor_record_code = await this.getUuidFormPg();
         const visitor_slot_number = body.visitor_slot_number;
         const card_id = !cardObj ? 0 : cardObj.card_id;
         const card_code = !cardObj ? '' : cardObj.card_code;
         const card_name = !cardObj ? '' : cardObj.card_name;
-        const cartype_id = body.cartype_id;
-        const cartype_name_contraction = body.cartype_name_contraction;
-        const cartype_name_th = body.cartype_name_th;
-        const cartype_name_en = body.cartype_name_en;
+        const cartype_id = getCartype.cartype_id;
+        const cartype_name_contraction = getCartype.cartype_name_contraction;
+        const cartype_name_th = getCartype.cartype_name_th;
+        const cartype_name_en = getCartype.cartype_name_en;
         const visitor_info = body.visitor_info;
         const action_info = body.action_info;
         const images = files;
@@ -46,7 +46,7 @@ export class ActionInService {
             , home_privilege_line_amount: getHomeID.home_privilege_line_amount
             , home_privilege_card_amount: getHomeID.home_privilege_card_amount
         };
-        const cartype_category_id = body.cartype_category_id;
+        const cartype_category_id = getCartype.cartype_category_id;
         const cartype_category_info = body.cartype_category_info;
         console.log(visitor_record_code);
 
@@ -150,8 +150,8 @@ export class ActionInService {
                     error: result.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         } else {
             throw new StatusException(

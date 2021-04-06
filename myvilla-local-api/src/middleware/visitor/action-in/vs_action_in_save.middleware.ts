@@ -22,24 +22,24 @@ export class VsActionInSaveMiddleware {
         //     return this.errMessageUtilsTh.errVisitorSlotRunningIdNotFound;
         // else if (!this.formatUtils.IsNumber(body.visitor_slot_id))
         //     return this.errMessageUtilsTh.errVisitorSlotRunningIdNotNumber;
-        if (!body.cartype_id)
+        if (!body.cartype_category_id)
             return this.errMessageUtilsTh.errVisitorCartypeIDNotfound;
-        else if (this.formatUtils.HaveSpecialFormat(body.cartype_id))
+        else if (this.formatUtils.HaveSpecialFormat(body.cartype_category_id))
             return this.errMessageUtilsTh.errVisitorCartypeIDProhibitSpecail
-        else if (!this.formatUtils.IsNumber(body.cartype_id))
+        else if (!this.formatUtils.IsNumber(body.cartype_category_id))
             return this.errMessageUtilsTh.errVisitorCartypeIDNotNumber;
-        else if (!body.cartype_name_contraction)
-            return this.errMessageUtilsTh.errVisitorCartypeNameContractionNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_contraction))
-            return this.errMessageUtilsTh.errVisitorCartypeNameContractionProhibitSpecial;
-        else if (!body.cartype_name_th)
-            return this.errMessageUtilsTh.errVisitorCartypeNameThNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_th))
-            return this.errMessageUtilsTh.errVisitorCartypeNameThProhibitSpecial;
-        else if (!body.cartype_name_en)
-            return this.errMessageUtilsTh.errVisitorCartypeNameEnNotFound;
-        else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_en))
-            return this.errMessageUtilsTh.errVisitorCartypeNameEnProhibitSpecial;
+        // else if (!body.cartype_name_contraction)
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameContractionNotFound;
+        // else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_contraction))
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameContractionProhibitSpecial;
+        // else if (!body.cartype_name_th)
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameThNotFound;
+        // else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_th))
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameThProhibitSpecial;
+        // else if (!body.cartype_name_en)
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameEnNotFound;
+        // else if (this.formatUtils.HaveSpecialFormat(body.cartype_name_en))
+        //     return this.errMessageUtilsTh.errVisitorCartypeNameEnProhibitSpecial;
         else if (!body.company_id)
             return this.errMessageUtilsTh.errCompanyIDNotFound;
         else if (!this.formatUtils.IsNumber(body.company_id))

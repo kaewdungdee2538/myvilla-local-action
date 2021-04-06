@@ -1,7 +1,11 @@
 export class ErrMessageUtilsTH{
 
     messageSuccess ='เรียบร้อย'
+    messageSuccessEn = 'Success'
     messageProcessFail = 'ล้มเหลว'
+
+    errLoginUserOrPasswordNotValid = 'Username หรือ Password ไม่ถูกต้อง'
+    errLoginFail = 'เข้าสู่ระบบล้มเหลว'
 
     errRecordInNotFound = 'ไม่พบข้อมูลการทำรายการเข้า'
 
@@ -30,6 +34,7 @@ export class ErrMessageUtilsTH{
     errVisitorRecordIdProhibitSpecial = 'Visitor record ห้ามมีอักระพิเศษ หรือช่องว่าง'
     errVisitorRecordIdNotNumber = 'Visitor record ต้องเป็นตัวเลขเท่านั้น'
 
+    errVisitorNotIn = 'ไม่พบข้อมูลทำรายการเข้า'
     errVisitorInfoNotFound = 'ไม่พบข้อมูลของ Visitor'
     errVisitorInfoPrefixNameNotFound = 'ไม่พบคำนำหน้าชื่อ Visitor'
     errVisitorInfoPrefixNameProhibitSpecial = 'คำนำหน้าชื่อ Visitor ห้ามมีอักขระพิเศษหรือช่องว่าง'
@@ -39,6 +44,7 @@ export class ErrMessageUtilsTH{
     errVisitorInfoLastNameProhibitSpecial = 'นามสกุลของ Visiotr ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errVisitorInfoBirthDateNotFound = 'ไม่พบวัน-เดือน-ปี เกิด ของ Visitor'
     errVisitorInfoIdentityNotFound = 'ไม่พบรหัสประจำตัวประชาชน'
+    errVisitorInfoIdentityProhitbitSpecial = 'รหัสประจำตัวประชาชนห้ามมีอักขระพิเศษ'
     errVisitorInfoIdentityNotNumber = 'รหัสประจำตัวประชาชนต้องเป็นตัวเลขเท่านั้น'
     errVisitorInfoIdentityFormatNotValid = 'รูปแบบรหัสประชำตัวประชาชนไม่ถูกต้อง'
 
@@ -79,11 +85,14 @@ export class ErrMessageUtilsTH{
     errGetCardIsNotCheckIn = 'บัตรยังไม่ได้ทำรายการเข้า'
     errGetCardIDIsFail = 'ค้นหาบัตรล้มเหลว'
 
+    errCartypeCategoryNotInbase = 'ไม่พบประเภทรถในระบบ'
+
     errVisitorRecordIDNotFound = 'ไม่พบรหัสอ้างอิง'
     errVisitorRecordInNotFound = 'ไม่พบข้อมูลขาเข้า'
-
+    errVisitorRecord_CodeNotFound = 'ไม่พบ Visitor code'
+    errVisitorRecord_CodeProhibit = 'Visitor code ห้ามมีอักขระพิเศษ'
+    errVisitorNotVerifyEstamp = 'Visitor ยังไม่ได้ E-Stamp'
     
-
     errImageNotFound = 'ไม่พบรูปภาพ';
     errImageCardNotFound = 'ไม่พบรูปภาพหน้าบัตร'
     errImageVehicleNotFound = 'ไม่พบรูปภาพพาหนะ'
@@ -169,4 +178,20 @@ export class ErrMessageUtilsTH{
 
     errBookingGetError = 'ตรวจสอบ Booking Error กรุณาติดต่อเจ้าหน้าที่'
     errBookingNotVerifyEstamp = 'ไม่พบการ E-Stamp จากลูกบ้าน'
+
+    errNotCardAndSlotAndQrcode = 'กรุณาระบุบัตร หรือเลข slot หรือ รหัสจอง QR-Code อย่างใดอย่างหนึ่ง'
+    errSelectCardAndSlotAndQrcode = 'กรุณาเลือกใช้บัตร หรือเลข slot หรือ รหัสจอง QR-Code อย่างใดอย่างหนึ่ง'
+
+    errEstampIDNotFound = 'ไม่พบรหัสตราประทับ'
+    errEstampNotInBase = 'ไม่พบรหัสตราประทับในระบบ'
+    errEstampIDProhibitSpecial = 'รหัสตราประทับห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errEstampIDNotNumber = 'รหัสตราประทับต้องเป็นตัวเลขเท่านั้น'
+
+    errSosIdNotfound = 'ไม่พบรหัสแจ้งเตือนฉุกเฉิน'
+    errSosIdProhibitSpecial = 'รหัสแจ้งเตือนฉุกเฉิน ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errSosIdNotNumber = 'รหัสแจ้งเตือนฉุกเฉินต้องเป็นตัวเลขเท่านั้น'
+    errSosNotInbase = 'ไม่พบการแจ้งเตือนฉุกเฉินในระบบ'
+    errSosActionDuplicate = 'การแจ้งเตือนฉุกเฉินถูกอนุมัติไปแล้ว'
+    errRemarkNofound = 'กรุณากรอกหมายเหตุ'
+    errReamrkPohibitSpecial = 'หมายเหตุ ห้ามมีอักขระพิเศษ'
 }

@@ -35,7 +35,7 @@ export class GetBookingInfoService {
         left join m_home mh on mhl.home_id = mh.home_id
         where tb.delete_flag = 'N'
         and tb.tbv_status = 'N'
-        and current_timestamp between tb.tbv_start_datetime and tb.tbv_end_datetime
+        and current_timestamp <= tb.tbv_end_datetime
         and tb.company_id = $1
         and tb.tbv_code = $2
         limit 1
@@ -50,15 +50,15 @@ export class GetBookingInfoService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else if (res.result.length === 0) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errBookingNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errBookingNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else throw new StatusException(
             {
                 error: null

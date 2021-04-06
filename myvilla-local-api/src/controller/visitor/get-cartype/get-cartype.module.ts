@@ -19,5 +19,6 @@ export class GetCartypeModule {
     consumer
     .apply(vsGetHomeMiddleware)
     .forRoutes('bannayuu/api/visitor/get-cartype/*');
+    
   }
 }

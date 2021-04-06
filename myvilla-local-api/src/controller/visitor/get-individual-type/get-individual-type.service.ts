@@ -30,9 +30,9 @@ export class GetIndividualTypeService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400)
+                , 200)
         throw new StatusException(
             {
                 error: null

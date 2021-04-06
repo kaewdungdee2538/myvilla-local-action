@@ -17,7 +17,7 @@ export class vsGetHomeMiddleware implements NestMiddleware {
                     error: messageCheckHomeInfo
                     , result: null
                     , message: messageCheckHomeInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

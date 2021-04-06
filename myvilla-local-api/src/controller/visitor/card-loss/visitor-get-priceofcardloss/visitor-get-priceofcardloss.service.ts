@@ -28,15 +28,15 @@ export class VisitorGetPriceofcardlossService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.errHomeGetFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400)
+                , 200)
         throw new StatusException(
             {
                 error: null
                 , result: { price_of_cardloss: res.result[0].setting_local_value }
                 , message: this.errMessageUtilsTh.messageSuccess
-                , statusCode: 400
+                , statusCode: 200
             }
             , 200)
     }

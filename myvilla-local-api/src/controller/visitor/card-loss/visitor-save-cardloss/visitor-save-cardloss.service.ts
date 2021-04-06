@@ -113,8 +113,8 @@ export class VisitorSaveCardlossService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else throw new StatusException(
                 {
                     error: null
@@ -224,8 +224,8 @@ export class VisitorSaveCardlossService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else throw new StatusException(
             {
                 error: null
@@ -263,15 +263,15 @@ export class VisitorSaveCardlossService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else if (res.result.length === 0) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errRecordInNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errRecordInNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         return res.result[0];
     }
     //---------------------------Save card loss not out
@@ -290,15 +290,15 @@ export class VisitorSaveCardlossService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else if (res.result.length === 0) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errRecordInNotFound
                 , result: null
                 , message: this.errMessageUtilsTh.errRecordInNotFound
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         return res.result[0]; 
     }
 
@@ -426,8 +426,8 @@ export class VisitorSaveCardlossService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else throw new StatusException(
             {
                 error: null

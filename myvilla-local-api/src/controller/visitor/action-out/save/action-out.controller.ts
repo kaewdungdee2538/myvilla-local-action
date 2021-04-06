@@ -1,3 +1,4 @@
+import {configfile} from '../../../../conf/config-setting'
 import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
@@ -8,6 +9,7 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_slotorcard.middleware';
 import { VsActionOutForSaveMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_forsave.middleware';
 import { ActionOutInterceptor } from 'src/interceptor/visitor/action-out/action-out.interceptor';
+import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action-out/estamp-verify/vs_action_out_estamp_verify.middleware';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
@@ -16,7 +18,8 @@ export class ActionOutSaveController {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
         , private readonly vsactionOutSlotOrCardMid: VsActionOutSlotOrCardMiddleWare
         , private readonly vsactionOutForSaveMid: VsActionOutForSaveMiddleWare
-    ) { }
+        , private readonly vsactionOutVerifyEstamMiddleware:vsActionOutVerifyEstampMiddleware
+        ) { }
 
     // @UseGuards(JwtAuthGuard)
     @Post('save')
@@ -31,19 +34,20 @@ export class ActionOutSaveController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
+            limits:{fileSize: 1024*1024*5}
         })
     )
     async ActionSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
-        const pathMain = process.env.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_vehicle) {
             throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errImageVehicleNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errImageVehicleNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         }
         // } else if (!files.image_vehicle) {
@@ -76,8 +80,8 @@ export class ActionOutSaveController {
                     error: middlewareSaveOut
                     , result: null
                     , message: middlewareSaveOut
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         const middlewareSlotOrCardSaveOut = await this.vsactionOutSlotOrCardMid.CheckVisitorOut(body);
         if (middlewareSlotOrCardSaveOut)
@@ -86,9 +90,19 @@ export class ActionOutSaveController {
                     error: middlewareSlotOrCardSaveOut
                     , result: null
                     , message: middlewareSlotOrCardSaveOut
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
+        const middlewareEstampVerify = await this.vsactionOutVerifyEstamMiddleware.checkValues(body)
+        if(middlewareEstampVerify)
+        throw new StatusException(
+            {
+                error: middlewareEstampVerify
+                , result: null
+                , message: middlewareEstampVerify
+                , statusCode: 200
+            }, 200
+        )
         return this.saveOutService.saveActionOut(imagesNameObj, body);
     }
 }

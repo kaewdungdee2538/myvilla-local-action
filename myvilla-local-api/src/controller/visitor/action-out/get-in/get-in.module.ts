@@ -4,10 +4,12 @@ import { jwtConstants } from 'src/auth/constant';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
 import { RegistryImageModule } from 'src/controller/image/registry-image/registry-image.module';
 import { RegistryImageService } from 'src/controller/image/registry-image/registry-image.service';
+import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action-out/estamp-verify/vs_action_out_estamp_verify.middleware';
 import { vsActionOutGetInMiddleware } from 'src/middleware/visitor/action-out/get-in/vs_action_out_get_in.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
+import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { GetInController } from './get-in.controller';
 import { GetInService } from './get-in.service';
 
@@ -20,12 +22,13 @@ import { GetInService } from './get-in.service';
     ,ErrMessageUtilsTH
     ,FormatDataUtils
     ,RegistryImageService
+    ,LoadSettingLocalUtils
   ],
 })
 export class GetInModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsActionOutGetInMiddleware)
+    .apply(vsActionOutGetInMiddleware,vsActionOutVerifyEstampMiddleware)
     .forRoutes('bannayuu/api/visitor/action/out/get-in/*');
   }
 }

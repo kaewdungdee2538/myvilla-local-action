@@ -31,9 +31,9 @@ export class GetCartypeService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.errGetCarTypeFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400
+                , 200
             )
         throw new StatusException(
             {

@@ -16,7 +16,6 @@ export class ActionOutInterceptor implements NestInterceptor {
     };
     
    return next.handle().pipe(map(flow => {
-       flow.name = 'changeing response body';
        return flow;
      }),
    );

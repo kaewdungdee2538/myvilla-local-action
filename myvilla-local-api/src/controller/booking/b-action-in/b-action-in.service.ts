@@ -10,13 +10,13 @@ export class BActionInService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async saveBookingIn(@Body() body, files: any, homeObj: any, checkTBVCodeObj: any,getEmployeeID:any) {
+    async saveBookingIn(@Body() body, files: any, homeObj: any, checkTBVCodeObj: any,getEmployeeID:any,getCartype:any) {
         const visitor_record_code = await this.getUuidFormPg();
         const tbv_code = checkTBVCodeObj.tbv_code;
-        const cartype_id = body.cartype_id;
-        const cartype_name_contraction = body.cartype_name_contraction;
-        const cartype_name_th = body.cartype_name_th;
-        const cartype_name_en = body.cartype_name_en;
+        const cartype_id = getCartype.cartype_id;
+        const cartype_name_contraction = getCartype.cartype_name_contraction;
+        const cartype_name_th = getCartype.cartype_name_th;
+        const cartype_name_en = getCartype.cartype_name_en;
         const visitor_info = body.visitor_info;
         const action_info = body.action_info;
         const images = files;
@@ -103,8 +103,8 @@ export class BActionInService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         throw new StatusException(
             {
                 error: null

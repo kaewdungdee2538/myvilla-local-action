@@ -18,7 +18,7 @@ export class VsGetSlotMiddleware implements NestMiddleware {
                     error: messageCheckVisitor
                     , result: null
                     , message: messageCheckVisitor
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else
@@ -55,7 +55,7 @@ export class VsGetSlotBySlotNumberMiddleware implements NestMiddleware {
                     error: messageCheckVisitor
                     , result: null
                     , message: messageCheckVisitor
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

@@ -21,7 +21,7 @@ export class bGetBookingOutInfoMiddleware implements NestMiddleware {
                     error: messageBookingInfo
                     , result: null
                     , message: messageBookingInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else
@@ -31,7 +31,7 @@ export class bGetBookingOutInfoMiddleware implements NestMiddleware {
     async checkBookingOutEstamp(body: any) {
         const company_id = body.company_id;
         const tbv_code = body.tbv_code;
-        //-----------เช็ค setting ว่าเปิดระบบให้เป็นแบบตรวจสอบ Estamp ก่อนถึงออกจากระบบได้หรือไม่
+        //-----------เช็ค setting ว่าเปิดระบบให้เป็นแบบตรวจสอบ Estamp ก่อนถึงจะออกได้หรือไม่
         const checkEstamp = await this.loadSettingLocalUtils.getBookingOutEstampMode(company_id);
         if (checkEstamp) {
             let sql = `

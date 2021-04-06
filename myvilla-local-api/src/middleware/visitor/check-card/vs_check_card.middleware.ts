@@ -19,7 +19,7 @@ export class vsCheckCardMiddleware implements NestMiddleware {
                     error: messageCheckCardInfo
                     , result: null
                     , message: messageCheckCardInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

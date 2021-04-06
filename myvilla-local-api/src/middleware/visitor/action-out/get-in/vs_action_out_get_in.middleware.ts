@@ -1,31 +1,35 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { Request, Response, NextFunction } from 'express';
+import { dbConnection } from "src/pg_database/pg.database";
 import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
+import { LoadSettingLocalUtils } from "src/utils/load_setting_local.utils";
 @Injectable()
 export class vsActionOutGetInMiddleware implements NestMiddleware {
     constructor(
         private readonly errMessageUrilTh: ErrMessageUtilsTH,
-        private readonly formatDataUtils: FormatDataUtils
+        private readonly formatDataUtils: FormatDataUtils,
+        private readonly localSettingLocalUtils: LoadSettingLocalUtils,
+        private readonly dbconnecttion: dbConnection,
     ) { }
-    use(req: Request, res: Response, next: () => void) {
-        console.log('cardloss middleware')
-        const messageCheckCartypeInfo = this.checkValues(req);
+    async use(req: Request, res: Response, next: () => void) {
+        console.log('getin middleware')
+        const messageCheckCartypeInfo = await this.checkValues(req);
         if (messageCheckCartypeInfo) {
-            console.log('Middleware action in : ' + messageCheckCartypeInfo)
+            console.log('Middleware get in : ' + messageCheckCartypeInfo)
             res.send({
                 response: {
                     error: messageCheckCartypeInfo
                     , result: null
                     , message: messageCheckCartypeInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else
             next();
     }
 
-    checkValues(req: Request) {
+    async checkValues(req: Request) {
         const body = req.body;
         if (!body.company_id)
             return this.errMessageUrilTh.errGetCompanyIDNotFound;
@@ -36,7 +40,7 @@ export class vsActionOutGetInMiddleware implements NestMiddleware {
         return this.checkSlotOrCard(req);
     }
 
-    checkSlotOrCard(req: Request) {
+    async checkSlotOrCard(req: Request) {
         const body = req.body;
         if (body.visitor_slot_number && (body.card_code || body.card_name))
             return this.errMessageUrilTh.errGetCardOrSlotNumberVisitor;

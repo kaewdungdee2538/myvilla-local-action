@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import {configfile} from '../../conf/config-setting'
 import { extname } from 'path';
 import { StatusException } from "src/utils/callback.status";
 import { readdir, existsSync, mkdirSync } from 'fs';
@@ -16,9 +16,9 @@ export const imageFileFilter = (req, file, callback) => {
                     error: 'File is not image.',
                     result: null,
                     message: 'ต้องเป็นรูปภาพนามสกุล .jpg .jpeg .png .bmp .svg เท่านั้น',
-                    statusCode: 400
+                    statusCode: 200
                 },
-                400,
+                200,
             ),
             false
         );
@@ -57,9 +57,9 @@ const checkVisitorValues = (req,file,callback) => {
                     error: errMessage,
                     result: null,
                     message: errMessage,
-                    statusCode: 400
+                    statusCode: 200
                 },
-                400,
+                200,
             ),
             false
         );
@@ -92,7 +92,7 @@ export const getCurrentDatePathFileSave = (req, file, callback) => {
     const type = cookiesObj.type;
     const action_type = cookiesObj.action_type;
     const current_date = new Date();
-    const pathAllFiles = process.env.PATHSAVEIMAGE;
+    const pathAllFiles = configfile.PATHSAVEIMAGE;
     let year = current_date.getFullYear().toString();
     let month = (current_date.getMonth()+1).toString();
     let date = current_date.getDate().toString();
@@ -112,9 +112,9 @@ export const getCurrentDatePathFileSave = (req, file, callback) => {
                         error: err,
                         result: null,
                         message: 'Directory not exists.',
-                        statusCode: 400
+                        statusCode: 200
                     },
-                    400,
+                    200,
                 ),
                 false
             );

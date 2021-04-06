@@ -31,8 +31,8 @@ export class ActionOutSaveService {
                         error: this.errMessageUtilsTh.errEmployeeInfoNotFound
                         , result: null
                         , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                        , statusCode: 400
-                    }, 400)
+                        , statusCode: 200
+                    }, 200)
             }
 
         }
@@ -57,8 +57,8 @@ export class ActionOutSaveService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         else if (res.result.length === 0)
             throw new StatusException(
@@ -66,8 +66,8 @@ export class ActionOutSaveService {
                     error: this.errMessageUtilsTh.errVisitorRecordIDNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errVisitorRecordIDNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         return res.result[0].visitor_record_code
     }
@@ -103,8 +103,8 @@ export class ActionOutSaveService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         else if (res.result.length === 0)
             throw new StatusException(
@@ -112,8 +112,8 @@ export class ActionOutSaveService {
                     error: this.errMessageUtilsTh.errVisitorRecordInNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , statusCode: 400
-                }, 400
+                    , statusCode: 200
+                }, 200
             )
         return res.result[0]
     }
@@ -175,16 +175,16 @@ export class ActionOutSaveService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 400
-                }, 400)
+                    , statusCode: 200
+                }, 200)
         else if (res.result.length === 0)
             throw new StatusException(
                 {
                     error: this.errMessageUtilsTh.errVisitorRecordInNotFound
                     , result: null
                     , message: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , statusCode: 400
-                }, 400)
+                    , statusCode: 200
+                }, 200)
         throw new StatusException(
             {
                 error: null

@@ -35,16 +35,16 @@ export class GetCartypeCategoryService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.errGetCartypeCategoryFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400
+                , 200
             )
         throw new StatusException(
             {
                 error: null
                 , result: res.result
                 , message: this.errMessageUtilsTh.messageSuccess
-                , statusCode: 400
+                , statusCode: 200
             }
             , 200
         )

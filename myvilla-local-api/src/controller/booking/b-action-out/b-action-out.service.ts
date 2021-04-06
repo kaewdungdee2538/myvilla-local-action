@@ -50,8 +50,8 @@ export class BActionOutService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else throw new StatusException(
             {
                 error: null

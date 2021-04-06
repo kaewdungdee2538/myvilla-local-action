@@ -23,8 +23,8 @@ export class JwtRegistryImage extends AuthGuard('jwt') {
                 error: 'Get Image Forbidden',
                 result: null,
                 message: 'Get Image Forbidden',
-                statusCode: 403
-            }, 403)}
+                statusCode: 200
+            }, 200)}
         return user;
     }
 }

@@ -17,7 +17,7 @@ export class bGetBookingInfoMiddleware implements NestMiddleware {
                     error: messageBookingInfo
                     , result: null
                     , message: messageBookingInfo
-                    , statusCode: 400
+                    , statusCode: 200
                 }
             });
         } else

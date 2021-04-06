@@ -46,15 +46,15 @@ export class VisitorPendantService {
                     error: res.error
                     , result: null
                     , message: this.errMessageUtilsTh.errHomeGetFail
-                    , statusCode: 400
+                    , statusCode: 200
                 }
-                , 400)
+                , 200)
         throw new StatusException(
             {
                 error: null
                 , result: {data:res.result,value_count:res.result.length}
                 , message: this.errMessageUtilsTh.messageSuccess
-                , statusCode: 400
+                , statusCode: 200
             }
             , 200)
     }

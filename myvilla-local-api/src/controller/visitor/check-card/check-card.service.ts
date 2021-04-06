@@ -33,15 +33,15 @@ export class CheckCardService {
                 error: res.error
                 , result: null
                 , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         else if (res.result.length === 0) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errGetCardNotInDatabase
                 , result: null
                 , message: this.errMessageUtilsTh.errGetCardNotInDatabase
-                , statusCode: 400
-            }, 400)
+                , statusCode: 200
+            }, 200)
         throw new StatusException(
             {
                 error: null

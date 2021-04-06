@@ -84,4 +84,28 @@ export class BActionInMiddleware {
         }
         return res.result[0].home_id;  
     }
+
+    async checkCartypeCategory(body:any){
+        const company_id = body.company_id;
+        const cartype_category_id = body.cartype_category_id;
+        let sql = `select `
+        sql += `mcc.cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en`
+        sql += `,cartype_category_id,cartype_category_code`
+        sql += `,cartype_category_name_contraction`
+        sql += `,cartype_category_name_th,cartype_category_name_en`
+        sql += `,cartype_category_info`
+        sql += ` from m_cartype_category mcc inner join m_cartype mc on mcc.cartype_id = mc.cartype_id`;
+        sql += ` where mcc.delete_flag ='N'`
+        sql += ` and mcc.company_id = $1`
+        sql += ` and mcc.cartype_category_id = $2`
+        sql += ` order by mcc.cartype_category_name_th;`
+        const query = {
+            text: sql
+            , values: [company_id,cartype_category_id]
+        }
+        console.log(JSON.stringify(query))
+        const result = await this.dbconnecttion.getPgData(query);
+        if (result.error || result.result.length === 0) return null;
+        else return result.result[0];
+    }
 }

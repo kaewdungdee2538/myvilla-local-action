@@ -10,6 +10,7 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { VsActionInCheckSlotMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkslot.middleware';
 import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 
 @Module({
   imports:[dbConnection],
@@ -23,6 +24,7 @@ import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action
     ,VsActionInSaveMiddleware
     ,VsActionInCheckHomeIDMiddleWare
     ,VsActionInCheckEmployeeMiddleWare
+    ,LoadSettingLocalUtils
   ]
 })
 export class ActionInModule {

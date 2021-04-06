@@ -14,15 +14,16 @@ export class VsActionInInfoMiddleWare{
         return this.checkVisitorValues(body);
     }
     checkVisitorValues(body:any) {
+        console.log('checkVisitorValues')
         if (!body.visitor_info) {
             return this.errMessageUtilsTh.errVisitorInfoNotFound;
         } else {
             const visitorInfo = JSON.parse(body.visitor_info);
-            if (!visitorInfo.prefix_name)
-                return this.errMessageUtilsTh.errVisitorInfoPrefixNameNotFound
-            else if (this.formatUtils.HaveSpecialFormat(visitorInfo.prefix_name))
-                return this.errMessageUtilsTh.errVisitorInfoPrefixNameProhibitSpecial;
-            else if (!visitorInfo.first_name_th)
+            // if (!visitorInfo.prefix_name)
+            //     return this.errMessageUtilsTh.errVisitorInfoPrefixNameNotFound
+            // else if (this.formatUtils.HaveSpecialFormat(visitorInfo.prefix_name))
+            //     return this.errMessageUtilsTh.errVisitorInfoPrefixNameProhibitSpecial;
+            if (!visitorInfo.first_name_th)
                 return this.errMessageUtilsTh.errVisitorInfoFirstNameNotFound;
             else if (this.formatUtils.HaveSpecialFormat(visitorInfo.first_name_th))
                 return this.errMessageUtilsTh.errVisitorInfoFirstNameProhibitSpecial;
@@ -32,6 +33,8 @@ export class VsActionInInfoMiddleWare{
                 return this.errMessageUtilsTh.errVisitorInfoLastNameProhibitSpecial;
             else if (!visitorInfo.identity_card)
                 return this.errMessageUtilsTh.errVisitorInfoIdentityNotFound
+            else if(this.formatUtils.HaveSpecialFormat(visitorInfo.identity_card))
+                return this.errMessageUtilsTh.errVisitorInfoIdentityProhitbitSpecial
             // else if (!this.formatUtils.IsFormatIdentityCard(visitorInfo.identity_card))
             //     return this.errMessageUtilsTh.errVisitorInfoIdentityFormatNotValid;
             return null;

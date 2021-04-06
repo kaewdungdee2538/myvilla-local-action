@@ -17,6 +17,12 @@ export class VsActionInCheckSlotMiddleWare {
 
     async checkSlotNumberValue(body: any) {
         const request = body;
+        if (request.visitor_slot_number === "null")
+            request.visitor_slot_number = null;
+        if (request.card_code === "null")
+            request.card_code = null;
+        if (request.card_name === "null")
+            request.card_name = null;
         if (request.visitor_slot_number && (request.card_code || request.card_name))
             return this.errMessageUtilsTh.errGetCardOrSlotNumberVisitor;
         else if (request.visitor_slot_number) {
