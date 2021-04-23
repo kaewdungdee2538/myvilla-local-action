@@ -8,6 +8,7 @@ import { BActionOutModule } from './controller/booking/b-action-out/b-action-out
 import { GetBookingInfoModule } from './controller/booking/get-booking-info/get-booking-info.module';
 import { GetBookingOutInfoModule } from './controller/booking/get-booking-out-info/get-booking-out-info.module';
 import { GetImageModule } from './controller/image/get-image/get-image.module';
+import { ParcelModule } from './controller/parcel/parcel.module';
 import { ResetVisitorModule } from './controller/reset-data/reset-visitor/reset-visitor.module';
 import { SosModule } from './controller/sos/sos/sos.module';
 import { ActionInModule } from './controller/visitor/action-in/action-in.module';
@@ -54,6 +55,7 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , GetCartypeCategoryAllModule
     , VsEstampModule
     , SosModule
+    , ParcelModule
   ],
   controllers: [AppController],
   providers: [AppService],

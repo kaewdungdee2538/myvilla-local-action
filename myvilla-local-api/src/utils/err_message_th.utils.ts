@@ -9,10 +9,11 @@ export class ErrMessageUtilsTH{
 
     errRecordInNotFound = 'ไม่พบข้อมูลการทำรายการเข้า'
 
-    errCompanyIDNotFound = 'ไม่พบรหัสหมู่บ้าน'
-    errCompanyIDNotNumber = 'รหัสหมู่บ้านต้องเป็นตัวเลยเท่านั้น'
-    errCompanyIDProhibitSpecial = 'รหัสหมู่บ้านห้ามมีอักขระพิเศษ'
-    errCompanyCodeProhibitSpecial = 'โค้ดหมู่บ้านห้ามีอักขระพิเศษ'
+    errCompanyIDNotFound = 'ไม่พบรหัสโครงการ'
+    errCompanyIDNotNumber = 'รหัสโครงการต้องเป็นตัวเลยเท่านั้น'
+    errCompanyNotInBase = 'ไม่พบโครงการในระบบ'
+    errCompanyIDProhibitSpecial = 'รหัสโครงการห้ามมีอักขระพิเศษ'
+    errCompanyCodeProhibitSpecial = 'โค้ดโครงการห้ามีอักขระพิเศษ'
     errGuardHouseIDNotFound = 'ไม่พบรหัสป้อม'
     errGuardHouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
     errGuardHouseIDProhibitSpecial = 'รหัสป้อมห้ามมีอักชระพิเศษ'
@@ -194,4 +195,12 @@ export class ErrMessageUtilsTH{
     errSosActionDuplicate = 'การแจ้งเตือนฉุกเฉินถูกอนุมัติไปแล้ว'
     errRemarkNofound = 'กรุณากรอกหมายเหตุ'
     errReamrkPohibitSpecial = 'หมายเหตุ ห้ามมีอักขระพิเศษ'
+
+    errParcelReceiveTitleNotFound = 'กรุณาระบุหัวข้อการรับพัสดุ'
+    errParcelReceiveTitleProhitbitSpecial = 'หัวข้อการรับพัสดุ ห้ามมีอักขระพิเศษ'
+    errParcelRecieveDetailProhibitSpecial = 'รายละเอียดการรับพัสดุ ห้ามมีอักขระพิเศษ'
+    errReceiveParcelDetailNotFound = 'กรุณาระบุรายละเอียดของพัสดุ'
+    errRecieveParcelDetailProhibitSpecial = 'รายะละเอียดของพัสดุ ห้ามมีอักขระพิเศษ'
+    errSendParcelDetailNotfound = 'กรุณาระบุรายละเอียดการส่งมอบพัสดุ'
+    errSendParcelDetailProhitbitSpecial = 'ละเอียดการส่งมอบพัสดุ ห้ามมีอักขระพิเศษ'
 }
