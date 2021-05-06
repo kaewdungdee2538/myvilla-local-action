@@ -16,6 +16,8 @@ export class VisitorPendantService {
 
     async getVisitorPendantAllFromDatabase(@Body() body) {
         const company_id = body.company_id;
+        const identity_card = body.identity_card ? body.identity_card : '';
+        const license_plate = body.license_plate ? body.license_plate : '';
         let sql = `select 
         visitor_record_id,visitor_record_code
         ,visitor_slot_id,visitor_slot_number
@@ -33,8 +35,12 @@ export class VisitorPendantService {
          from t_visitor_record
          where action_out_flag = 'N'
          and tbv_code is null
-         and company_id = $1
-         order by parking_in_datetime;`
+         and company_id = $1`
+        if (identity_card)
+            sql += ` and visitor_info->>'identity_card' = '${identity_card}'`
+        if (license_plate)
+            sql += ` and license_plate LIKE '%${license_plate}%'`
+        sql += ` order by parking_in_datetime;`
         const query = {
             text: sql
             , values: [company_id]
@@ -52,7 +58,7 @@ export class VisitorPendantService {
         throw new StatusException(
             {
                 error: null
-                , result: {data:res.result,value_count:res.result.length}
+                , result: { data: res.result, value_count: res.result.length }
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 200
             }
