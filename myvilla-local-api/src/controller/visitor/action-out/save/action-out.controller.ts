@@ -1,5 +1,5 @@
 import {configfile} from '../../../../conf/config-setting'
-import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { diskStorage } from 'multer';
@@ -10,6 +10,8 @@ import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-o
 import { VsActionOutForSaveMiddleWare } from 'src/middleware/visitor/action-out/save/vs_action_out_forsave.middleware';
 import { ActionOutInterceptor } from 'src/interceptor/visitor/action-out/action-out.interceptor';
 import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action-out/estamp-verify/vs_action_out_estamp_verify.middleware';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
@@ -21,8 +23,8 @@ export class ActionOutSaveController {
         , private readonly vsactionOutVerifyEstamMiddleware:vsActionOutVerifyEstampMiddleware
         ) { }
 
-    // @UseGuards(JwtAuthGuard)
     @Post('save')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         ActionOutInterceptor,
         FileFieldsInterceptor([
@@ -35,7 +37,8 @@ export class ActionOutSaveController {
             }),
             fileFilter: imageFileFilter,
             limits:{fileSize: 1024*1024*5}
-        })
+        }),
+        DefaultInterceptor,
     )
     async ActionSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

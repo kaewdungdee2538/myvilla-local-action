@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { BActionInInterceptor } from 'src/interceptor/booking/action-in/b-action-in.interceptor';
@@ -13,6 +13,8 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { BActionInService } from './b-action-in.service';
 import {configfile} from '../../../conf/config-setting'
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('bannayuu/api/booking/b-action-in')
 export class BActionInController {
     constructor(
@@ -28,6 +30,7 @@ export class BActionInController {
 
     // @UseGuards(JwtAuthGuard)
     @Post('save')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         BActionInInterceptor,
         FileFieldsInterceptor([
@@ -40,7 +43,8 @@ export class BActionInController {
             }),
             fileFilter: imageFileFilter,
             limits: { fileSize: 1024 * 1024 * 5 }
-        })
+        }),
+        DefaultInterceptor
         // FilesInterceptor('image', 20, {
         //     storage: diskStorage({
         //         destination: getCurrentDatePathFileSaveIn,

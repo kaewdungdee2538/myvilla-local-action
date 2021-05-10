@@ -12,6 +12,11 @@ export class ErrMessageUtilsTH{
     errCompanyIDNotFound = 'ไม่พบรหัสโครงการ'
     errCompanyIDNotNumber = 'รหัสโครงการต้องเป็นตัวเลยเท่านั้น'
     errCompanyNotInBase = 'ไม่พบโครงการในระบบ'
+    errCompanyStartDateNotFound = 'ไม่พบวันเปิดให้บริการของโครงการนี้'
+    errCompanyExpireDateNotFound = 'ไม่พบวันหมดอายุการให้บริการของโครงการนี้'
+    errCompanyNotStart = 'โครงการนี้ยังไม่เปิดให้บริการ'
+    errCompanyIsExpire = 'โครงการนี้ หมดสัญญาการให้บริการ'
+
     errCompanyIDProhibitSpecial = 'รหัสโครงการห้ามมีอักขระพิเศษ'
     errCompanyCodeProhibitSpecial = 'โค้ดโครงการห้ามีอักขระพิเศษ'
     errGuardHouseIDNotFound = 'ไม่พบรหัสป้อม'
@@ -203,4 +208,6 @@ export class ErrMessageUtilsTH{
     errRecieveParcelDetailProhibitSpecial = 'รายะละเอียดของพัสดุ ห้ามมีอักขระพิเศษ'
     errSendParcelDetailNotfound = 'กรุณาระบุรายละเอียดการส่งมอบพัสดุ'
     errSendParcelDetailProhitbitSpecial = 'ละเอียดการส่งมอบพัสดุ ห้ามมีอักขระพิเศษ'
+
+    errVisitorPendantNotInBase = 'ไม่พบรายการเข้าในระบบ'
 }

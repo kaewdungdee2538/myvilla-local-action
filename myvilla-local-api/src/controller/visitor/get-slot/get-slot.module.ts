@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { VsGetSlotBySlotNumberMiddleware, VsGetSlotMiddleware } from 'src/middleware/visitor/get-slot/vs_get_slot.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
@@ -14,7 +15,7 @@ import { GetSlotService } from './get-slot.service';
 export class GetSlotModule {
    configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(VsGetSlotMiddleware)
+    .apply(vsDefaultMiddleware,VsGetSlotMiddleware)
     .forRoutes('bannayuu/api/visitor/get-slot/*');
     consumer
     .apply(VsGetSlotMiddleware,VsGetSlotBySlotNumberMiddleware)

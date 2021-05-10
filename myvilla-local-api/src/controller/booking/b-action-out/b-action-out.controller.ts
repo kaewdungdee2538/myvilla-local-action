@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { diskStorage } from 'multer'
@@ -11,6 +11,8 @@ import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking
 import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import {configfile} from '../../../conf/config-setting'
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('bannayuu/api/booking/b-action-out')
 export class BActionOutController {
 
@@ -22,8 +24,8 @@ export class BActionOutController {
         , private readonly vsActionInCheckEmployeeMiddleware: VsActionInCheckEmployeeMiddleWare
     ) { }
 
-    // @UseGuards(JwtAuthGuard)
     @Post('save')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         BActionOutInterceptor,
         FileFieldsInterceptor([
@@ -35,7 +37,8 @@ export class BActionOutController {
             }),
             fileFilter: imageFileFilter,
             limits:{fileSize: 1024*1024*5}
-        })
+        }),
+        DefaultInterceptor
     )
     async saveBookingSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

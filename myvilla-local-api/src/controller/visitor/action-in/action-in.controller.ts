@@ -15,6 +15,7 @@ import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-i
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { ActionInInterceptor } from 'src/interceptor/visitor/action-in/action-in.interceptor';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 
 @Controller('bannayuu/api/visitor/action/in')
 export class ActionInController {
@@ -28,9 +29,9 @@ export class ActionInController {
         , private readonly vsActionCheckEmployee: VsActionInCheckEmployeeMiddleWare
         , private readonly loadSettingLocalUtils: LoadSettingLocalUtils
     ) { }
-    // @UseGuards(JwtAuthGuard)
-    // @UseInterceptors(ActionInInterceptor)
+   
     @Post('save')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         ActionInInterceptor,
         FileFieldsInterceptor([
@@ -43,7 +44,7 @@ export class ActionInController {
             }),
             fileFilter: imageFileFilter,
             limits: { fileSize: 1024 * 1024 * 5 }
-        })
+        }),
         // FilesInterceptor('image', 20, {
         //     storage: diskStorage({
         //         destination: getCurrentDatePathFileSaveIn,
@@ -51,6 +52,7 @@ export class ActionInController {
         //     }),
         //     fileFilter: imageFileFilter,
         // }),
+        DefaultInterceptor
     )
     async ActionSaveIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

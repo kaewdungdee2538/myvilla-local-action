@@ -1,11 +1,10 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
-import { Request } from 'express-serve-static-core'
-import { Observable, throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { StatusException } from 'src/utils/callback.status';
 import { dbConnection } from 'src/pg_database/pg.database';
+import * as moment from 'moment';
 
 @Injectable()
 export class DefaultInterceptor implements NestInterceptor {
@@ -46,7 +45,10 @@ export class DefaultInterceptor implements NestInterceptor {
 
     async CheckCompanyInBase(body: any) {
         const company_id = body.company_id;
-        let sql = `select * from m_company where delete_flag = 'N' and company_id =$1;`
+        let sql = `select company_id
+        ,to_char(company_start_date,'YYYY-MM-DD HH24:MI:SS') as company_start_date 
+        ,to_char(company_expire_date,'YYYY-MM-DD HH24:MI:SS') as company_expire_date
+        from m_company where delete_flag = 'N' and company_id =$1;`
         const query = {
             text: sql
             , values: [company_id]
@@ -56,6 +58,14 @@ export class DefaultInterceptor implements NestInterceptor {
             return res.error
         else if (res.result.length === 0)
             return this.errMessageUrilTh.errCompanyNotInBase;
+        else if (!res.result[0].company_start_date)
+            return this.errMessageUrilTh.errCompanyStartDateNotFound;
+        else if (!res.result[0].company_expire_date)
+            return this.errMessageUrilTh.errCompanyExpireDateNotFound;
+        else if (moment() < moment(res.result[0].company_start_date))
+            return this.errMessageUrilTh.errCompanyNotStart;
+        else if (moment() > moment(res.result[0].company_expire_date))
+            return this.errMessageUrilTh.errCompanyIsExpire;
         else return null;
     }
 

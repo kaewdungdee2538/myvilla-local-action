@@ -4,6 +4,7 @@ import { jwtConstants } from 'src/auth/constant';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
 import { RegistryImageModule } from 'src/controller/image/registry-image/registry-image.module';
 import { RegistryImageService } from 'src/controller/image/registry-image/registry-image.service';
+import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action-out/estamp-verify/vs_action_out_estamp_verify.middleware';
 import { vsActionOutGetInMiddleware } from 'src/middleware/visitor/action-out/get-in/vs_action_out_get_in.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -28,7 +29,7 @@ import { GetInService } from './get-in.service';
 export class GetInModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsActionOutGetInMiddleware,vsActionOutVerifyEstampMiddleware)
+    .apply(vsDefaultMiddleware,vsActionOutGetInMiddleware,vsActionOutVerifyEstampMiddleware)
     .forRoutes('bannayuu/api/visitor/action/out/get-in/*');
   }
 }

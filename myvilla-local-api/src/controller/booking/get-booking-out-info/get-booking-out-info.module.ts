@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { bGetBookingInfoMiddleware } from 'src/middleware/booking/get-booking-info/b_get_booking_info.middleware';
 import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
+import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
@@ -23,7 +24,7 @@ import { GetBookingOutInfoService } from './get-booking-out-info.service';
 export class GetBookingOutInfoModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsGetHomeMiddleware,bGetBookingInfoMiddleware,bGetBookingOutInfoMiddleware)
+    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,bGetBookingInfoMiddleware,bGetBookingOutInfoMiddleware)
     .forRoutes('bannayuu/api/booking/get-booking-out-info/*');
   }
 }

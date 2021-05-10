@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { vsGetCartypeCategoryMiddleware } from 'src/middleware/visitor/get-cartype-category/vs_get_cartype_category.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -19,7 +20,7 @@ import { GetCartypeCategoryService } from './get-cartype-category.service';
 export class GetCartypeCategoryModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsGetHomeMiddleware,vsGetCartypeCategoryMiddleware)
+    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,vsGetCartypeCategoryMiddleware)
     .forRoutes('bannayuu/api/visitor/get-cartype-category/*');
   }
 }

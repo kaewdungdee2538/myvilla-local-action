@@ -6,6 +6,7 @@ import { VsEstampService } from './vs-estamp.service';
 import { diskStorage } from 'multer';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { EstampSaveVisitorMiddleware } from 'src/middleware/estamp/EstampSaveVisitor.middleware';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 
 @Controller('bannayuu/api/visitor/estamp')
 export class VsEstampController {
@@ -28,7 +29,8 @@ export class VsEstampController {
             fileFilter: imageFileFilter,
             limits:{fileSize: 1024*1024*5}
         }),
-        EstampSaveVisitorMiddleware
+        EstampSaveVisitorMiddleware,
+        DefaultInterceptor
     )
     async postStampVisitor(@UploadedFiles() files, @Body() body){
         const pathMain = configfile.PATHSAVEIMAGE;

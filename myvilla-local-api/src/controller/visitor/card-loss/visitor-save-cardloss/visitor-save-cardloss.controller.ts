@@ -1,5 +1,5 @@
 import {configfile} from '../../../../conf/config-setting'
-import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { VisitorSaveCardlossService } from './visitor-save-cardloss.service';
@@ -9,6 +9,8 @@ import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { vsCardLossSaveMiddleware } from 'src/middleware/visitor/card-loss/save/vs_card_loss_save.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('bannayuu/api/visitor/cardloss/save-cardloss')
 export class VisitorSaveCardlossController {
@@ -18,7 +20,9 @@ export class VisitorSaveCardlossController {
         private readonly VsCardLossSaveMiddleware: vsCardLossSaveMiddleware
         , private readonly vsActionInCheckEmployeeMiddleware: VsActionInCheckEmployeeMiddleWare
     ) { }
+
     @Post('saveandout')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         CardLossInterceptor,
         FileFieldsInterceptor([
@@ -30,7 +34,8 @@ export class VisitorSaveCardlossController {
             }),
             fileFilter: imageFileFilter,
             limits:{fileSize: 1024*1024*5}
-        })
+        }),
+        DefaultInterceptor
     )
     async saveCardLoss(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
@@ -78,6 +83,7 @@ export class VisitorSaveCardlossController {
     }
 
     @Post('savenotout')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
         CardLossInterceptor,
         FileFieldsInterceptor([
@@ -88,7 +94,8 @@ export class VisitorSaveCardlossController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
-        })
+        }),
+        DefaultInterceptor
     )
     async saveCardLossNotOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

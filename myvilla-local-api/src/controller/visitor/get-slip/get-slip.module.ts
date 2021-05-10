@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { vsGetSlipInMiddleware } from 'src/middleware/visitor/get-slip/vs_get_slip_in.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
@@ -19,7 +20,7 @@ import { GetSlipService } from './get-slip.service';
 export class GetSlipModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsGetHomeMiddleware,vsGetSlipInMiddleware)
+    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,vsGetSlipInMiddleware)
     .forRoutes('bannayuu/api/visitor/get-slip/*');
   }
 }

@@ -46,16 +46,25 @@ export class VisitorPendantService {
             , values: [company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
+        console.log(res.result);
         if (res.error)
             throw new StatusException(
                 {
                     error: res.error
                     , result: null
-                    , message: this.errMessageUtilsTh.errHomeGetFail
+                    , message: this.errMessageUtilsTh.messageProcessFail
                     , statusCode: 200
                 }
                 , 200)
-        throw new StatusException(
+        else if (res.result.length === 0) throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errVisitorPendantNotInBase
+                , result: null
+                , message: this.errMessageUtilsTh.errVisitorPendantNotInBase
+                , statusCode: 200
+            }
+            , 200)
+        else throw new StatusException(
             {
                 error: null
                 , result: { data: res.result, value_count: res.result.length }
