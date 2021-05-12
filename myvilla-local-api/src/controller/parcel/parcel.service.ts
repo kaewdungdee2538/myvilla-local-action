@@ -16,7 +16,7 @@ export class ParcelService {
         const tpi_title = body.tpi_title;
         const tpi_detail = body.tpi_detail;
         const receive_parcel_detail = body.receive_parcel_detail;
-        const home_id = body.home_id;
+        const home_address = body.home_address;
         const employee_id = employeeObj.employee_id;
         const receive_parcel_data = {
             image_parcel_receive
@@ -36,7 +36,7 @@ export class ParcelService {
             ,$1,$2
             ,current_timestamp,$3
             ,$4,$5
-            ,$6
+            ,(select home_id from m_home where home_address = $6 and company_id = $7)
             ,$7
             ,'receive_parcel'
             ,$8,current_timestamp
@@ -48,7 +48,7 @@ export class ParcelService {
                 tpi_title, tpi_detail
                 , employee_id
                 , receive_parcel_detail, receive_parcel_data
-                , home_id
+                , home_address
                 , company_id
                 , employee_id
             ]

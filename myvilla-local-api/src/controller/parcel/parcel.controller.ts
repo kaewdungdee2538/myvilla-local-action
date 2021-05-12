@@ -7,8 +7,8 @@ import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/m
 import { ReceiveParcelInterceptor } from 'src/interceptor/pacel/recieve-pacel.interceptor';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { ParcelReceiveInterceptor } from 'src/interceptor/pacel/parcel-receive.interceptor';
-import { HomeInterceptor } from 'src/interceptor/home/home.interceptor';
 import { configfile } from 'src/conf/config-setting';
+import { HomeAddressInterceptor } from 'src/interceptor/home/home-address.interceptor';
 
 @Controller('bannayuu/api/parcel')
 export class ParcelController {
@@ -30,7 +30,7 @@ export class ParcelController {
         }),
         DefaultInterceptor,
         ParcelReceiveInterceptor,
-        HomeInterceptor
+        HomeAddressInterceptor
     )
     async addParcelReceive(@UploadedFiles() files, @Body() body,@Request() req){
         const pathMain = configfile.PATHSAVEIMAGE;
