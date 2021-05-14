@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Post, GoneException, UseGuards } from '@nestjs/common';
+import { Body, Controller,Post, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { GetBookingOutInfoService } from './get-booking-out-info.service';
 
@@ -8,7 +8,7 @@ export class GetBookingOutInfoController {
    
     @Post('getout')
     @UseGuards(JwtAuthGuard)
-    getBookingOutInfo(@Body() body){
-        return this.getBookingOutInfoService.getBookingOutInfo(body);
+    getBookingOutInfo(@Body() body,@Request() req){
+        return this.getBookingOutInfoService.getBookingOutInfo(body,req);
     }
 }

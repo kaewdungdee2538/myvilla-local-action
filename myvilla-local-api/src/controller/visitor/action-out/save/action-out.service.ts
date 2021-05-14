@@ -121,13 +121,10 @@ export class ActionOutSaveService {
     async Save(@Body() body, files: any, recordInObj: any, employeeObj: any) {
         const images = files;
         const company_id = recordInObj.company_id
-        const company_code = recordInObj.company_code
+        
         const visitor_record_code = recordInObj.visitor_record_code;
         const visitor_slot_id = recordInObj.visitor_slot_id;
-        const visitor_slot_number = recordInObj.visitor_slot_number;
         const card_id = recordInObj.card_id
-        const card_code = recordInObj.card_code
-        const card_name = recordInObj.card_name
         const employee_out_id = body.employee_out_id
         const employee_out_info = employeeObj
         const img_visitor_out = { images }
@@ -135,18 +132,18 @@ export class ActionOutSaveService {
         const guardhouse_out_code = body.guardhouse_out_code;
         const pos_id = body.pos_id;
         console.log(JSON.stringify(recordInObj));
-        let sql1 = `update t_visitor_record set `
-        sql1 += `img_visitor_out = $1`
-        sql1 += `,action_out_flag = 'Y'`
-        sql1 += `,action_type = 'OUT'`
-        sql1 += `,guardhouse_out_id = $2`
-        sql1 += `,guardhouse_out_code = $3`
-        sql1 += `,parking_out_datetime = now()`
-        sql1 += `,datetime_action = now()`
-        sql1 += `,employee_out_id = $4`
-        sql1 += `,employee_out_info = $5`
-        sql1 += `,pos_id = $6`
-        sql1 += ` where visitor_record_code = $7 and company_id = $8;`
+        let sql1 = `update t_visitor_record set 
+        img_visitor_out = $1
+        ,action_out_flag = 'Y'
+        ,action_type = 'OUT'
+        ,guardhouse_out_id = $2
+        ,guardhouse_out_code = $3
+        ,parking_out_datetime = current_timestamp
+        ,datetime_action = current_timestamp
+        ,employee_out_id = $4
+        ,employee_out_info = $5
+        ,pos_id = $6
+         where visitor_record_code = $7 and company_id = $8;`
         const query = {
             text: sql1
             , values: [img_visitor_out, guardhouse_out_id, guardhouse_out_code, employee_out_id, employee_out_info, pos_id, visitor_record_code, company_id]

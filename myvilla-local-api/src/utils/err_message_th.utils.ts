@@ -3,7 +3,7 @@ export class ErrMessageUtilsTH{
     messageSuccess ='เรียบร้อย'
     messageSuccessEn = 'Success'
     messageProcessFail = 'ล้มเหลว'
-
+    errConnectServerCalculateError = 'เชื่อมต่อ API คำนวณค่าจอดล้มเหลว'
     errLoginUserOrPasswordNotValid = 'Username หรือ Password ไม่ถูกต้อง'
     errLoginFail = 'เข้าสู่ระบบล้มเหลว'
 

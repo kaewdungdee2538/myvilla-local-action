@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { HttpModule, MiddlewareConsumer, Module } from '@nestjs/common';
 import { bGetBookingInfoMiddleware } from 'src/middleware/booking/get-booking-info/b_get_booking_info.middleware';
 import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
@@ -11,6 +11,9 @@ import { GetBookingOutInfoController } from './get-booking-out-info.controller';
 import { GetBookingOutInfoService } from './get-booking-out-info.service';
 
 @Module({
+  imports:[
+    HttpModule
+  ],
   controllers: [GetBookingOutInfoController],
   providers: [
     GetBookingOutInfoService

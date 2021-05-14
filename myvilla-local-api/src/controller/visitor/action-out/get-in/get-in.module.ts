@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { HttpModule, HttpService, MiddlewareConsumer, Module } from '@nestjs/common';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/auth/constant';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
@@ -15,7 +15,10 @@ import { GetInController } from './get-in.controller';
 import { GetInService } from './get-in.service';
 
 @Module({
-  imports:[RegistryImageModule],
+  imports:[
+    RegistryImageModule
+    ,HttpModule
+  ],
   controllers: [GetInController],
   providers: [
     GetInService
@@ -24,6 +27,7 @@ import { GetInService } from './get-in.service';
     ,FormatDataUtils
     ,RegistryImageService
     ,LoadSettingLocalUtils
+    
   ],
 })
 export class GetInModule {

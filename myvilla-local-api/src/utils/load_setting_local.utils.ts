@@ -1,5 +1,5 @@
 import {configfile} from '../conf/config-setting'
-import { Injectable } from "@nestjs/common";
+import { Injectable  } from "@nestjs/common";
 import { dbConnection } from "src/pg_database/pg.database";
 
 @Injectable()
@@ -57,7 +57,7 @@ export class LoadSettingLocalUtils {
         and ref_setup_id = 3;`
         const query = {
             text:sql
-            ,values:[this.mycompany_id]
+            ,values:[company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if(res.error){
@@ -76,7 +76,7 @@ export class LoadSettingLocalUtils {
         and ref_setup_id = 3;`
         const query = {
             text:sql
-            ,values:[this.mycompany_id]
+            ,values:[company_id]
         }
         const res = await this.dbconnecttion.getPgData(query);
         if(res.error){
@@ -87,4 +87,25 @@ export class LoadSettingLocalUtils {
             return null;
         }else return res.result[0].visitor_estamp_verify
     }
+
+    async getVisitorCalculateMode(company_id:string){
+        const sql =`select setup_data->'calculate_enable' as calculate_enable
+        from m_setup 
+        where company_id = $1
+        and ref_setup_id = 8;`
+        const query = {
+            text:sql
+            ,values:[company_id]
+        }
+        const res = await this.dbconnecttion.getPgData(query);
+        if(res.error){
+            console.log(res.error)
+            return null
+        }else if(res.result.length===0){
+            console.log('Load Setting calculate_enable not found')
+            return null;
+        }else return res.result[0].calculate_enable
+    }
+
+
 }
