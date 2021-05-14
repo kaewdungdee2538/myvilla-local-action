@@ -1,4 +1,5 @@
 import { HttpModule, MiddlewareConsumer, Module } from '@nestjs/common';
+import { CalTimediffService } from 'src/controller/cal-timediff/cal-timediff.service';
 import { bGetBookingInfoMiddleware } from 'src/middleware/booking/get-booking-info/b_get_booking_info.middleware';
 import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
@@ -22,6 +23,7 @@ import { GetBookingOutInfoService } from './get-booking-out-info.service';
     ,ErrMessageUtilsTH
     ,dbConnection
     ,LoadSettingLocalUtils
+    ,CalTimediffService
   ]
 })
 export class GetBookingOutInfoModule {

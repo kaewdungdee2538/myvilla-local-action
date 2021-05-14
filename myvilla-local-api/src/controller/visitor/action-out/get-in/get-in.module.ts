@@ -2,6 +2,7 @@ import { HttpModule, HttpService, MiddlewareConsumer, Module } from '@nestjs/com
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/auth/constant';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
+import { CalTimediffService } from 'src/controller/cal-timediff/cal-timediff.service';
 import { RegistryImageModule } from 'src/controller/image/registry-image/registry-image.module';
 import { RegistryImageService } from 'src/controller/image/registry-image/registry-image.service';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
@@ -27,7 +28,7 @@ import { GetInService } from './get-in.service';
     ,FormatDataUtils
     ,RegistryImageService
     ,LoadSettingLocalUtils
-    
+    ,CalTimediffService
   ],
 })
 export class GetInModule {
