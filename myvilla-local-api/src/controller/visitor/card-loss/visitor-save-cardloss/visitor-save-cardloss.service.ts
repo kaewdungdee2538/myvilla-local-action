@@ -10,20 +10,20 @@ export class VisitorSaveCardlossService {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
 
-    async saveCardloss(@Body() body, files: any,employeeObj:any) {
+    async saveCardloss(@Body() body, files: any, employeeObj: any) {
         const slotOrcardIsLoss = await this.checkSlotOrCardIsLoss(body);
         console.log(slotOrcardIsLoss);
         if (slotOrcardIsLoss.visitor_slot_id)
-            return await this.saveSlotAndOut(body, files, slotOrcardIsLoss,employeeObj);
-        return await this.saveCardAndOut(body, files, slotOrcardIsLoss,employeeObj);
+            return await this.saveSlotAndOut(body, files, slotOrcardIsLoss, employeeObj);
+        return await this.saveCardAndOut(body, files, slotOrcardIsLoss, employeeObj);
     }
 
-    async saveCardlossNotOut(@Body() body,files:any,employeeObj:any){
+    async saveCardlossNotOut(@Body() body, files: any, employeeObj: any) {
         const cardObj = await this.checkRecordInBase(body)
-        if(cardObj)
-            return await this.saveCardNotOut(body,files,cardObj,employeeObj)
+        if (cardObj)
+            return await this.saveCardNotOut(body, files, cardObj, employeeObj)
     }
-    async saveSlotAndOut(@Body() body, files: any, slotObj: any,employeeObj:any) {
+    async saveSlotAndOut(@Body() body, files: any, slotObj: any, employeeObj: any) {
         console.log('save slot')
         const images = files;
         const image_cardproblem = { images }
@@ -35,7 +35,7 @@ export class VisitorSaveCardlossService {
         const guardhouse_code = body.guardhouse_code;
         const employee_out_id = body.employee_out_id;
         const employee_out_info = employeeObj;
-        const cardloss_price = body.cardloss_price;
+        const cardloss_price = body.cardloss_price ? parseInt(body.cardloss_price) : 0;
         const customer_payment = body.customer_payment;
         const change_money = body.change_money;
         const visitor_slot_id = slotObj.visitor_slot_id;
@@ -48,11 +48,19 @@ export class VisitorSaveCardlossService {
             , visitor_record_id
         }
         const pos_id = body.pos_id;
+        const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
+        const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
+        const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
+        const total_price = parking_payment + overnight_fines + cardloss_price;
+        const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
+        const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
+        const payment_info = body.payment_info && body.payment_info != 'null' ? body.payment_info : null;
+        const payment_flag = total_price > 0 ? 'Y' : 'N';
 
         let sql = `update t_visitor_record set action_out_flag = 'REPRINT' where visitor_record_id = $1;`
         const query = {
-            text:sql
-            , values:[visitor_record_id]
+            text: sql
+            , values: [visitor_record_id]
         }
 
         let sql1 = `insert into t_visitor_record(
@@ -63,35 +71,62 @@ export class VisitorSaveCardlossService {
         ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
         ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
         ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
-        ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
-        ,losscard_fines,discount_info,parking_payment,total_price
-        ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
+        ,employee_out_id,employee_out_info,parking_payment_datetime
+        ,losscard_fines,tcpl_id,discount_info,payment_info,parking_payment,overnight_fines,total_price
+        ,pos_id,action_out_flag,company_id,datetime_action,action_type
         ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+        ,payment_type_id,payment_status_flag,receipt_running
         ) select
-        visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+        fun_generate_uuid('VS',8) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
         ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
         ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
         ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
         ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
         ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
-        ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
-        ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'REPRINT' as payment_status_flag
-        ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
-        ,$8 as pos_id,'Y' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'REPRINT' as action_type
-        ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
+        ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,current_timestamp as parking_out_datetime,$3 as img_visitor_out
+        ,$4 as employee_out_id,$5 as employee_out_info,current_timestamp as parking_payment_datetime
+        ,$6 as losscard_fines
+        ,$7 as tcpl_id
+        ,$8 as discount_info
+        ,$9 as payment_info
+        ,$10 as parking_payment
+        ,$11 as overnight_fines
+        ,$12 as total_price
+        ,$13 as pos_id,'Y' as action_out_flag
+        ,$14 as company_id,current_timestamp as datetime_action,'REPRINT' as action_type
+        ,$15 as cardproblem_info,$16 as cardproblem_image,'Y' as cardproblem_flag,current_timestamp as cardproblem_datetime
+        ,$17 as payment_type_id
+        ,$18 as payment_status_flag
+        ,(select case when $10 > 0 then 
+            (select coalesce(max(receipt_running)+1,1) from t_visitor_record
+            where company_id = $14
+            and pos_id = $13::varchar)
+            else 0 end
+            from t_visitor_record
+            limit 1 ) as receipt_running
         from t_visitor_record
-        where visitor_record_id = $13
+        where visitor_record_id = $19
+        and company_id = $14
         limit 1;
         `
         const query1 = {
             text: sql1
             , values: [
-                guardhouse_id,guardhouse_code,image_vehicle
-                ,employee_out_id,employee_out_info
-                ,cardloss_price,cardloss_price
-                ,pos_id,company_id,company_code
-                ,cardloss_info,image_cardproblem
-                ,visitor_record_id
+                guardhouse_id, guardhouse_code, image_vehicle
+                , employee_out_id, employee_out_info
+                , cardloss_price
+                , tcpl_id
+                , discount_info
+                , payment_info
+                , parking_payment
+                , overnight_fines
+                , total_price
+                , pos_id
+                , company_id
+                , cardloss_info, image_cardproblem
+                , payment_type_id
+                , payment_flag
+                , visitor_record_id
             ]
         }
         let sql2 = `update m_visitor_slot`
@@ -106,118 +141,7 @@ export class VisitorSaveCardlossService {
             text: sql2
             , values: [employee_out_id, company_id, visitor_slot_id]
         }
-        const querys = [query,query1, query2]
-        const res = await this.dbconnecttion.savePgData(querys);
-        if (res.error) throw new StatusException(
-            {
-                error: res.error
-                , result: null
-                , message: this.errMessageUtilsTh.messageProcessFail
-                , statusCode: 200
-            }, 200)
-        else throw new StatusException(
-                {
-                    error: null
-                    , result: this.errMessageUtilsTh.messageSuccess
-                    , message: this.errMessageUtilsTh.messageSuccess
-                    , statusCode: 200
-                }, 200)
-    }
-
-    async saveCardAndOut(@Body() body, files: any, cardObj: any,employeeObj:any) {
-        console.log('save card')
-        const images = files;
-        const image_cardproblem = { images }
-        const image_vehicle = { images: { image_vehicle: files.image_customer } }
-        const visitor_record_id = body.visitor_record_id;
-        const visitor_record_code = cardObj.visitor_record_code;
-        const company_id = body.company_id;
-        const company_code = body.company_code;
-        const guardhouse_id = body.guardhouse_id;
-        const guardhouse_code = body.guardhouse_code;
-        const employee_out_id = body.employee_out_id;
-        const employee_out_info = employeeObj;
-        const cardloss_price = body.cardloss_price;
-        const customer_payment = body.customer_payment;
-        const change_money = body.change_money;
-        const card_id = cardObj.card_id;
-        const card_code = cardObj.card_code;
-        const card_name = cardObj.card_name;
-        const cardloss_info = {
-            cardloss_price
-            , customer_payment
-            , change_money
-            , employee_out_id
-            , employee_out_info
-            , visitor_record_id
-            , visitor_record_code
-        }
-        const pos_id = body.pos_id;
-
-        let sql0 = `update t_visitor_record set action_out_flag = 'CARDLOST' where visitor_record_id = $1;`
-        const query0 = {
-            text:sql0
-            , values:[visitor_record_id]
-        }
-
-        let sql1 = `insert into t_visitor_record(
-            visitor_record_code,ref_visitor_record_id,tbv_code
-            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
-            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
-            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
-            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
-            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
-            ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
-            ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
-            ,losscard_fines,discount_info,parking_payment,total_price
-            ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
-            ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
-            ) select
-            (select fun_generate_uuid('VS',8)) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
-            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
-            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
-            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
-            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
-            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
-            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
-            ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'CARDLOST' as payment_status_flag
-            ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
-            ,$8 as pos_id,'Y' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'CARDLOST' as action_type
-            ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
-            from t_visitor_record
-            where visitor_record_id = $13
-            limit 1
-            `
-
-
-        const query1 = {
-            text: sql1
-            , values: [
-                guardhouse_id,guardhouse_code,image_vehicle
-                ,employee_out_id,employee_out_info
-                ,cardloss_price,cardloss_price
-                ,pos_id,company_id,company_code
-                ,cardloss_info,image_cardproblem
-                ,visitor_record_id
-            ]
-        }
-        let sql2 = `update m_card`
-        sql2 += ` set visitor_record_id = null`
-        sql2 += `,visitor_record_code = null`
-        sql2 += `,update_by = $1`
-        sql2 += `,update_date = now()`
-        sql2 += `,status_flag = 'N'`
-        sql2 += `,delete_flag = 'Y'`
-        sql2 += `,cardproblem_flag = 'Y'`
-        sql2 += `,cardproblem_datetime = now()`
-        sql2 += `,cardproblem_info = $2`
-        sql2 += ` where company_id = $3`
-        sql2 += ` and card_id = $4;`
-        const query2 = {
-            text: sql2
-            , values: [employee_out_id, cardloss_info, company_id, card_id]
-        }
-        const querys = [query0,query1, query2]
+        const querys = [query, query1, query2]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
             {
@@ -235,7 +159,151 @@ export class VisitorSaveCardlossService {
             }, 200)
     }
 
-    
+    async saveCardAndOut(@Body() body, files: any, cardObj: any, employeeObj: any) {
+        console.log('save card')
+        const images = files;
+        const image_cardproblem = { images }
+        const image_vehicle = { images: { image_vehicle: files.image_customer } }
+        const visitor_record_id = body.visitor_record_id;
+        const visitor_record_code = cardObj.visitor_record_code;
+        const company_id = body.company_id;
+        const guardhouse_id = body.guardhouse_id;
+        const guardhouse_code = body.guardhouse_code;
+        const employee_out_id = body.employee_out_id;
+        const employee_out_info = employeeObj;
+        const cardloss_price = body.cardloss_price ? parseInt(body.cardloss_price) : 0;
+        const customer_payment = body.customer_payment ? parseInt(body.customer_payment) : 0;
+        const change_money = body.customer_payment ? parseInt(body.change_money) : 0;
+        const card_id = cardObj.card_id;
+        const card_code = cardObj.card_code;
+        const card_name = cardObj.card_name;
+        const cardloss_info = {
+            cardloss_price
+            , customer_payment
+            , change_money
+            , employee_out_id
+            , employee_out_info
+            , visitor_record_id
+            , visitor_record_code
+        }
+        const pos_id = body.pos_id;
+        const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
+        const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
+        const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
+        const total_price = parking_payment + overnight_fines + cardloss_price;
+        const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
+        const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
+        const payment_info = body.payment_info && body.payment_info != 'null' ? body.payment_info : null;
+        const payment_flag = total_price > 0 ? 'Y' : 'N';
+
+        let sql0 = `update t_visitor_record set action_out_flag = 'CARDLOST' where visitor_record_id = $1;`
+        const query0 = {
+            text: sql0
+            , values: [visitor_record_id]
+        }
+
+        let sql1 = `insert into t_visitor_record(
+            visitor_record_code,ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
+            ,employee_out_id,employee_out_info,parking_payment_datetime
+            ,losscard_fines,tcpl_id,discount_info,payment_info,parking_payment,overnight_fines,total_price
+            ,pos_id,action_out_flag,company_id,datetime_action,action_type
+            ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+            ,payment_type_id,payment_status_flag,receipt_running
+            ) select
+            (select fun_generate_uuid('VS',8)) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
+            ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
+            ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
+            ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
+            ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
+            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,current_timestamp as parking_out_datetime,$3 as img_visitor_out
+            ,$4 as employee_out_id,$5 as employee_out_info,current_timestamp as parking_payment_datetime
+            ,$6 as losscard_fines
+            ,$7 as tcpl_id
+            ,$8 as discount_info
+            ,$9 as payment_info
+            ,$10 as parking_payment
+            ,$11 as overnight_fines
+            ,$12 as total_price
+            ,$13 as pos_id,'Y' as action_out_flag
+            ,$14 as company_id,current_timestamp as datetime_action,'CARDLOST' as action_type
+            ,$15 as cardproblem_info,$16 as cardproblem_image,'Y' as cardproblem_flag,current_timestamp as cardproblem_datetime
+            ,$17 as payment_type_id
+            ,$18 as payment_status_flag
+            ,(select case when $10 > 0 then 
+                (select coalesce(max(receipt_running)+1,1) from t_visitor_record
+                where company_id = $14
+                and pos_id = $13::varchar)
+                else 0 end
+                from t_visitor_record
+                limit 1 ) as receipt_running
+            from t_visitor_record
+            where visitor_record_id = $19
+            and company_id = $14
+            limit 1
+            `
+
+
+        const query1 = {
+            text: sql1
+            , values: [
+                guardhouse_id, guardhouse_code, image_vehicle
+                , employee_out_id, employee_out_info
+                , cardloss_price
+                , tcpl_id
+                , discount_info
+                , payment_info
+                , parking_payment
+                , overnight_fines
+                , total_price
+                , pos_id
+                , company_id
+                , cardloss_info, image_cardproblem
+                , payment_type_id
+                , payment_flag
+                , visitor_record_id
+            ]
+        }
+        let sql2 = `update m_card`
+        sql2 += ` set visitor_record_id = null`
+        sql2 += `,visitor_record_code = null`
+        sql2 += `,update_by = $1`
+        sql2 += `,update_date = now()`
+        sql2 += `,status_flag = 'N'`
+        sql2 += `,cardproblem_flag = 'Y'`
+        sql2 += `,cardproblem_datetime = now()`
+        sql2 += `,cardproblem_info = $2`
+        sql2 += ` where company_id = $3`
+        sql2 += ` and card_id = $4;`
+        const query2 = {
+            text: sql2
+            , values: [employee_out_id, cardloss_info, company_id, card_id]
+        }
+        const querys = [query0, query1, query2]
+        const res = await this.dbconnecttion.savePgData(querys);
+        if (res.error) throw new StatusException(
+            {
+                error: res.error
+                , result: null
+                , message: this.errMessageUtilsTh.messageProcessFail
+                , statusCode: 200
+            }, 200)
+        else throw new StatusException(
+            {
+                error: null
+                , result: this.errMessageUtilsTh.messageSuccess
+                , message: this.errMessageUtilsTh.messageSuccess
+                , statusCode: 200
+            }, 200)
+    }
+
+
     async checkSlotOrCardIsLoss(@Body() body) {
         const visitor_record_id = body.visitor_record_id;
         let sql = `select visitor_record_id,visitor_record_code,tbv_code`
@@ -275,9 +343,9 @@ export class VisitorSaveCardlossService {
         return res.result[0];
     }
     //---------------------------Save card loss not out
-    async checkRecordInBase(@Body() body){
+    async checkRecordInBase(@Body() body) {
         const visitor_record_id = body.visitor_record_id;
-        let sql = `select card_id,card_code,card_name,visitor_record_code ` 
+        let sql = `select card_id,card_code,card_name,visitor_record_code `
         sql += ` from t_visitor_record `
         sql += ` where visitor_record_id = $1 and action_out_flag = 'N';`
         const query = {
@@ -299,10 +367,10 @@ export class VisitorSaveCardlossService {
                 , message: this.errMessageUtilsTh.errRecordInNotFound
                 , statusCode: 200
             }, 200)
-        return res.result[0]; 
+        return res.result[0];
     }
 
-    async saveCardNotOut(@Body() body, files: any,cardObj: any,employeeObj:any){
+    async saveCardNotOut(@Body() body, files: any, cardObj: any, employeeObj: any) {
         console.log('save card not out')
         const images = files;
         const image_cardproblem = { images }
@@ -316,7 +384,7 @@ export class VisitorSaveCardlossService {
         const guardhouse_code = body.guardhouse_code;
         const employee_out_id = body.employee_out_id;
         const employee_out_info = employeeObj;
-        const cardloss_price = body.cardloss_price;
+        const cardloss_price = body.cardloss_price ? parseInt(body.cardloss_price) : 0;
         const customer_payment = body.customer_payment;
         const change_money = body.change_money;
         const card_id_before = cardObj.card_id;
@@ -341,12 +409,20 @@ export class VisitorSaveCardlossService {
             , visitor_record_code
         }
         const pos_id = body.pos_id;
+        const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
+        const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
+        const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
+        const total_price = parking_payment + overnight_fines + cardloss_price;
+        const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
+        const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
+        const payment_info = body.payment_info && body.payment_info != 'null' ? body.payment_info : null;
+        const payment_flag = total_price > 0 ? 'Y' : 'N';
         console.log(visitor_record_code_new)
 
         let sql0 = `update t_visitor_record set action_out_flag = 'CARDLOST' where visitor_record_id = $1;`
         const query0 = {
-            text:sql0
-            , values:[visitor_record_id]
+            text: sql0
+            , values: [visitor_record_id]
         }
 
         let sql1 = `insert into t_visitor_record(
@@ -357,24 +433,36 @@ export class VisitorSaveCardlossService {
             ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
             ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
             ,guardhouse_out_id,guardhouse_out_code,parking_out_datetime,img_visitor_out
-            ,employee_out_id,employee_out_info,parking_payment_datetime,payment_status_flag
-            ,losscard_fines,discount_info,parking_payment,total_price
-            ,pos_id,action_out_flag,company_id,company_code,datetime_action,action_type
+            ,employee_out_id,employee_out_info,parking_payment_datetime
+            ,losscard_fines,total_price
+            ,pos_id,action_out_flag,company_id,datetime_action,action_type
             ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
+            ,payment_status_flag,parking_payment,discount_info,payment_info
+            ,payment_type_id,receipt_running,tcpl_id
             ) select
-            $17 as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
-            ,visitor_slot_id,visitor_slot_number,$14 as card_id,$15 as card_code,$16 as card_name
+            $16 as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
+            ,visitor_slot_id,visitor_slot_number,$13 as card_id,$14 as card_code,$15 as card_name
             ,cartype_id,cartype_name_contraction,cartype_name_th,cartype_name_en,cartype_category_id,cartype_category_info
             ,visitor_info,action_info,home_id,home_info,guardhouse_in_id,guardhouse_in_code
             ,parking_in_datetime,license_plate,img_visitor_in,employee_in_id,employee_in_info
             ,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag
-            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,now() as parking_out_datetime,$3 as img_visitor_out
-            ,$4 as employee_out_id,$5 as employee_out_info,now() as parking_payment_datetime,'CARDLOST' as payment_status_flag
-            ,$6 as losscard_fines,discount_info,parking_payment,$7 as total_price
-            ,$8 as pos_id,'N' as action_out_flag,$9 as company_id,$10 as company_code,now() as datetime_action,'CARDLOST' as action_type
-            ,$11 as cardproblem_info,$12 as cardproblem_image,'Y' as cardproblem_flag,now() as cardproblem_datetime
+            ,$1 as guardhouse_out_id,$2 as guardhouse_out_code,current_timestamp as parking_out_datetime,$3 as img_visitor_out
+            ,$4 as employee_out_id,$5 as employee_out_info,current_timestamp as parking_payment_datetime
+            ,$6 as losscard_fines,$7 as total_price
+            ,$8 as pos_id,'N' as action_out_flag,$9 as company_id ,current_timestamp as datetime_action,'CARDLOST' as action_type
+            ,$10 as cardproblem_info,$11 as cardproblem_image,'Y' as cardproblem_flag,current_timestamp as cardproblem_datetime
+            ,$17,$18,$19,$20
+            ,$21,(select case when $7 > 0 then 
+                (select coalesce(max(receipt_running)+1,1) from t_visitor_record
+                where company_id = $22
+                and pos_id = $8::varchar)
+                else 0 end
+                from t_visitor_record
+                limit 1 ) as receipt_running
+            ,$22
             from t_visitor_record
-            where visitor_record_id = $13
+            where visitor_record_id = $12
+            and company_id = $23
             limit 1
             `
 
@@ -382,14 +470,18 @@ export class VisitorSaveCardlossService {
         const query1 = {
             text: sql1
             , values: [
-                guardhouse_id,guardhouse_code,image_vehicle
-                ,employee_out_id,employee_out_info
-                ,cardloss_price,cardloss_price
-                ,pos_id,company_id,company_code
-                ,cardloss_info,image_cardproblem
-                ,visitor_record_id
-                ,card_id_after,card_code_after,card_name_after
-                ,visitor_record_code_new
+                guardhouse_id, guardhouse_code, image_vehicle
+                , employee_out_id, employee_out_info
+                , cardloss_price, total_price
+                , pos_id, company_id
+                , cardloss_info, image_cardproblem
+                , visitor_record_id
+                , card_id_after, card_code_after, card_name_after
+                , visitor_record_code_new
+                , payment_flag,parking_payment,discount_info,payment_info
+                , payment_type_id
+                , tcpl_id
+                , company_id
             ]
         }
 
@@ -399,7 +491,6 @@ export class VisitorSaveCardlossService {
         sql2 += `,update_by = $1`
         sql2 += `,update_date = now()`
         sql2 += `,status_flag = 'N'`
-        sql2 += `,delete_flag = 'Y'`
         sql2 += `,cardproblem_flag = 'Y'`
         sql2 += `,cardproblem_datetime = now()`
         sql2 += `,cardproblem_info = $2`
@@ -416,10 +507,12 @@ export class VisitorSaveCardlossService {
         sql3 += ` where company_id = $3`
         sql3 += ` and card_id = $4;`
         const query3 = {
-            text:sql3
-            ,values:[visitor_record_code_new,employee_out_id,company_id,card_id_after]
+            text: sql3
+            , values: [visitor_record_code_new, employee_out_id, company_id, card_id_after]
         }
-        const querys = [query0,query1, query2, query3]
+
+      
+        const querys = [query0, query1, query2, query3]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
             {
@@ -436,7 +529,7 @@ export class VisitorSaveCardlossService {
                 , statusCode: 200
             }, 200)
     }
-    
+
 
     async getUuidFormPg() {
         const sql = `select fun_generate_uuid('VS',8) as _uuid;`

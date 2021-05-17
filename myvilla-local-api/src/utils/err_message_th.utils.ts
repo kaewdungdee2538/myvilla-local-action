@@ -1,6 +1,6 @@
-export class ErrMessageUtilsTH{
+export class ErrMessageUtilsTH {
 
-    messageSuccess ='เรียบร้อย'
+    messageSuccess = 'เรียบร้อย'
     messageSuccessEn = 'Success'
     messageProcessFail = 'ล้มเหลว'
     errConnectServerCalculateError = 'เชื่อมต่อ API คำนวณค่าจอดล้มเหลว'
@@ -30,7 +30,7 @@ export class ErrMessageUtilsTH{
     errVisitorCartypeIDProhibitSpecail = 'รหัสประเภทรถห้ามมีอักขระพิเศษ'
     errVisitorCartypeIDNotNumber = 'รหัสประเภทรถต้องเป็นตัวเลขเท่านั้น'
     errVisitorCartypeNameContractionNotFound = 'ไม่พบอักษรย่อของประเภทรถ'
-    errVisitorCartypeNameContractionProhibitSpecial ='อักษรย่อของประเภทรถ ห้ามมีอักขระพิเศษหรือช่องว่าง'
+    errVisitorCartypeNameContractionProhibitSpecial = 'อักษรย่อของประเภทรถ ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errVisitorCartypeNameThNotFound = 'ไม่พบประเภทรถ (ชื่อไทย)'
     errVisitorCartypeNameThProhibitSpecial = 'ประเภทรถ (ชื่อไทย) ห้ามมีอักขระพิเศษหรือช่องว่าง'
     errVisitorCartypeNameEnNotFound = 'ไม่พบประเภทรถ (ชื่ออังกฤษ)'
@@ -67,10 +67,10 @@ export class ErrMessageUtilsTH{
 
     errGetSlotVisitorNumberCompanyIDNotFound = 'ไม่พบ company id'
     errGetSlotVisitorNumberCompanyIDProhibitSpecial = 'company id ห้ามมีอักขระพิเศษหรือช่องว่าง'
-    errGetSlotVisitorNumberCompanyIDNotNumber ='company id ต้องเป็นตัวเลขเท่านั้น'
+    errGetSlotVisitorNumberCompanyIDNotNumber = 'company id ต้องเป็นตัวเลขเท่านั้น'
     errGetSlotVisitorNumberSlotNumberNotFound = 'ไม่พบเลข Slot'
     errGetSlotVisitorNumberSlotNumberProhibitSpecial = 'เลข Slot ห้ามมีอักขระพิเศษหรือช่องว่าง'
-    errGetSlotVisitorNumberSlotNumberNotNumber ='เลข Slot ต้องเป็นตัวเลขเท่านั้น'
+    errGetSlotVisitorNumberSlotNumberNotNumber = 'เลข Slot ต้องเป็นตัวเลขเท่านั้น'
     errGetSlotVisitorNumberIsFail = 'ค้นหา slot ล้มเหลว'
     errGetSlotVistiorNumberNotValue = 'ไม่พบ Slot ว่าง'
     errGetSlotVisitorNumberNotInDataBase = 'ไม่พบเลข slot ในระบบ'
@@ -82,14 +82,14 @@ export class ErrMessageUtilsTH{
     errVisitorSlotIdProhibitSpecial = 'record id ห้ามมีอักขระพิเศษ หรือช่องว่าง'
 
     errGetCardOrSlotNumberVisitor = 'กรุณาเลือกกรอกเลขบัตร หรือเลข slot อย่างใดอย่างหนึ่ง'
-    
+
     errGetHaveCardCodeAndCardName = 'กรุณาเลือกกรอกเลขบัตร หรือทาบบัตร อย่างใดอย่างหนึ่ง'
     errGetCardNotNumber = 'เลขบัตรต้องเป็นตัวเลขเท่านั้น'
     errGetCardProhibitSpecial = 'เลขบัตรห้ามมีอักขระพิเศษ หรือช่องว่าง'
     errGetCardNotInDatabase = 'ไม่พบบัตรในระบบ'
     errGetCardIsDuplicate = 'บัตรยังไม่ได้ทำรายการออก'
     errGetCardIsNotCheckIn = 'บัตรยังไม่ได้ทำรายการเข้า'
-    errGetCardIDIsFail = 'ค้นหาบัตรล้มเหลว'
+    errGetCardIDIsFail = 'ไม่พบบัตรในระบบ'
 
     errCartypeCategoryNotInbase = 'ไม่พบประเภทรถในระบบ'
 
@@ -98,7 +98,7 @@ export class ErrMessageUtilsTH{
     errVisitorRecord_CodeNotFound = 'ไม่พบ Visitor code'
     errVisitorRecord_CodeProhibit = 'Visitor code ห้ามมีอักขระพิเศษ'
     errVisitorNotVerifyEstamp = 'Visitor ยังไม่ได้ E-Stamp'
-    
+
     errImageNotFound = 'ไม่พบรูปภาพ';
     errImageCardNotFound = 'ไม่พบรูปภาพหน้าบัตร'
     errImageVehicleNotFound = 'ไม่พบรูปภาพพาหนะ'
@@ -113,7 +113,7 @@ export class ErrMessageUtilsTH{
     errGetCompanyIDNotFound = 'ไม่พบรหัส Company'
     errGetCompanyIDNotNumber = 'รหัส Company ต้องเป็นตัวเลขเท่านั้น'
     errGetCompanyIDProhibitSpecial = 'รหัส Company ห้ามมีอักขระพิเศษ หรือช่องว่าง'
-    
+
     errGetGuardhouseIDNotFound = 'ไม่พบรหัสป้อม'
     errGetGuardhouseIDNotNumber = 'รหัสป้อมต้องเป็นตัวเลขเท่านั้น'
     errGetGuardhouseIDProhibitSpecial = 'รหัสป้อม ห้ามมีอักขระพิเศษ หรือช่องว่าง'
@@ -122,14 +122,14 @@ export class ErrMessageUtilsTH{
     errGetCarTypeNotFound = 'ไม่พบรหัสประเภทรถ'
     errGetCarTypeNotNumber = 'รหัสประเภทรถต้องเป็นตัวเลขเท่านั้น'
     errGetCarTypeProhibitSpecial = 'รหัสประเภทรถห้ามมีอักขระพิเศษ หรือช่องว่าง'
-   
+
     errGetCartypeCategoryFail = 'เรียกดูหมวดหมู่รถล้มเหลว'
 
     errGetDataActionInInfoNotFound = 'ไม่พบข้อมูลขาเข้า'
 
     errImagePathNotFound = 'กรุณาใส่ Path รูปภาพ'
     errImageGetFail = 'ไม่พบรูปภาพที่ร้องขอ'
-    
+
     errAuthorizationNotFound = 'ไม่พบ Bearer Token สำหรับร้องขอข้อมูล'
 
     errPosIDNotFound = 'ไม่พบ pos id'
@@ -137,15 +137,15 @@ export class ErrMessageUtilsTH{
 
     errPriceOfCardlossNotFound = 'ไม่พบค่าปรับบัตรหาย'
     errPriceOfCardlossProhibitSpecial = 'ค่าปรับบัตรหายห้ามมีอักขระพิเศษ หรือช่องว่าง'
-    errPriceOfCardlossNotNumber  = 'ค่าปรับบัตรหายต้องเป็นตัวเลขเท่านั้น'
+    errPriceOfCardlossNotNumber = 'ค่าปรับบัตรหายต้องเป็นตัวเลขเท่านั้น'
 
     errCustomerPaymentNotFound = 'ไม่พบจำนวนเงินที่ลูกค้าชำระบริการ'
     errCustomerPaymentProhibitSpecial = 'จำนวนเงินที่ลูกค้าชำระบริการห้ามมีอักขระพิเศษ หรือช่องว่าง'
-    errCustomerPaymentNotNumber  = 'จำนวนเงินที่ลูกค้าชำระบริการต้องเป็นตัวเลขเท่านั้น'
+    errCustomerPaymentNotNumber = 'จำนวนเงินที่ลูกค้าชำระบริการต้องเป็นตัวเลขเท่านั้น'
 
     errChangeMoneyNotFound = 'ไม่พบจำนวนเงินทอน'
     errChangeMoneyProhibitSpecial = 'จำนวนเงินทอนห้ามมีอักขระพิเศษ หรือช่องว่าง'
-    errChangeMoneyNotNumber  = 'จำนวนเงินทอนต้องเป็นตัวเลขเท่านั้น'
+    errChangeMoneyNotNumber = 'จำนวนเงินทอนต้องเป็นตัวเลขเท่านั้น'
 
     errPaymentIncomplete = 'ชำระเงินไม่ครบถ้วน'
 
@@ -210,4 +210,12 @@ export class ErrMessageUtilsTH{
     errSendParcelDetailProhitbitSpecial = 'ละเอียดการส่งมอบพัสดุ ห้ามมีอักขระพิเศษ'
 
     errVisitorPendantNotInBase = 'ไม่พบรายการเข้าในระบบ'
+    errTcplNotNumber = 'รหัส TCPL ต้องเป็นตัวเลขเท่านั้น'
+    errTcplProhitbitSpecial = 'รหัส TCPL ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errSumParkingNotNumber = 'ค่าจอดต้องเป็นตัวเลขเท่านั้น'
+    errSumParkingProhitbitSpecial = 'ค่าจอด ห้ามมีอักขระพิเศษ หรือช่องว่าง'
+    errOverFineNotNumber = 'ค่าปรับบัตรหายต้องเป็นตัวเลขเท่านั้น'
+    errOverFineProhitbitSpecial = `ค่าปรับบัตรหาย ห้ามมีอักขระพิเศษ หรือช่องว่าง`
+    errPaymentTypeIdNotNumber = 'รหัสประเภทการจ่ายเงินต้องเป็นตัวเลขเท่านั้น'
+    errPaymentTypeIdProhitbitSpecial = `รหัสประเภทการจ่ายเงิน ห้ามมีอักขระพิเศษ หรือช่องว่าง`
 }

@@ -11,8 +11,10 @@ export class CalTimediffService {
     }
 
     convertTimeDiffToText(intervalInput:number){
+        let newInterval = intervalInput ? intervalInput : 0;
         const days = Math.floor(intervalInput/1440);
-        const hours = Math.floor(intervalInput/60)
+        newInterval = Math.floor(intervalInput % 1440);
+        const hours = Math.floor(newInterval/60)
         const minutes = intervalInput%60
         const daysText = days > 0 ? `${days} วัน ` : "";
         const hoursText = hours > 0 ? `${hours} ชั่วโมง ` : "";

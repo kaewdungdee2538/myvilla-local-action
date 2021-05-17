@@ -1,6 +1,7 @@
 const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 const formatuuid = /[ `!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?~]/;
 const formathome = /[`@#$%^&*;'|<>~]/;
+const formatNumber = /[0-9]/;
 export class FormatDataUtils {
     HaveSpecialFormat(input: string) {
         if (format.test(input))
@@ -14,7 +15,7 @@ export class FormatDataUtils {
         return false;
     }
 
-    HaveSpecialUuidFormat(input:string){
+    HaveSpecialUuidFormat(input: string) {
         if (formatuuid.test(input))
             return true;
         return false;
@@ -37,7 +38,12 @@ export class FormatDataUtils {
         } catch { return fail }
     }
 
-
+    IsNotNumber(input: string) {
+        if (formatNumber.test(input))
+            return false;
+        return true;
+    }
+    
     IsEmptyOrSpaces(str: string) {
         //return str === null || str.match(/^ *$/) !== null;
         if (!str)

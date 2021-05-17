@@ -208,7 +208,7 @@ export class ActionInService {
         const card_name = body.card_name;
         let sql = `select card_id,card_code,card_name`
         sql += ` from m_card`
-        sql += ` where delete_flag = 'N' and status_flag = 'N'`
+        sql += ` where delete_flag = 'N' and status_flag = 'N' and cardproblem_flag = 'N'`
         sql += ` and company_id = $1`
         sql += ` and (card_code = $2 or card_name = $3);`
         const query = {

@@ -11,6 +11,7 @@ import { vsCardLossSaveMiddleware } from 'src/middleware/visitor/card-loss/save/
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ActionOutValuesInterceptor } from 'src/interceptor/visitor/action-out/action-out-values.interceptor';
 
 @Controller('bannayuu/api/visitor/cardloss/save-cardloss')
 export class VisitorSaveCardlossController {
@@ -35,7 +36,8 @@ export class VisitorSaveCardlossController {
             fileFilter: imageFileFilter,
             limits:{fileSize: 1024*1024*5}
         }),
-        DefaultInterceptor
+        DefaultInterceptor,
+        ActionOutValuesInterceptor
     )
     async saveCardLoss(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
@@ -95,7 +97,8 @@ export class VisitorSaveCardlossController {
             }),
             fileFilter: imageFileFilter,
         }),
-        DefaultInterceptor
+        DefaultInterceptor,
+        ActionOutValuesInterceptor
     )
     async saveCardLossNotOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));

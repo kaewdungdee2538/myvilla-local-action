@@ -52,7 +52,8 @@ export class ActionInController {
         //     }),
         //     fileFilter: imageFileFilter,
         // }),
-        DefaultInterceptor
+        DefaultInterceptor,
+        
     )
     async ActionSaveIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
@@ -182,7 +183,7 @@ export class ActionInController {
             return this.actionINService.ActionSaveIn(files, body, null, getCardID, getHomeID, getEmployeeID, getCartype);
         throw new StatusException(
             {
-                error: getCardID.error
+                error: this.errMessageUtilsTh.errGetCardIDIsFail
                 , result: null
                 , message: this.errMessageUtilsTh.errGetCardIDIsFail
                 , statusCode: 200

@@ -121,16 +121,24 @@ export class ActionOutSaveService {
     async Save(@Body() body, files: any, recordInObj: any, employeeObj: any) {
         const images = files;
         const company_id = recordInObj.company_id
-        
+
         const visitor_record_code = recordInObj.visitor_record_code;
         const visitor_slot_id = recordInObj.visitor_slot_id;
         const card_id = recordInObj.card_id
         const employee_out_id = body.employee_out_id
-        const employee_out_info = employeeObj
+        const employee_out_info = JSON.stringify(employeeObj)
         const img_visitor_out = { images }
         const guardhouse_out_id = body.guardhouse_out_id
         const guardhouse_out_code = body.guardhouse_out_code;
-        const pos_id = body.pos_id;
+        const pos_id = body.pos_id ? body.pos_id.toString() : '';
+        const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
+        const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
+        const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
+        const total_price = parking_payment + overnight_fines;
+        const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
+        const payment_flag = total_price > 0 ? 'Y' : 'N';
+        const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
+        const payment_info = body.payment_info && body.payment_info != 'null' ? body.payment_info : null;
         console.log(JSON.stringify(recordInObj));
         let sql1 = `update t_visitor_record set 
         img_visitor_out = $1
@@ -142,11 +150,36 @@ export class ActionOutSaveService {
         ,datetime_action = current_timestamp
         ,employee_out_id = $4
         ,employee_out_info = $5
-        ,pos_id = $6
-         where visitor_record_code = $7 and company_id = $8;`
+        ,pos_id = $6::varchar
+        ,tcpl_id = $7
+        ,payment_status_flag = $8
+        ,parking_payment_datetime = 
+        (select case when $12 > 0 then current_timestamp else null end)
+        ,payment_type_id = $9
+        ,parking_payment = $10
+        ,overnight_fines = $11
+        ,total_price = $12
+        ,discount_info = $13
+        ,receipt_running = (select case when $10 > 0 then 
+            (select coalesce(max(receipt_running)+1,1) from t_visitor_record
+            where company_id = $15
+            and pos_id = $6::varchar)
+            else 0 end
+            from t_visitor_record
+            limit 1 )
+        ,payment_info = $14
+        where company_id = $15 and visitor_record_code = $16;`
         const query = {
             text: sql1
-            , values: [img_visitor_out, guardhouse_out_id, guardhouse_out_code, employee_out_id, employee_out_info, pos_id, visitor_record_code, company_id]
+            , values: [
+                img_visitor_out, guardhouse_out_id, guardhouse_out_code
+                , employee_out_id, employee_out_info, pos_id
+                , tcpl_id, payment_flag, payment_type_id
+                , parking_payment, overnight_fines, total_price
+                , discount_info
+                , payment_info
+                , company_id, visitor_record_code
+            ]
         }
         let query2;
         if (visitor_slot_id) {

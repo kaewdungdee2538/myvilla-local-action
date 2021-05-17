@@ -90,10 +90,12 @@ export class BActionInService {
             ]
         }
 
-        let sql2 = `update t_booking_visitor set tbv_status ='Y' where company_id = $1 and tbv_code = $2;`
+        let sql2 = `update t_booking_visitor set tbv_status ='Y' 
+        ,update_by = $1 ,update_date = current_timestamp
+        where company_id = $2 and tbv_code = $3;`
         const query2 = {
             text:sql2
-            ,values:[company_id,tbv_code]
+            ,values:[employee_in_id,company_id,tbv_code]
         }
 
         const querys = [query1,query2];

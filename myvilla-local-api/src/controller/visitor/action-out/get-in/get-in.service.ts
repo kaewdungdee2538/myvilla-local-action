@@ -81,7 +81,7 @@ export class GetInService {
         ,img_visitor_in->'images' as image_path
         ,estamp_flag,estamp_id,estamp_info
         ,to_char(estamp_datetime,'YYYY-MM-DD HH24:MI:SS') as estamp_datetime
-        ,to_char(parking_in_datetime,'YYYY-MM-DD HH24:MI:SS') as parking_in_datetime
+        ,coalesce(to_char(parking_payment_datetime,'YYYY-MM-DD HH24:MI:SS'),to_char(parking_in_datetime,'YYYY-MM-DD HH24:MI:SS')) as parking_in_datetime
         ,to_char(datetime_action,'YYYY-MM-DD HH24:MI:SS') as datetime_action
         ,to_char(current_timestamp,'YYYY-MM-DD HH24:MI:SS') as date_now
         ,employee_in_id,employee_in_info
@@ -156,6 +156,7 @@ export class GetInService {
                     , result: {
                         ...resultReUse
                         , calculate_info: {
+                            tcpl_id:null,
                             cartype_id: resultReUse.cartype_id,
                             start_date: resultReUse.parking_in_datetime,
                             end_date: resultReUse.date_now,

@@ -12,6 +12,7 @@ import { ActionOutInterceptor } from 'src/interceptor/visitor/action-out/action-
 import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action-out/estamp-verify/vs_action_out_estamp_verify.middleware';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ActionOutValuesInterceptor } from 'src/interceptor/visitor/action-out/action-out-values.interceptor';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
@@ -39,6 +40,7 @@ export class ActionOutSaveController {
             limits:{fileSize: 1024*1024*5}
         }),
         DefaultInterceptor,
+        ActionOutValuesInterceptor,
     )
     async ActionSaveOut(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
