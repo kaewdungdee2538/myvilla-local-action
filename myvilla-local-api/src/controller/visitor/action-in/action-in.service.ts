@@ -28,7 +28,6 @@ export class ActionInService {
             images
         }
         const company_id = body.company_id;
-        const company_code = body.company_code;
         const guardhouse_in_id = body.guardhouse_in_id;
         const guardhouse_in_code = body.guardhouse_in_code;
         const license_plate = body.license_plate;
@@ -58,7 +57,7 @@ export class ActionInService {
         sql1 += ',action_info'
         sql1 += ',img_visitor_in'
         sql1 += ',action_type'
-        sql1 += ',company_id,company_code'
+        sql1 += ',company_id'
         sql1 += ',guardhouse_in_id,guardhouse_in_code'
         sql1 += ',datetime_action'
         sql1 += ',parking_in_datetime'
@@ -78,17 +77,17 @@ export class ActionInService {
         sql1 += `,$9`
         sql1 += `,$10`
         sql1 += `,'IN'`,
-        sql1 += `,$11,$12`
-        sql1 += `,$13,$14`
+        sql1 += `,$11`
+        sql1 += `,$12,$13`
         sql1 += ',now(),now()'
+        sql1 += `,$14`
         sql1 += `,$15`
         sql1 += `,$16`
         sql1 += `,$17`
-        sql1 += `,$18`
-        sql1 += `,$19,$20`
-        sql1 += `,$21`
-        sql1 += `,$22,$23`
-        sql1 += `,$24`
+        sql1 += `,$18,$19`
+        sql1 += `,$20`
+        sql1 += `,$21,$22`
+        sql1 += `,$23`
         sql1 += ');'
         const query1 = {
             text: sql1
@@ -104,7 +103,6 @@ export class ActionInService {
                 , action_info
                 , img_visitor_in
                 , company_id
-                , company_code
                 , guardhouse_in_id
                 , guardhouse_in_code
                 , license_plate

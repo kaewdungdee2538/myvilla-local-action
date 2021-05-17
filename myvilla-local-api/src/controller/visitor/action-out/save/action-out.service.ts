@@ -86,7 +86,7 @@ export class ActionOutSaveService {
             ,license_plate
             ,img_visitor_in
             ,parking_in_datetime
-            ,company_id,company_code
+            ,company_id
             ,guardhouse_in_id,guardhouse_in_code
             ,employee_in_id,employee_in_info
             ,visitor_record_code

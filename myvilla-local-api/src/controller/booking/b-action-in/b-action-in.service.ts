@@ -24,7 +24,6 @@ export class BActionInService {
             images
         }
         const company_id = body.company_id;
-        const company_code = body.company_code;
         const guardhouse_in_id = body.guardhouse_in_id;
         const guardhouse_in_code = body.guardhouse_in_code;
         const license_plate = body.license_plate;
@@ -58,7 +57,7 @@ export class BActionInService {
             ,license_plate
             ,img_visitor_in
             ,employee_in_id,employee_in_info
-            ,company_id,company_code
+            ,company_id
             ,datetime_action,action_type
         ) values(
             $1,$2
@@ -71,7 +70,7 @@ export class BActionInService {
             ,$15
             ,$16
             ,$17,$18
-            ,$19,$20
+            ,$19
             ,now(),'IN'
         );`
         const query1 = {
@@ -86,7 +85,7 @@ export class BActionInService {
                 , license_plate
                 , img_visitor_in
                 , employee_in_id, employee_in_info
-                , company_id, company_code
+                , company_id
             ]
         }
 
