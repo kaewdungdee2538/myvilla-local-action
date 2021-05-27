@@ -16,7 +16,7 @@ export class VisitorGetPriceofcardlossService {
 
     async getPriceCardloss(@Body() body) {
         const company_id = body.company_id;
-        let sql = `select setting_local_value from m_setting_local where delete_flag = 'N' and setting_local_param = 'price_of_cardloss' and company_id = $1;`
+        let sql = `select setup_data->'price_of_cardloss' as price_of_cardloss from m_setup where delete_flag = 'N' and ref_setup_id = 8 and company_id = $1;`
         const query = {
             text: sql
             , values: [company_id]
@@ -34,7 +34,7 @@ export class VisitorGetPriceofcardlossService {
         throw new StatusException(
             {
                 error: null
-                , result: { price_of_cardloss: res.result[0].setting_local_value }
+                , result: { price_of_cardloss: res.result[0].price_of_cardloss ? res.result[0].price_of_cardloss : 0 }
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 200
             }

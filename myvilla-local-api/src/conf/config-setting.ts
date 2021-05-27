@@ -1,6 +1,6 @@
 export const configfile = {
     "HOST": "52.74.38.92",
-    "DATABASE": "b_nayuu_db",
+    "DATABASE": "uat_cit_bannayuu_db",
     "PORT_API": "4090",
     "PATHSAVEIMAGE": "C:\\Bannayuu\\Visitor\\Image\\files",
     "PATHFOLDERSTATIC": "C:\\Bannayuu\\Visitor\\Image\\files",
