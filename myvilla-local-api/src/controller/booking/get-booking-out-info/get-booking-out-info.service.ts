@@ -42,7 +42,7 @@ export class GetBookingOutInfoService {
         ,tb.tbv_contact_person
         ,tb.tbv_mobile_contact_person
         ,img_visitor_in
-        ,tvr.estamp_id,tvr.estamp_info
+        ,tvr.estamp_id
         ,to_char(tvr.estamp_datetime,'YYYY-MM-DD HH24:MI:SS') as estamp_datetime
         ,tvr.estamp_image
         ,tvr.estamp_flag

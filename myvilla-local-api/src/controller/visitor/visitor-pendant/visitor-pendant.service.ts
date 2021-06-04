@@ -31,7 +31,7 @@ export class VisitorPendantService {
          ,parking_in_datetime
          ,datetime_action
          ,guardhouse_in_id,guardhouse_in_code
-         ,estamp_flag,estamp_id,estamp_info,estamp_datetime
+         ,estamp_flag,estamp_datetime
          ,employee_in_id,employee_in_info
          from t_visitor_record
          where action_out_flag = 'N'

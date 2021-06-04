@@ -79,7 +79,7 @@ export class GetInService {
         ,cartype_id,cartype_name_th,cartype_name_en,visitor_info,action_info
         ,home_id,home_info,license_plate
         ,img_visitor_in->'images' as image_path
-        ,estamp_flag,estamp_id,estamp_info
+        ,estamp_flag,estamp_id
         ,to_char(estamp_datetime,'YYYY-MM-DD HH24:MI:SS') as estamp_datetime
         ,coalesce(to_char(parking_payment_datetime,'YYYY-MM-DD HH24:MI:SS'),to_char(parking_in_datetime,'YYYY-MM-DD HH24:MI:SS')) as parking_in_datetime
         ,to_char(datetime_action,'YYYY-MM-DD HH24:MI:SS') as datetime_action

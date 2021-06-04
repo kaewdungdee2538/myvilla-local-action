@@ -31,7 +31,7 @@ export class VsEstampService {
 		,home_info->'home_address' as home_address
 		,license_plate
 		,to_char(parking_in_datetime,'DD/MM/YYYY HH24:MI:SS') as parking_in_datetime
-		,estamp_id,estamp_info
+		,estamp_id
         ,to_char(estamp_datetime,'DD/MM/YYYY HH24:MI:SS') as estamp_datetime
         ,estamp_home_line_id
 		,case when estamp_flag = 'Y' then true else false end as estamp_flag

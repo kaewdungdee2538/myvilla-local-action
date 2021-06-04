@@ -317,7 +317,7 @@ export class VisitorSaveCardlossService {
         sql += `,license_plate`
         sql += `,img_visitor_in`
         sql += `,employee_in_id,employee_in_info`
-        sql += `,estamp_id,estamp_info,estamp_datetime,estamp_image,estamp_flag`
+        sql += `,estamp_id,estamp_datetime,estamp_image,estamp_flag`
         sql += ` from t_visitor_record`
         sql += ` where tbv_code is null and visitor_record_id = $1 and action_out_flag = 'N';`;
         const query = {

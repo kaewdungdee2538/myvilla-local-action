@@ -29,7 +29,7 @@ export class GetSlotService {
         const building_id = body.company_id;
         const guardhouse_id = body.guardhouse_id;
         let sql = `select visitor_slot_number::integer,visitor_slot_id::integer from m_visitor_slot where status_flag ='N'`;
-        sql += ` and company_id = $1 and guardhouse_id = $2`;
+        sql += ` and company_id = $1 and guardhouse_id = $2 order by visitor_slot_number`;
 
         const querys = {
             text: sql
