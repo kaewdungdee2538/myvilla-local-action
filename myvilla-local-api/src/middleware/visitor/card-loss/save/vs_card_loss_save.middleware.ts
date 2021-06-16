@@ -86,8 +86,8 @@ export class vsCardLossSaveMiddleware {
             return this.errMessageUrilTh.errCardlossCardNameBeforeNotFound
         else if (this.formatDataUtils.HaveSpecialFormat(body.card_name_before))
             return this.errMessageUrilTh.errCardlossCardNameBeforeProhibitSpecial
-        else if (!this.formatDataUtils.IsNumber(body.card_name_before))
-            return this.errMessageUrilTh.errCardlossCardNameBeforeNotNumber
+        // else if (!this.formatDataUtils.IsNumber(body.card_name_before))
+        //     return this.errMessageUrilTh.errCardlossCardNameBeforeNotNumber
         else if (!body.card_id_after)
             return this.errMessageUrilTh.errCardlossCardIDAfterNotFound
         else if (this.formatDataUtils.HaveSpecialFormat(body.card_id_after))
@@ -104,8 +104,8 @@ export class vsCardLossSaveMiddleware {
             return this.errMessageUrilTh.errCardlossCardNameAfterNotFound
         else if (this.formatDataUtils.HaveSpecialFormat(body.card_name_after))
             return this.errMessageUrilTh.errCardlossCardNameAfterProhibitSpecial
-        else if (!this.formatDataUtils.IsNumber(body.card_name_after))
-            return this.errMessageUrilTh.errCardlossCardNameAfterNotNumber
+        // else if (!this.formatDataUtils.IsNumber(body.card_name_after))
+        //     return this.errMessageUrilTh.errCardlossCardNameAfterNotNumber
         const inputObjBefore = {
             company_id: body.company_id
             , card_code: !body.card_code_before ? '' : body.card_code_before

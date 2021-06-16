@@ -135,6 +135,7 @@ export class ActionOutSaveService {
         const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
         const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
         const total_price = parking_payment + overnight_fines;
+        const customer_payment = body.customer_payment ? parseInt(body.customer_payment) : 0;
         const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
         const payment_flag = total_price > 0 ? 'Y' : 'N';
         const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
@@ -168,7 +169,8 @@ export class ActionOutSaveService {
             from t_visitor_record
             limit 1 )
         ,payment_info = $14
-        where company_id = $15 and visitor_record_code = $16;`
+        ,customer_payment = $15
+        where company_id = $16 and visitor_record_code = $17;`
         const query = {
             text: sql1
             , values: [
@@ -178,6 +180,7 @@ export class ActionOutSaveService {
                 , parking_payment, overnight_fines, total_price
                 , discount_info
                 , payment_info
+                , customer_payment
                 , company_id, visitor_record_code
             ]
         }

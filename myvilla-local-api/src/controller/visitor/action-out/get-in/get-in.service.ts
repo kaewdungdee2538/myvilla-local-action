@@ -156,7 +156,7 @@ export class GetInService {
                     , result: {
                         ...resultReUse
                         , calculate_info: {
-                            tcpl_id:null,
+                            tcpl_id:0,
                             cartype_id: resultReUse.cartype_id,
                             start_date: resultReUse.parking_in_datetime,
                             end_date: resultReUse.date_now,

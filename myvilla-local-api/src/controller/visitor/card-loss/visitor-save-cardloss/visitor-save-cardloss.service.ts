@@ -36,7 +36,7 @@ export class VisitorSaveCardlossService {
         const employee_out_id = body.employee_out_id;
         const employee_out_info = employeeObj;
         const cardloss_price = body.cardloss_price ? parseInt(body.cardloss_price) : 0;
-        const customer_payment = body.customer_payment;
+        const customer_payment = body.customer_payment ? parseInt(body.customer_payment) : 0;
         const change_money = body.change_money;
         const visitor_slot_id = slotObj.visitor_slot_id;
         const cardloss_info = {
@@ -75,7 +75,7 @@ export class VisitorSaveCardlossService {
         ,losscard_fines,tcpl_id,discount_info,payment_info,parking_payment,overnight_fines,total_price
         ,pos_id,action_out_flag,company_id,datetime_action,action_type
         ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
-        ,payment_type_id,payment_status_flag,receipt_running
+        ,payment_type_id,payment_status_flag,receipt_running,customer_payment
         ) select
         fun_generate_uuid('VS',8) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
         ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
@@ -104,8 +104,9 @@ export class VisitorSaveCardlossService {
             else 0 end
             from t_visitor_record
             limit 1 ) as receipt_running
+        ,$19 as customer_payment
         from t_visitor_record
-        where visitor_record_id = $19
+        where visitor_record_id = $20
         and company_id = $14
         limit 1;
         `
@@ -126,6 +127,7 @@ export class VisitorSaveCardlossService {
                 , cardloss_info, image_cardproblem
                 , payment_type_id
                 , payment_flag
+                , customer_payment
                 , visitor_record_id
             ]
         }
@@ -214,7 +216,7 @@ export class VisitorSaveCardlossService {
             ,losscard_fines,tcpl_id,discount_info,payment_info,parking_payment,overnight_fines,total_price
             ,pos_id,action_out_flag,company_id,datetime_action,action_type
             ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
-            ,payment_type_id,payment_status_flag,receipt_running
+            ,payment_type_id,payment_status_flag,receipt_running,customer_payment
             ) select
             (select fun_generate_uuid('VS',8)) as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
             ,visitor_slot_id,visitor_slot_number,card_id,card_code,card_name
@@ -243,12 +245,12 @@ export class VisitorSaveCardlossService {
                 else 0 end
                 from t_visitor_record
                 limit 1 ) as receipt_running
+            ,$19 as customer_payment
             from t_visitor_record
-            where visitor_record_id = $19
+            where visitor_record_id = $20
             and company_id = $14
             limit 1
             `
-
 
         const query1 = {
             text: sql1
@@ -267,9 +269,11 @@ export class VisitorSaveCardlossService {
                 , cardloss_info, image_cardproblem
                 , payment_type_id
                 , payment_flag
+                , customer_payment
                 , visitor_record_id
             ]
         }
+        console.log(query1);
         let sql2 = `update m_card`
         sql2 += ` set visitor_record_id = null`
         sql2 += `,visitor_record_code = null`
@@ -385,7 +389,7 @@ export class VisitorSaveCardlossService {
         const employee_out_id = body.employee_out_id;
         const employee_out_info = employeeObj;
         const cardloss_price = body.cardloss_price ? parseInt(body.cardloss_price) : 0;
-        const customer_payment = body.customer_payment;
+        const customer_payment = body.customer_payment ? parseInt(body.customer_payment) : 0;
         const change_money = body.change_money;
         const card_id_before = cardObj.card_id;
         const card_code_before = cardObj.card_code;
@@ -439,6 +443,7 @@ export class VisitorSaveCardlossService {
             ,cardproblem_info,cardproblem_image,cardproblem_flag,cardproblem_datetime
             ,payment_status_flag,parking_payment,discount_info,payment_info
             ,payment_type_id,receipt_running,tcpl_id
+            ,customer_payment
             ) select
             $16 as visitor_record_code,visitor_record_id as ref_visitor_record_id,tbv_code
             ,visitor_slot_id,visitor_slot_number,$13 as card_id,$14 as card_code,$15 as card_name
@@ -459,10 +464,10 @@ export class VisitorSaveCardlossService {
                 else 0 end
                 from t_visitor_record
                 limit 1 ) as receipt_running
-            ,$22
+            ,$22 as tcpl_id,$23 as customer_payment
             from t_visitor_record
             where visitor_record_id = $12
-            and company_id = $23
+            and company_id = $24
             limit 1
             `
 
@@ -478,9 +483,10 @@ export class VisitorSaveCardlossService {
                 , visitor_record_id
                 , card_id_after, card_code_after, card_name_after
                 , visitor_record_code_new
-                , payment_flag,parking_payment,discount_info,payment_info
+                , payment_flag, parking_payment, discount_info, payment_info
                 , payment_type_id
                 , tcpl_id
+                , customer_payment
                 , company_id
             ]
         }
@@ -511,7 +517,7 @@ export class VisitorSaveCardlossService {
             , values: [visitor_record_code_new, employee_out_id, company_id, card_id_after]
         }
 
-      
+
         const querys = [query0, query1, query2, query3]
         const res = await this.dbconnecttion.savePgData(querys);
         if (res.error) throw new StatusException(
