@@ -23,18 +23,18 @@ export class VsActionInInfoMiddleWare{
             //     return this.errMessageUtilsTh.errVisitorInfoPrefixNameNotFound
             // else if (this.formatUtils.HaveSpecialFormat(visitorInfo.prefix_name))
             //     return this.errMessageUtilsTh.errVisitorInfoPrefixNameProhibitSpecial;
-            if (!visitorInfo.first_name_th)
-                return this.errMessageUtilsTh.errVisitorInfoFirstNameNotFound;
-            else if (this.formatUtils.HaveSpecialFormat(visitorInfo.first_name_th))
-                return this.errMessageUtilsTh.errVisitorInfoFirstNameProhibitSpecial;
-            else if (!visitorInfo.last_name_th)
-                return this.errMessageUtilsTh.errVisitorInfoLastNameNotFound;
-            else if (this.formatUtils.HaveSpecialFormat(visitorInfo.last_name))
-                return this.errMessageUtilsTh.errVisitorInfoLastNameProhibitSpecial;
-            else if (!visitorInfo.identity_card)
-                return this.errMessageUtilsTh.errVisitorInfoIdentityNotFound
-            else if(this.formatUtils.HaveSpecialFormat(visitorInfo.identity_card))
-                return this.errMessageUtilsTh.errVisitorInfoIdentityProhitbitSpecial
+            // if (!visitorInfo.first_name_th)
+            //     return this.errMessageUtilsTh.errVisitorInfoFirstNameNotFound;
+            // else if (this.formatUtils.HaveSpecialFormat(visitorInfo.first_name_th))
+            //     return this.errMessageUtilsTh.errVisitorInfoFirstNameProhibitSpecial;
+            // else if (!visitorInfo.last_name_th)
+            //     return this.errMessageUtilsTh.errVisitorInfoLastNameNotFound;
+            // else if (this.formatUtils.HaveSpecialFormat(visitorInfo.last_name))
+            //     return this.errMessageUtilsTh.errVisitorInfoLastNameProhibitSpecial;
+            // else if (!visitorInfo.identity_card)
+            //     return this.errMessageUtilsTh.errVisitorInfoIdentityNotFound
+            // else if(this.formatUtils.HaveSpecialFormat(visitorInfo.identity_card))
+            //     return this.errMessageUtilsTh.errVisitorInfoIdentityProhitbitSpecial
             // else if (!this.formatUtils.IsFormatIdentityCard(visitorInfo.identity_card))
             //     return this.errMessageUtilsTh.errVisitorInfoIdentityFormatNotValid;
             return null;
