@@ -1,23 +1,22 @@
 import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
-import { diskStorage } from 'multer'
-import { BActionOutInterceptor } from 'src/interceptor/booking/actionout/b-action-out.interceptor';
-import { StatusException } from 'src/utils/callback.status';
-import { BActionOutService } from './b-action-out.service';
-import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
-import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
-import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
-import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
-import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
-import { configfile } from '../../../conf/config-setting'
-import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-@Controller('bannayuu/api/booking/b-action-out')
-export class BActionOutController {
+import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
+import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
+import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
+import { LptBSaveOutService } from './lpt-b-save-out.service';
+import { diskStorage } from 'multer';
+import { configfile } from '../../../conf/config-setting'
+import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { StatusException } from 'src/utils/callback.status';
+import { LPRBSaveOutInterceptor } from 'src/interceptor/lpr/ิbooking-out/lpr-b-booking-save-out.interceptor';
 
+@Controller('bannayuu/api/lpr/booking/save-out')
+export class LptBSaveOutController {
     constructor(
-        private readonly bActionOUTService: BActionOutService
+        private readonly bActionOUTService: LptBSaveOutService
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
         , private readonly bgetBookingOutInfoMiddleware: bGetBookingOutInfoMiddleware
         , private readonly bActionOutMiddleware: BActionOutMiddleware
@@ -27,7 +26,7 @@ export class BActionOutController {
     @Post('save')
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(
-        BActionOutInterceptor,
+        LPRBSaveOutInterceptor,
         FileFieldsInterceptor([
             , { name: 'image_vehicle', maxCount: 1 }
         ], {

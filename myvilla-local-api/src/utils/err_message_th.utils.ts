@@ -181,6 +181,7 @@ export class ErrMessageUtilsTH {
     errBookingNotFound = 'ไม่พบข้อมูลการจอง หรือหมดเวลาจองไปแล้ว'
     errBookingQRNotFound = 'ไม่พบ QR Code ในระบบ'
     errBookingQRCodeNotIn = 'QR Code ไม่ได้ทำรายการเข้า'
+    errBookingIsUse = 'QR Code นี้ถูกใช้งานไปแล้ว'
 
     errBookingGetError = 'ตรวจสอบ Booking Error กรุณาติดต่อเจ้าหน้าที่'
     errBookingNotVerifyEstamp = 'ไม่พบการ E-Stamp จากลูกบ้าน'
@@ -218,4 +219,7 @@ export class ErrMessageUtilsTH {
     errOverFineProhitbitSpecial = `ค่าปรับบัตรหาย ห้ามมีอักขระพิเศษ หรือช่องว่าง`
     errPaymentTypeIdNotNumber = 'รหัสประเภทการจ่ายเงินต้องเป็นตัวเลขเท่านั้น'
     errPaymentTypeIdProhitbitSpecial = `รหัสประเภทการจ่ายเงิน ห้ามมีอักขระพิเศษ หรือช่องว่าง`
+
+    errLicensePlateNotFound = 'ไม่พบทะเบียนรถ'
+    errLicensePlateProhibitSpecial = 'ทะเบียนรถ ห้ามมีอักขระพิเศษ'
 }

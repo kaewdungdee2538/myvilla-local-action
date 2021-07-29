@@ -43,7 +43,7 @@ export class ActionInController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
-            limits: { fileSize: 1024 * 1024 * 5 }
+            limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE }
         }),
         // FilesInterceptor('image', 20, {
         //     storage: diskStorage({

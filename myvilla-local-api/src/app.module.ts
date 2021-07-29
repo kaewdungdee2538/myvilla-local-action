@@ -8,6 +8,10 @@ import { BActionOutModule } from './controller/booking/b-action-out/b-action-out
 import { GetBookingInfoModule } from './controller/booking/get-booking-info/get-booking-info.module';
 import { GetBookingOutInfoModule } from './controller/booking/get-booking-out-info/get-booking-out-info.module';
 import { GetImageModule } from './controller/image/get-image/get-image.module';
+import { LPRBCheckInModule } from './controller/lpr/b-check-in/b-check-in.module';
+import { LPRBCheckOutModule } from './controller/lpr/b-check-out/b-check-out.module';
+import { LptBSaveInModule } from './controller/lpr/lpt-b-save-in/lpt-b-save-in.module';
+import { LptBSaveOutModule } from './controller/lpr/lpt-b-save-out/lpt-b-save-out.module';
 import { ParcelModule } from './controller/parcel/parcel.module';
 import { ResetVisitorModule } from './controller/reset-data/reset-visitor/reset-visitor.module';
 import { SosModule } from './controller/sos/sos/sos.module';
@@ -56,6 +60,10 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , VsEstampModule
     , SosModule
     , ParcelModule
+    , LPRBCheckInModule
+    , LPRBCheckOutModule
+    , LptBSaveInModule
+    , LptBSaveOutModule
   ],
   controllers: [AppController],
   providers: [AppService],

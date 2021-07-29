@@ -1,4 +1,4 @@
-import {configfile} from '../../../../conf/config-setting'
+import { configfile } from '../../../../conf/config-setting'
 import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
@@ -21,8 +21,8 @@ export class ActionOutSaveController {
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
         , private readonly vsactionOutSlotOrCardMid: VsActionOutSlotOrCardMiddleWare
         , private readonly vsactionOutForSaveMid: VsActionOutForSaveMiddleWare
-        , private readonly vsactionOutVerifyEstamMiddleware:vsActionOutVerifyEstampMiddleware
-        ) { }
+        , private readonly vsactionOutVerifyEstamMiddleware: vsActionOutVerifyEstampMiddleware
+    ) { }
 
     @Post('save')
     @UseGuards(JwtAuthGuard)
@@ -37,7 +37,7 @@ export class ActionOutSaveController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
-            limits:{fileSize: 1024*1024*5}
+            limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE }
         }),
         DefaultInterceptor,
         ActionOutValuesInterceptor,
@@ -68,11 +68,11 @@ export class ActionOutSaveController {
         const pathDriver = files.image_vehicle.map(file => {
             return file.path.replace(pathMain, '');
         })
-       
+
         // const pathLicense = files.image_vehicle.map(file => {
         //     return file.path.replace(pathMain, '');
         // })
-       
+
         const imagesNameObj = {
             image_vehicle: pathDriver[0]
             // , image_license: pathLicense[0]
@@ -99,15 +99,15 @@ export class ActionOutSaveController {
                 }, 200
             )
         const middlewareEstampVerify = await this.vsactionOutVerifyEstamMiddleware.checkValues(body)
-        if(middlewareEstampVerify)
-        throw new StatusException(
-            {
-                error: middlewareEstampVerify
-                , result: null
-                , message: middlewareEstampVerify
-                , statusCode: 200
-            }, 200
-        )
+        if (middlewareEstampVerify)
+            throw new StatusException(
+                {
+                    error: middlewareEstampVerify
+                    , result: null
+                    , message: middlewareEstampVerify
+                    , statusCode: 200
+                }, 200
+            )
         return this.saveOutService.saveActionOut(imagesNameObj, body);
     }
 }

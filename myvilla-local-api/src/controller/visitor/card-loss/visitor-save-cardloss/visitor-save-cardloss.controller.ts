@@ -1,4 +1,4 @@
-import {configfile} from '../../../../conf/config-setting'
+import { configfile } from '../../../../conf/config-setting'
 import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
@@ -34,7 +34,7 @@ export class VisitorSaveCardlossController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
-            limits:{fileSize: 1024*1024*5}
+            limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE }
         }),
         DefaultInterceptor,
         ActionOutValuesInterceptor
@@ -49,7 +49,7 @@ export class VisitorSaveCardlossController {
                     , result: null
                     , message: this.errMessageUtilsTh.errImageCustomerNotFound
                     , statusCode: 200
-                },200
+                }, 200
             )
         }
         const pathCustomer = files.image_customer.map(file => {
@@ -96,6 +96,7 @@ export class VisitorSaveCardlossController {
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,
+            limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE }
         }),
         DefaultInterceptor,
         ActionOutValuesInterceptor
@@ -144,7 +145,7 @@ export class VisitorSaveCardlossController {
         const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
         if (employeeObj)
             //---------------------Save
-            return await this.visitorCardlossService.saveCardlossNotOut(body, imagesNameObj,employeeObj);
+            return await this.visitorCardlossService.saveCardlossNotOut(body, imagesNameObj, employeeObj);
         else throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errEmployeeInfoNotFound

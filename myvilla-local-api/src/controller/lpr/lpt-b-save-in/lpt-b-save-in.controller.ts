@@ -1,24 +1,25 @@
 import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { diskStorage } from 'multer';
-import { BActionInInterceptor } from 'src/interceptor/booking/action-in/b-action-in.interceptor';
-import { BActionInMiddleware } from 'src/middleware/booking/action-in/b_action_in.middleware';
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
-import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
-import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
-import { VsActionInInfoMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_info.middleware';
-import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_action_in_save.middleware';
+import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import {configfile} from '../../../conf/config-setting'
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
+import { VsActionInInfoMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_info.middleware';
+import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_action_in_save.middleware';
+import { BActionInMiddleware } from 'src/middleware/booking/action-in/b_action_in.middleware';
+import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
+import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
-import { BActionInService } from './b-action-in.service';
-import {configfile} from '../../../conf/config-setting'
-import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-@Controller('bannayuu/api/booking/b-action-in')
-export class BActionInController {
+import { LPRBSaveInInterceptor } from 'src/interceptor/lpr/booking-in/lpr-b-booking-save-in.interceptor';
+import { LptBSaveInService } from './lpt-b-save-in.service';
+
+@Controller('bannayuu/api/lpr/booking/save-in')
+export class LptBSaveInController {
     constructor(
-        private readonly bActionINService: BActionInService
+        private readonly bActionINService: LptBSaveInService
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
         , private readonly vsActionInforMiddleware: VsActionInInfoMiddleWare
         , private readonly vsActionSaveIn: VsActionInSaveMiddleware
@@ -27,12 +28,11 @@ export class BActionInController {
         , private readonly vsActionCheckEmployee: VsActionInCheckEmployeeMiddleWare
         , private readonly loadSettingLocalUtils: LoadSettingLocalUtils
     ) { }
-
-    // @UseGuards(JwtAuthGuard)
+    
     @Post('save')
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(
-        BActionInInterceptor,
+        LPRBSaveInInterceptor,
         FileFieldsInterceptor([
             { name: 'image_card', maxCount: 1 }
             , { name: 'image_vehicle', maxCount: 1 }
@@ -53,7 +53,7 @@ export class BActionInController {
         //     fileFilter: imageFileFilter,
         // }),
     )
-    async saveBookingIn(@UploadedFiles() files, @Body() body) {
+    async saveLPRBookingIn(@UploadedFiles() files, @Body() body) {
         console.log('Files' + JSON.stringify(files));
         const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_card) {
