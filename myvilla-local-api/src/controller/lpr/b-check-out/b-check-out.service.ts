@@ -34,6 +34,8 @@ export class LPRBCheckOutService {
             where tbv_status = 'Y'
             and company_id = $1
             and tbv_license_plate = $2
+            order by tbv_id desc 
+            limit 1
            )
         select  
         visitor_record_id,visitor_record_code,ref_visitor_record_id
