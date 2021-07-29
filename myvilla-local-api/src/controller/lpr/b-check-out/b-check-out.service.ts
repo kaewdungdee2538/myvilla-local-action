@@ -34,7 +34,7 @@ export class LPRBCheckOutService {
             where tbv_status = 'Y'
             and company_id = $1
             and tbv_license_plate = $2
-            order by tbv_id desc 
+            order by tbv_end_datetime desc 
             limit 1
            )
         select  
