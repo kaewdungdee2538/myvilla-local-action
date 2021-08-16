@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { SosGetInfoById } from 'src/middleware/sos/sos-get-by-id.middleware';
 import { SosSaveGetInfoById } from 'src/middleware/sos/sos-save-receive.middleware';
+import { DateTimeGetMiddleware } from 'src/middleware/time/datetime-get.middleware';
 import { UserGetMiddleware } from 'src/middleware/user/user-get.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
@@ -23,6 +24,9 @@ export class SosModule {
     consumer
     .apply(vsDefaultMiddleware)
     .forRoutes('bannayuu/api/sos/*');
+    consumer
+    .apply(DateTimeGetMiddleware)
+    .forRoutes('bannayuu/api/sos/get-history');
     consumer
     .apply(SosGetInfoById)
     .forRoutes('bannayuu/api/sos/get-by-id');

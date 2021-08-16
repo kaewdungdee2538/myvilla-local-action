@@ -222,4 +222,11 @@ export class ErrMessageUtilsTH {
 
     errLicensePlateNotFound = 'ไม่พบทะเบียนรถ'
     errLicensePlateProhibitSpecial = 'ทะเบียนรถ ห้ามมีอักขระพิเศษ'
+
+    errDateTimeStartNotFound = 'ไม่พบวันที่ค้นหาเริ่มต้น'
+    errDateTimeStartFormatInvalid = 'รูปแบบ วันที่ค้นหาเริ่มต้นไม่ถูกต้อง รูปแบบวันที่จะต้องเป็น (YYYY-MM-DD HH:mm:ss)'
+    errDateTimeEndNotFound = 'ไม่พบวันที่ค้นหาสิ้นสุด'
+    errDateTimeEndFormatInvalid = 'รูปแบบ วันที่ค้นหาสิ้นสุดไม่ถูกต้อง รูปแบบวันที่จะต้องเป็น (YYYY-MM-DD HH:mm:ss)'
+    errDateTimeStartOverTimeEnd = 'วันที่ค้นหาเริ่มต้น จะต้องน้อยกว่าวันที่ค้นหาสิ้นสุด'
+    errDateTimeSearchOver31Days = 'ช่วงเวลาในการค้นหาต้องไม่เกิน 31 วัน'
 }

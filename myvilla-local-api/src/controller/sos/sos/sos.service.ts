@@ -51,6 +51,52 @@ export class SosService {
         )
     }
 
+
+    async getSosHistoryByCompany(body:any){
+        const datetime_start = body.datetime_start;
+        const datetime_end = body.datetime_end;
+        const company_id = body.company_id;
+
+        let sql = `select sos_id,sos_code
+        ,to_char(sos_datetime,'DD/MM/YYYY HH24:MI:SS') as sos_datetime
+        ,ref_sos_id,hsi.home_id,mh.home_address,home_line_uuid
+        ,sos_header_text,sos_detail_text
+        ,sos_data,sos_picture_data
+        ,sos_remark
+        ,sos_status
+        from h_sos_info hsi
+        left join m_home mh on hsi.home_id = mh.home_id
+        where hsi.delete_flag = 'N'
+        and sos_datetime between $1 and $2
+        and sos_status in ('Y')
+        and hsi.company_id = $3
+        ;`
+        const query = {
+            text: sql
+            , values: [datetime_start,datetime_end,company_id]
+        }
+        const res = await this.dbconnecttion.getPgData(query);
+        if (await res.error)
+            throw new StatusException(
+                {
+                    error: res.error
+                    , result: null
+                    , message: this.errMessageUtilsTh.messageProcessFail
+                    , statusCode: 200
+                }
+                , 200
+            )
+        throw new StatusException(
+            {
+                error: null
+                , result: res.result
+                , message: this.errMessageUtilsTh.messageSuccess
+                , statusCode: 200
+            }
+            , 200
+        )
+    }
+
     async getSosInfoById(body: any) {
         const company_id = body.company_id;
         const sos_id = body.sos_id;

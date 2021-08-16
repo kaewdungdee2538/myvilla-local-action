@@ -12,6 +12,11 @@ export class SosController {
         return this.sosService.getSosAllByCompany(body);
     }
 
+    @Post('get-history')
+    @UseGuards(JwtAuthGuard)
+    getSosHistoryByCompany(@Body() body){
+        return this.sosService.getSosHistoryByCompany(body);
+    }
 
     @Post('get-by-id')
     @UseGuards(JwtAuthGuard)
