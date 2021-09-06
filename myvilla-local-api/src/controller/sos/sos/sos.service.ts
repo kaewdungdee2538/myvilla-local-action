@@ -13,7 +13,7 @@ export class SosService {
         const company_id = body.company_id;
 
         let sql = `select sos_id,sos_code
-        ,to_char(sos_datetime,'DD/MM/YYYY HH24:MI:SS') as sos_datetime
+        ,to_char(sos_datetime,'YYYY-MM-DD HH24:MI:SS') as sos_datetime
         ,ref_sos_id,hsi.home_id,mh.home_address,home_line_uuid
         ,sos_header_text,sos_detail_text
         ,sos_data,sos_picture_data
@@ -59,7 +59,7 @@ export class SosService {
         const company_id = body.company_id;
 
         let sql = `select sos_id,sos_code
-        ,to_char(sos_datetime,'DD/MM/YYYY HH24:MI:SS') as sos_datetime
+        ,to_char(sos_datetime,'YYYY-MM-DD HH24:MI:SS') as sos_datetime
         ,ref_sos_id,hsi.home_id,mh.home_address,home_line_uuid
         ,sos_header_text,sos_detail_text
         ,sos_data,sos_picture_data
@@ -101,7 +101,7 @@ export class SosService {
         const company_id = body.company_id;
         const sos_id = body.sos_id;
         let sql = `select sos_id,sos_code
-        ,to_char(sos_datetime,'DD/MM/YYYY HH24:MI:SS') as sos_datetime
+        ,to_char(sos_datetime,'YYYY-MM-DD HH24:MI:SS') as sos_datetime
         ,ref_sos_id,hsi.home_id,mh.home_address,home_line_uuid
         ,sos_header_text,sos_detail_text
         ,sos_data,sos_picture_data
