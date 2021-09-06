@@ -22,10 +22,11 @@ export class GetCartypeCategoryAllService {
         sql += `,cartype_category_name_contraction`
         sql += `,cartype_category_name_th,cartype_category_name_en`
         sql += `,cartype_category_info`
-        sql += ` from m_cartype_category mcc inner join m_cartype mc on mcc.cartype_id = mc.cartype_id`;
-        sql += ` where mcc.delete_flag ='N'`
+        sql += ` from m_cartype_category mcc inner join m_cartype mc on mcc.cartype_id = mc.cartype_id`
+        sql += ` where mcc.delete_flag = 'N'`
         sql += ` and mcc.company_id = $1`
-        sql += ` order by mcc.cartype_category_name_th;`
+        sql += ` and mc.delete_flag = 'N'`
+        sql += ` order by 1;`
         const query = {
             text: sql
             , values: [company_id]
