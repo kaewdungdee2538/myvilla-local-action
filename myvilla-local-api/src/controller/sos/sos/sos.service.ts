@@ -24,6 +24,7 @@ export class SosService {
         where hsi.delete_flag = 'N'
         and sos_status in ('N')
         and hsi.company_id = $1
+        order by sos_datetime desc
         ;`
         const query = {
             text: sql
