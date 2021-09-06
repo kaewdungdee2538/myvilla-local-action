@@ -69,7 +69,6 @@ export class SosService {
         left join m_home mh on hsi.home_id = mh.home_id
         where hsi.delete_flag = 'N'
         and sos_datetime between $1 and $2
-        and sos_status in ('Y')
         and hsi.company_id = $3
         ;`
         const query = {
