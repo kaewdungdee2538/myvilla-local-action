@@ -33,7 +33,7 @@ export class ParcelController {
         HomeAddressInterceptor
     )
     async addParcelReceive(@UploadedFiles() files, @Body() body,@Request() req){
-        const pathMain = configfile.PATHSAVEIMAGE;
+        const pathMain = configfile.PATHPACELSAVEIMAGE;
         const pathCustomer = !files.image_parcel_receive ? [] : files.image_parcel_receive.map(file=>{
             const newfilename = file.path.replace(pathMain,'');
             return newfilename.replace(/\\/g, '/');
