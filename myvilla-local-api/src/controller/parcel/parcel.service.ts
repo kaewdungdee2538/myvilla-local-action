@@ -36,7 +36,7 @@ export class ParcelService {
             ,$1,$2
             ,current_timestamp,$3
             ,$4,$5
-            ,(select home_id from m_home where home_address = $6 and company_id = $7)
+            ,(select home_id from m_home where home_address = $6 and company_id = $7 and delete_flag = 'N')
             ,$7
             ,'receive_parcel'
             ,$8,current_timestamp
