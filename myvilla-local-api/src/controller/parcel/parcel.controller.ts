@@ -3,7 +3,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ParcelService } from './parcel.service';
 import { diskStorage } from 'multer';
-import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
+import { editFileName, getCurrentDatePathFileForPacelSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
 import { ReceiveParcelInterceptor } from 'src/interceptor/pacel/recieve-pacel.interceptor';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { ParcelReceiveInterceptor } from 'src/interceptor/pacel/parcel-receive.interceptor';
@@ -22,7 +22,7 @@ export class ParcelController {
             {name:'image_parcel_receive',maxCount:1}
         ],{
             storage: diskStorage({
-                destination: getCurrentDatePathFileSave,
+                destination: getCurrentDatePathFileForPacelSave,
                 filename: editFileName,
             }),
             fileFilter: imageFileFilter,

@@ -3,6 +3,7 @@ export const configfile = {
     "DATABASE": "uat_cit_bannayuu_db",
     "PORT_API": "4090",
     "PATHSAVEIMAGE": "C:\\Bannayuu\\Visitor\\Image\\files",
+    "PATHPACELSAVEIMAGE": "C:\\Bannayuu\\Web\\Image\\files",
     "PATHFOLDERSTATIC": "C:\\Bannayuu\\Visitor\\Image\\files",
     "MYCOMPANY_ID": "1",
     "IMAGE_SIZE":10,

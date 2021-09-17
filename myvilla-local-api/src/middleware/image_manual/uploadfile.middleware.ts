@@ -122,3 +122,38 @@ export const getCurrentDatePathFileSave = (req, file, callback) => {
     });
 }
 
+export const getCurrentDatePathFileForPacelSave = (req, file, callback) => {
+    const cookiesObj = req.cookie
+    const type = cookiesObj.type;
+    const action_type = cookiesObj.action_type;
+    const current_date = new Date();
+    const pathAllFiles = configfile.PATHPACELSAVEIMAGE;
+    let year = current_date.getFullYear().toString();
+    let month = (current_date.getMonth()+1).toString();
+    let date = current_date.getDate().toString();
+    let currentPath = `${pathAllFiles}/files/${type}/${action_type}/${year}/${month}/${date}`;
+    console.log(pathAllFiles);
+    const dir = currentPath;
+    if (!existsSync(dir)) {
+        mkdirSync(dir, {
+            recursive: true
+        });
+    }
+    readdir(currentPath, err => {
+        if (err)
+            return callback(
+                new StatusException(
+                    {
+                        error: err,
+                        result: null,
+                        message: 'Directory not exists.',
+                        statusCode: 200
+                    },
+                    200,
+                ),
+                false
+            );
+        return callback(null, currentPath);
+    });
+}
+
