@@ -9,27 +9,31 @@ export class LPRBCheckInService {
         private readonly dbconnecttion: dbConnection
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
     ) { }
-    
+
     async getBookingWithLPR(@Body() body) {
         return this.getBookingInfoWithLPR(body);
     }
 
-    async getBookingInfoWithLPR(@Body() body){
+    async getBookingInfoWithLPR(@Body() body) {
         const company_id = body.company_id;
         const license_plate = body.license_plate;
         let sql = `select 
-        tbv.tbv_code
+        tbv.tbv_id,tbv.tbv_code
         ,tbv.home_line_id
         ,mhl.home_id,mh.home_code,mh.home_name,mh.home_address,mh.home_type
         ,mh.home_data,mh.home_remark
         ,mh.home_privilege_line_amount,mh.home_privilege_card_amount
-        ,tbv.tbv_start_datetime
-        ,tbv.tbv_end_datetime
-        ,tbv.tbv_license_plate
-        ,tbv.tbv_contact_person
-        ,tbv.tbv_mobile_contact_person
-        ,tbv.tbv_detail,tbv.tbv_data
-        ,tbv.create_by,tbv.create_date
+        ,to_char(tbv.tbv_start_datetime,'YYYY-MM-DD HH24:MI:SS') as booking_start_datetime
+        ,to_char(tbv.tbv_end_datetime,'YYYY-MM-DD HH24:MI:SS') as booking_end_datetime
+        ,tbv.tbv_license_plate as license_plate
+        ,tbv.tbv_contact_person as person_name
+        ,tbv.tbv_mobile_contact_person as person_mobile
+        ,tbv.tbv_detail,tbv.tbv_data 
+        ,case when tbv.tbv_status = 'Y' then true else false end as action_out_status
+        ,mhl.home_line_first_name as host_first_name
+        ,mhl.home_line_last_name as host_last_name
+        ,mhl.home_line_mobile_phone as host_mobile
+        ,tbv.create_by,to_char(tbv.create_date,'YYYY-MM-DD HH24:MI:SS') as create_date
         from t_booking_visitor tbv
         inner join m_home_line mhl on tbv.home_line_id = mhl.home_line_id
         left join m_home mh on mhl.home_id = mh.home_id
@@ -60,7 +64,7 @@ export class LPRBCheckInService {
                 , message: this.errMessageUtilsTh.errBookingNotFound
                 , statusCode: 200
             }, 200)
-        else if (res.result[0].action_out_status)throw new StatusException(
+        else if (res.result[0].action_out_status) throw new StatusException(
             {
                 error: this.errMessageUtilsTh.errBookingIsUse
                 , result: null
