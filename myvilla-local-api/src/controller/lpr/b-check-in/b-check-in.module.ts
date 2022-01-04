@@ -20,6 +20,6 @@ export class LPRBCheckInModule {
   configure(consumer:MiddlewareConsumer){
     consumer
     .apply(vsDefaultMiddleware,LPRBookingCheckInMiddleware)
-    .forRoutes('bannayuu/api/lpr/booking/check-in/get/*');
+    .forRoutes('bannayuu/api/lpr/booking/check-in/get');
   }
 }

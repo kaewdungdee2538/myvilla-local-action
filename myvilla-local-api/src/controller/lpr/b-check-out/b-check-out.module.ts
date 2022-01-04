@@ -27,6 +27,6 @@ export class LPRBCheckOutModule {
   configure(consumer:MiddlewareConsumer){
     consumer
     .apply(vsDefaultMiddleware,LPRBookingCheckInMiddleware)
-    .forRoutes('bannayuu/api/lpr/booking/check-out/get/*');
+    .forRoutes('bannayuu/api/lpr/booking/check-out/get');
   }
 }

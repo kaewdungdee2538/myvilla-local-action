@@ -179,6 +179,7 @@ export class ErrMessageUtilsTH {
     errฺBookingTbvCodeNotFound = 'ไม่พบ QR Code จากการจอง'
     errฺBookingTbvCodeProhibitSpecial = 'QR Code ห้ามมีอักขระพิเศษ หรือช่องว่าง'
     errBookingNotFound = 'ไม่พบข้อมูลการจอง หรือหมดเวลาจองไปแล้ว'
+    errBookingLicenseIsDuplicate = 'มีการจองทะเบียนรถนี้ซ้ำในระบบ กรุณาสแกน QR Code เพื่อยืนยันตนอีกครั้ง'
     errBookingQRNotFound = 'ไม่พบ QR Code ในระบบ'
     errBookingQRCodeNotIn = 'QR Code ไม่ได้ทำรายการเข้า'
     errBookingIsUse = 'QR Code นี้ถูกใช้งานไปแล้ว'
