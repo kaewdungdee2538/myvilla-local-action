@@ -23,8 +23,8 @@ export class LPRBCheckInService {
         ,mhl.home_id,mh.home_code,mh.home_name,mh.home_address,mh.home_type
         ,mh.home_data,mh.home_remark
         ,mh.home_privilege_line_amount,mh.home_privilege_card_amount
-        ,to_char(tbv.tbv_start_datetime,'YYYY-MM-DD HH24:MI:SS') as booking_start_datetime
-        ,to_char(tbv.tbv_end_datetime,'YYYY-MM-DD HH24:MI:SS') as booking_end_datetime
+        ,tbv.tbv_start_datetime as booking_start_datetime
+        ,tbv.tbv_end_datetime as booking_end_datetime
         ,tbv.tbv_license_plate as license_plate
         ,tbv.tbv_contact_person as person_name
         ,tbv.tbv_mobile_contact_person as person_mobile
@@ -33,7 +33,7 @@ export class LPRBCheckInService {
         ,mhl.home_line_first_name as host_first_name
         ,mhl.home_line_last_name as host_last_name
         ,mhl.home_line_mobile_phone as host_mobile
-        ,tbv.create_by,to_char(tbv.create_date,'YYYY-MM-DD HH24:MI:SS') as create_date
+        ,tbv.create_by,tbv.create_date
         from t_booking_visitor tbv
         inner join m_home_line mhl on tbv.home_line_id = mhl.home_line_id
         left join m_home mh on mhl.home_id = mh.home_id
