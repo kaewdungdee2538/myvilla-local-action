@@ -11,4 +11,10 @@ export class GetSlipController {
     getSlipIn(@Body() body){
         return this.getslipService.getSlipInInfo(body);
     }
+
+    @Post('slipout')
+    @UseGuards(JwtAuthGuard)
+    getSlipOut(@Body() body){
+        return this.getslipService.getSlipOutInfo(body);
+    }
 }

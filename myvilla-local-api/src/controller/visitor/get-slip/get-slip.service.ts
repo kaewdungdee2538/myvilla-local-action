@@ -56,7 +56,81 @@ export class GetSlipService {
         throw new StatusException(
             {
                 error: null
-                , result: res.result
+                , result: res.result[0]
+                , message: this.errMessageUtilsTh.messageSuccess
+                , statusCode: 200
+            }, 200)
+    }
+
+    async getSlipOutInfo(@Body() body) {
+        return await this.getSlipOutInfoFormBase(body);
+    }
+
+    async getSlipOutInfoFormBase(@Body() body) {
+        const visitor_record_id = body.visitor_record_id;
+        const company_id = body.company_id;
+        let sql = `select 
+        CONCAT(cartype_name_contraction,mpt.payment_type_code,TO_CHAR(current_timestamp,'YY'),TO_CHAR(current_timestamp,'MM'),TO_CHAR(current_timestamp,'DD'),to_char(12, 'FM999909999')) AS receipt_no
+        ,company_name
+        ,pos_id
+        ,guardhouse_in_code
+        ,guardhouse_out_code
+        ,visitor_record_id,visitor_record_code,ref_visitor_record_id,tbv_code
+        ,visitor_slot_number,card_code,card_name
+        ,cartype_name_th,cartype_name_en,cartype_category_info
+        ,visitor_info,action_info
+        ,home_info
+        ,license_plate
+        ,tvr.payment_type_id
+        ,mpt.payment_type_name
+        ,parking_payment
+        ,overnight_fines
+        ,losscard_fines
+        ,total_price
+        ,payment_info
+        ,customer_payment
+        ,discount_info
+        ,parking_in_datetime
+        ,parking_payment_datetime
+        ,parking_out_datetime
+        ,cardproblem_info
+        ,case when cardproblem_flag = 'Y' then true else false end as cardproblem_status
+        ,cardproblem_datetime
+        from t_visitor_record tvr
+        left join m_payment_type mpt
+        on tvr.payment_type_id = mpt.payment_type_id
+        left join m_company mc
+        on tvr.company_id = mc.company_id
+        where visitor_record_id = $1
+        and tvr.company_id = $2
+        and action_type ='OUT'
+        order by 1
+        limit 1;
+        `
+        const query = {
+            text: sql
+            , values: [visitor_record_id, company_id]
+        }
+        const res = await this.dbconnecttion.getPgData(query);
+        if (res.error)
+            throw new StatusException(
+                {
+                    error: res.error
+                    , result: null
+                    , message: this.errMessageUtilsTh.messageProcessFail
+                    , statusCode: 200
+                }, 200)
+        else if (res.result.length === 0) throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errSlipOutGetNotRow
+                , result: null
+                , message: this.errMessageUtilsTh.errSlipOutGetNotRow
+                , statusCode: 200
+            }, 200)
+        throw new StatusException(
+            {
+                error: null
+                , result: res.result[0]
                 , message: this.errMessageUtilsTh.messageSuccess
                 , statusCode: 200
             }, 200)

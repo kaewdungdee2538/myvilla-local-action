@@ -6,76 +6,85 @@ import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 
 @Injectable()
 export class ActionOutSaveService {
-    constructor(
-        private readonly dbconnecttion: dbConnection
-        , private readonly errMessageUtilsTh: ErrMessageUtilsTH
-        , private readonly vsActionInCheckEmployeeMiddleware: VsActionInCheckEmployeeMiddleWare
-    ) { }
+  constructor(
+    private readonly dbconnecttion: dbConnection,
+    private readonly errMessageUtilsTh: ErrMessageUtilsTH,
+    private readonly vsActionInCheckEmployeeMiddleware: VsActionInCheckEmployeeMiddleWare,
+  ) {}
 
-    async saveActionOut(files: any, @Body() body) {
-        return await this.saveOut(files, body);
+  async saveActionOut(files: any, @Body() body) {
+    return await this.saveOut(files, body);
+  }
+
+  async saveOut(files: any, @Body() body) {
+    console.log(files);
+    console.log(body);
+    const getRecordIn = await this.getVisitorRecordId(body);
+    if (getRecordIn) {
+      const getVisitorInInfo = await this.getVisitorRecordIn(getRecordIn);
+      if (getVisitorInInfo) {
+        const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(
+          body,
+        );
+        if (employeeObj)
+          return await this.Save(body, files, getVisitorInInfo, employeeObj);
+        else
+          throw new StatusException(
+            {
+              error: this.errMessageUtilsTh.errEmployeeInfoNotFound,
+              result: null,
+              message: this.errMessageUtilsTh.errEmployeeInfoNotFound,
+              statusCode: 200,
+              slip_info: null,
+            },
+            200,
+          );
+      }
     }
+    return getRecordIn;
+  }
 
-    async saveOut(files: any, @Body() body) {
-        console.log(files);
-        console.log(body);
-        const getRecordIn = await this.getVisitorRecordId(body);
-        if (getRecordIn) {
-            const getVisitorInInfo = await this.getVisitorRecordIn(getRecordIn);
-            if (getVisitorInInfo) {
-                const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(body)
-                if (employeeObj)
-                    return await this.Save(body, files, getVisitorInInfo, employeeObj);
-                else throw new StatusException(
-                    {
-                        error: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                        , result: null
-                        , message: this.errMessageUtilsTh.errEmployeeInfoNotFound
-                        , statusCode: 200
-                    }, 200)
-            }
+  async getVisitorRecordId(@Body() body) {
+    const company_id = !body.company_id ? 0 : body.company_id;
+    const card_code = !body.card_code ? '' : body.card_code;
+    const card_name = !body.card_name ? '' : body.card_name;
+    const visitor_slot_number = !body.visitor_slot_number
+      ? 0
+      : body.visitor_slot_number;
 
-        }
-        return getRecordIn;
-    }
+    let sql = `select func_getvs_uuid_card_or_slot($1,$2,$3,$4) as visitor_record_code;`;
+    const query = {
+      text: sql,
+      values: [company_id, card_code, card_name, visitor_slot_number],
+    };
+    const res = await this.dbconnecttion.getPgData(query);
+    if (res.error)
+      throw new StatusException(
+        {
+          error: res.error,
+          result: null,
+          message: this.errMessageUtilsTh.messageProcessFail,
+          statusCode: 200,
+        },
+        200,
+      );
+    else if (res.result.length === 0)
+      throw new StatusException(
+        {
+          error: this.errMessageUtilsTh.errVisitorRecordIDNotFound,
+          result: null,
+          message: this.errMessageUtilsTh.errVisitorRecordIDNotFound,
+          statusCode: 200,
+        },
+        200,
+      );
+    return res.result[0].visitor_record_code;
+  }
 
-    async getVisitorRecordId(@Body() body) {
-        const company_id = !body.company_id ? 0 : body.company_id;
-        const card_code = !body.card_code ? '' : body.card_code;
-        const card_name = !body.card_name ? '' : body.card_name;
-        const visitor_slot_number = !body.visitor_slot_number ? 0 : body.visitor_slot_number;
-
-        let sql = `select func_getvs_uuid_card_or_slot($1,$2,$3,$4) as visitor_record_code;`
-        const query = {
-            text: sql
-            , values: [company_id, card_code, card_name, visitor_slot_number]
-        }
-        const res = await this.dbconnecttion.getPgData(query);
-        if (res.error)
-            throw new StatusException(
-                {
-                    error: res.error
-                    , result: null
-                    , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 200
-                }, 200
-            )
-        else if (res.result.length === 0)
-            throw new StatusException(
-                {
-                    error: this.errMessageUtilsTh.errVisitorRecordIDNotFound
-                    , result: null
-                    , message: this.errMessageUtilsTh.errVisitorRecordIDNotFound
-                    , statusCode: 200
-                }, 200
-            )
-        return res.result[0].visitor_record_code
-    }
-
-    async getVisitorRecordIn(recordin_uuid: any) {
-        const record_uuid = recordin_uuid;
-        console.log(record_uuid);
-        let sql = `(select
+  async getVisitorRecordIn(recordin_uuid: any) {
+    const record_uuid = recordin_uuid;
+    console.log(record_uuid);
+    let sql = `(select
             visitor_record_id
             ,visitor_slot_id,visitor_slot_number
             ,card_id,card_code,card_name
@@ -91,57 +100,71 @@ export class ActionOutSaveService {
             ,employee_in_id,employee_in_info
             ,visitor_record_code
             from t_visitor_record
-            where visitor_record_code = $1)`
-        const query = {
-            text: sql
-            , values: [record_uuid]
-        }
-        const res = await this.dbconnecttion.getPgData(query);
-        if (res.error)
-            throw new StatusException(
-                {
-                    error: res.error
-                    , result: null
-                    , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 200
-                }, 200
-            )
-        else if (res.result.length === 0)
-            throw new StatusException(
-                {
-                    error: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , result: null
-                    , message: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , statusCode: 200
-                }, 200
-            )
-        return res.result[0]
-    }
+            where visitor_record_code = $1)`;
+    const query = {
+      text: sql,
+      values: [record_uuid],
+    };
+    const res = await this.dbconnecttion.getPgData(query);
+    if (res.error)
+      throw new StatusException(
+        {
+          error: res.error,
+          result: null,
+          message: this.errMessageUtilsTh.messageProcessFail,
+          statusCode: 200,
+        },
+        200,
+      );
+    else if (res.result.length === 0)
+      throw new StatusException(
+        {
+          error: this.errMessageUtilsTh.errVisitorRecordInNotFound,
+          result: null,
+          message: this.errMessageUtilsTh.errVisitorRecordInNotFound,
+          statusCode: 200,
+        },
+        200,
+      );
+    return res.result[0];
+  }
 
-    async Save(@Body() body, files: any, recordInObj: any, employeeObj: any) {
-        const images = files;
-        const company_id = recordInObj.company_id
+  async Save(@Body() body, files: any, recordInObj: any, employeeObj: any) {
+    const images = files;
+    const company_id = recordInObj.company_id;
 
-        const visitor_record_code = recordInObj.visitor_record_code;
-        const visitor_slot_id = recordInObj.visitor_slot_id;
-        const card_id = recordInObj.card_id
-        const employee_out_id = body.employee_out_id
-        const employee_out_info = JSON.stringify(employeeObj)
-        const img_visitor_out = { images }
-        const guardhouse_out_id = body.guardhouse_out_id
-        const guardhouse_out_code = body.guardhouse_out_code;
-        const pos_id = body.pos_id ? body.pos_id.toString() : '';
-        const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
-        const parking_payment = body.sum_parking_total_after_discount ? parseInt(body.sum_parking_total_after_discount) : 0;
-        const overnight_fines = body.sum_overnight_fine_amount ? parseInt(body.sum_overnight_fine_amount) : 0;
-        const total_price = parking_payment + overnight_fines;
-        const customer_payment = body.customer_payment ? parseInt(body.customer_payment) : 0;
-        const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
-        const payment_flag = total_price > 0 ? 'Y' : 'N';
-        const discount_info = body.promotion_object && body.promotion_object != 'null' ? body.promotion_object : null;
-        const payment_info = body.payment_info && body.payment_info != 'null' ? body.payment_info : null;
-        console.log(JSON.stringify(recordInObj));
-        let sql1 = `update t_visitor_record set 
+    const visitor_record_code = recordInObj.visitor_record_code;
+    const visitor_slot_id = recordInObj.visitor_slot_id;
+    const card_id = recordInObj.card_id;
+    const employee_out_id = body.employee_out_id;
+    const employee_out_info = JSON.stringify(employeeObj);
+    const img_visitor_out = { images };
+    const guardhouse_out_id = body.guardhouse_out_id;
+    const guardhouse_out_code = body.guardhouse_out_code;
+    const pos_id = body.pos_id ? body.pos_id.toString() : '';
+    const tcpl_id = body.tcpl_id ? body.tcpl_id : null;
+    const parking_payment = body.sum_parking_total_after_discount
+      ? parseInt(body.sum_parking_total_after_discount)
+      : 0;
+    const overnight_fines = body.sum_overnight_fine_amount
+      ? parseInt(body.sum_overnight_fine_amount)
+      : 0;
+    const total_price = parking_payment + overnight_fines;
+    const customer_payment = body.customer_payment
+      ? parseInt(body.customer_payment)
+      : 0;
+    const payment_type_id = body.payment_type_id ? body.payment_type_id : 0;
+    const payment_flag = total_price > 0 ? 'Y' : 'N';
+    const discount_info =
+      body.promotion_object && body.promotion_object != 'null'
+        ? body.promotion_object
+        : null;
+    const payment_info =
+      body.payment_info && body.payment_info != 'null'
+        ? body.payment_info
+        : null;
+    console.log(JSON.stringify(recordInObj));
+    let sql1 = `update t_visitor_record set 
         img_visitor_out = $1
         ,action_out_flag = 'Y'
         ,action_type = 'OUT'
@@ -170,60 +193,78 @@ export class ActionOutSaveService {
             limit 1 )
         ,payment_info = $14
         ,customer_payment = $15
-        where company_id = $16 and visitor_record_code = $17;`
-        const query = {
-            text: sql1
-            , values: [
-                img_visitor_out, guardhouse_out_id, guardhouse_out_code
-                , employee_out_id, employee_out_info, pos_id
-                , tcpl_id, payment_flag, payment_type_id
-                , parking_payment, overnight_fines, total_price
-                , discount_info
-                , payment_info
-                , customer_payment
-                , company_id, visitor_record_code
-            ]
-        }
-        let query2;
-        if (visitor_slot_id) {
-            let sql2 = `update m_visitor_slot set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where visitor_slot_id = $2 and company_id = $3`;
-            query2 = {
-                text: sql2
-                , values: [employee_out_id, visitor_slot_id, company_id]
-            }
-        } else {
-            let sql2 = `update m_card set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where card_id = $2 and company_id = $3`;
-            query2 = {
-                text: sql2
-                , values: [employee_out_id, card_id, company_id]
-            }
-        }
-
-        const allQuerys = [query, query2]
-
-        const res = await this.dbconnecttion.savePgData(allQuerys);
-        if (res.error)
-            throw new StatusException(
-                {
-                    error: res.error
-                    , result: null
-                    , message: this.errMessageUtilsTh.messageProcessFail
-                    , statusCode: 200
-                }, 200)
-        else if (res.result.length === 0)
-            throw new StatusException(
-                {
-                    error: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , result: null
-                    , message: this.errMessageUtilsTh.errVisitorRecordInNotFound
-                    , statusCode: 200
-                }, 200)
-        throw new StatusException(
-            {
-                error: null
-                , result: this.errMessageUtilsTh.messageSuccess
-                , message: this.errMessageUtilsTh.messageSuccess
-                , statusCode: 200
-            }, 200)
+        where company_id = $16 and visitor_record_code = $17;`;
+    const query = {
+      text: sql1,
+      values: [
+        img_visitor_out,
+        guardhouse_out_id,
+        guardhouse_out_code,
+        employee_out_id,
+        employee_out_info,
+        pos_id,
+        tcpl_id,
+        payment_flag,
+        payment_type_id,
+        parking_payment,
+        overnight_fines,
+        total_price,
+        discount_info,
+        payment_info,
+        customer_payment,
+        company_id,
+        visitor_record_code,
+      ],
+    };
+    let query2;
+    if (visitor_slot_id) {
+      let sql2 = `update m_visitor_slot set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where visitor_slot_id = $2 and company_id = $3`;
+      query2 = {
+        text: sql2,
+        values: [employee_out_id, visitor_slot_id, company_id],
+      };
+    } else {
+      let sql2 = `update m_card set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where card_id = $2 and company_id = $3`;
+      query2 = {
+        text: sql2,
+        values: [employee_out_id, card_id, company_id],
+      };
     }
+
+    const allQuerys = [query, query2];
+
+    const res = await this.dbconnecttion.savePgData(allQuerys);
+    if (res.error)
+      throw new StatusException(
+        {
+          error: res.error,
+          result: null,
+          message: this.errMessageUtilsTh.messageProcessFail,
+          statusCode: 200,
+          slip_info: null,
+        },
+        200,
+      );
+    else if (res.result.length === 0)
+      throw new StatusException(
+        {
+          error: this.errMessageUtilsTh.errVisitorRecordInNotFound,
+          result: null,
+          message: this.errMessageUtilsTh.errVisitorRecordInNotFound,
+          statusCode: 200,
+          slip_info: null,
+        },
+        200,
+      );
+    throw new StatusException(
+      {
+        error: null,
+        result: this.errMessageUtilsTh.messageSuccess,
+        message: this.errMessageUtilsTh.messageSuccess,
+        statusCode: 200,
+        slip_info: { visitor_record_id: recordInObj.visitor_record_id },
+      },
+      200,
+    );
+  }
 }

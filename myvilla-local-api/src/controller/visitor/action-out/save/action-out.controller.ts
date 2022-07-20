@@ -52,6 +52,7 @@ export class ActionOutSaveController {
                     , result: null
                     , message: this.errMessageUtilsTh.errImageVehicleNotFound
                     , statusCode: 200
+                    , slip_info:null
                 }, 200
             )
         }
@@ -86,6 +87,7 @@ export class ActionOutSaveController {
                     , result: null
                     , message: middlewareSaveOut
                     , statusCode: 200
+                    , slip_info:null
                 }, 200
             )
         const middlewareSlotOrCardSaveOut = await this.vsactionOutSlotOrCardMid.CheckVisitorOut(body);
@@ -96,6 +98,7 @@ export class ActionOutSaveController {
                     , result: null
                     , message: middlewareSlotOrCardSaveOut
                     , statusCode: 200
+                    , slip_info:null
                 }, 200
             )
         const middlewareEstampVerify = await this.vsactionOutVerifyEstamMiddleware.checkValues(body)
@@ -106,6 +109,7 @@ export class ActionOutSaveController {
                     , result: null
                     , message: middlewareEstampVerify
                     , statusCode: 200
+                    , slip_info:null
                 }, 200
             )
         return this.saveOutService.saveActionOut(imagesNameObj, body);

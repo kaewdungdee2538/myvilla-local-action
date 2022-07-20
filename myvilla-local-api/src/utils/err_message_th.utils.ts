@@ -175,6 +175,7 @@ export class ErrMessageUtilsTH {
 
     errVisitorRecordCodeNotFound = 'ไม่พบ uuid สำหรับขอพิมพ์ใบเสร็จ'
     errSlipInGetNotRow = 'ไม่พบข้อมูลขาเข้า'
+    errSlipOutGetNotRow = 'ไม่พบข้อมูล Visitor ที่ทำรายการออก'
 
     errฺBookingTbvCodeNotFound = 'ไม่พบ QR Code จากการจอง'
     errฺBookingTbvCodeProhibitSpecial = 'QR Code ห้ามมีอักขระพิเศษ หรือช่องว่าง'

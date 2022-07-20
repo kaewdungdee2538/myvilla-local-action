@@ -32,6 +32,7 @@ import { GetSlipModule } from './controller/visitor/get-slip/get-slip.module';
 import { GetSlotModule } from './controller/visitor/get-slot/get-slot.module';
 import { VisitorPendantModule } from './controller/visitor/visitor-pendant/visitor-pendant.module';
 import { loggerMiddleware } from './middleware/logger.middleware';
+import { GetVisitorOutHistoryModule } from './get-visitor-out-history/get-visitor-out-history.module';
 
 @Module({
   imports: [
@@ -63,7 +64,7 @@ import { loggerMiddleware } from './middleware/logger.middleware';
     , LPRBCheckInModule
     , LPRBCheckOutModule
     , LptBSaveInModule
-    , LptBSaveOutModule
+    , LptBSaveOutModule, GetVisitorOutHistoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

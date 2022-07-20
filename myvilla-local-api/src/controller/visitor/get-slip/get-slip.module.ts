@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
 import { vsGetHomeMiddleware } from 'src/middleware/visitor/get-home/vs_get_home.middleware';
 import { vsGetSlipInMiddleware } from 'src/middleware/visitor/get-slip/vs_get_slip_in.middleware';
+import { vsGetSlipOutMiddleware } from 'src/middleware/visitor/get-slip/vs_get_slip_out.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
@@ -10,17 +11,18 @@ import { GetSlipService } from './get-slip.service';
 
 @Module({
   controllers: [GetSlipController],
-  providers: [
-    GetSlipService
-    ,dbConnection
-    ,ErrMessageUtilsTH
-    ,FormatDataUtils
-  ]
+  providers: [GetSlipService, dbConnection, ErrMessageUtilsTH, FormatDataUtils],
 })
 export class GetSlipModule {
-  configure(consumer:MiddlewareConsumer){
+  configure(consumer: MiddlewareConsumer) {
     consumer
-    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,vsGetSlipInMiddleware)
-    .forRoutes('bannayuu/api/visitor/get-slip/*');
+      .apply(vsDefaultMiddleware, vsGetHomeMiddleware)
+      .forRoutes('bannayuu/api/visitor/get-slip/*');
+    consumer
+      .apply(vsDefaultMiddleware, vsGetHomeMiddleware, vsGetSlipInMiddleware)
+      .forRoutes('bannayuu/api/visitor/get-slip/slipin');
+    consumer
+      .apply(vsDefaultMiddleware, vsGetHomeMiddleware, vsGetSlipOutMiddleware)
+      .forRoutes('bannayuu/api/visitor/get-slip/slipout');
   }
 }

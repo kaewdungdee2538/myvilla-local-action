@@ -3,15 +3,15 @@ import { Request, Response, NextFunction } from 'express';
 import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
 @Injectable()
-export class vsGetSlipInMiddleware implements NestMiddleware {
+export class vsGetSlipOutMiddleware implements NestMiddleware {
     constructor(
         private readonly errMessageUrilTh: ErrMessageUtilsTH,
         private readonly formatDataUtils: FormatDataUtils
     ) { }
     use(req: Request, res: Response, next: () => void) {
-        const messageSlipInfo = this.checkSlipInValues(req);
+        const messageSlipInfo = this.checkSlipOutValues(req);
         if (messageSlipInfo) {
-            console.log('Middleware slot in : ' + messageSlipInfo)
+            console.log('Middleware get slip out : ' + messageSlipInfo)
             res.send({
                 response: {
                     error: messageSlipInfo
@@ -24,10 +24,10 @@ export class vsGetSlipInMiddleware implements NestMiddleware {
             next();
     }
 
-    checkSlipInValues(req: Request) {
+    checkSlipOutValues(req: Request) {
         const body = req.body;
-        if (!body.visitor_record_code)
-            return this.errMessageUrilTh.errVisitorRecordCodeNotFound;
+        if (!body.visitor_record_id)
+            return this.errMessageUrilTh.errVisitorRecordIdNotFound;
         return null;
     }
 }
