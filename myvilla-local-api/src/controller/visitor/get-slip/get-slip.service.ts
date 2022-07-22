@@ -70,7 +70,7 @@ export class GetSlipService {
         const visitor_record_id = body.visitor_record_id;
         const company_id = body.company_id;
         let sql = `select 
-        CONCAT(cartype_name_contraction,mpt.payment_type_code,TO_CHAR(current_timestamp,'YY'),TO_CHAR(current_timestamp,'MM'),TO_CHAR(current_timestamp,'DD'),to_char(12, 'FM999909999')) AS receipt_no
+        CONCAT(cartype_name_contraction,mpt.payment_type_code,guardhouse_out_id,TO_CHAR(current_timestamp,'YY'),TO_CHAR(current_timestamp,'MM'),TO_CHAR(current_timestamp,'DD'),to_char(12, 'FM999909999')) AS receipt_no
         ,company_name
         ,pos_id
         ,guardhouse_in_code
