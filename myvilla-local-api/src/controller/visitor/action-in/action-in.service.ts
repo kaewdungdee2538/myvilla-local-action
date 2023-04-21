@@ -1,13 +1,16 @@
-import { Body, Injectable, UploadedFiles } from '@nestjs/common';
+import { Body, Injectable,HttpService,HttpException, UploadedFiles } from '@nestjs/common';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
+import { AxiosResponse } from "axios";
+import {configfile} from 'src/conf/config-setting'
 
 @Injectable()
 export class ActionInService {
     constructor(
         private readonly dbconnecttion: dbConnection
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
+        , private httpService: HttpService
     ) { }
 
     async ActionSaveIn(files: any, @Body() body, visitor_slot_id: string, cardObj: any, getHomeID: any,getEmployeeID:any,getCartype:any) {
@@ -221,4 +224,23 @@ export class ActionInService {
         else
             return res.result[0];
     }
+
+    async SendLineNotificationActionIn(notiObj: any): Promise<AxiosResponse> {
+        const url = configfile.HOST_LINE_NOTIFICATION + configfile.PATH_LINE_ACTION_IN_NOTIFICATION
+        return this.httpService.post(
+            url
+            , notiObj
+        ).toPromise()
+            .catch(err => {
+                console.log(`เชื่อมต่อ api ${url} ล้มเหลว`);
+                throw new StatusException({
+                    error: this.errMessageUtilsTh.errConnectServerLineNotificationError
+                    , result: null
+                    , message: this.errMessageUtilsTh.errConnectServerLineNotificationError
+                    , statusCode: 200
+                }, 200)
+            });
+    }
+
 }
+
