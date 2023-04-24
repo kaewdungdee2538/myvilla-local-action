@@ -73,10 +73,10 @@ export class VsActionInCheckSlotMiddleWare {
         const slotnumber = parseInt(request.visitor_slot_number);
         const guardhouse_in_id = parseInt(request.guardhouse_in_id);
         let sql = `select * from m_visitor_slot where `
-        sql += ` company_id = $1 and guardhouse_id = $2 and visitor_slot_number = $3;`
+        sql += ` company_id = $1  and visitor_slot_number = $2;`
         const querys = {
             text: sql,
-            values: [company_id, guardhouse_in_id, slotnumber]
+            values: [company_id, slotnumber]
         }
         const result = await this.dbconnecttion.getPgData(querys);
         if (await result.error)
@@ -92,11 +92,11 @@ export class VsActionInCheckSlotMiddleWare {
         const slotnumber = parseInt(request.visitor_slot_number);
         const guardhouse_in_id = parseInt(request.guardhouse_in_id);
         let sql = `select * from m_visitor_slot where status_flag ='Y'`;
-        sql += ` and company_id = $1 and guardhouse_id = $2 and visitor_slot_number = $3;`;
+        sql += ` and company_id = $1 and  visitor_slot_number = $2;`;
 
         const querys = {
             text: sql
-            , values: [company_id, guardhouse_in_id, slotnumber]
+            , values: [company_id, slotnumber]
         }
         const result = await this.dbconnecttion.getPgData(querys);
         if (await result.error)

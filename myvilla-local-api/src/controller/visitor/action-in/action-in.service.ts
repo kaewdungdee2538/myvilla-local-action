@@ -1,4 +1,4 @@
-import { Body, Injectable,HttpService,HttpException, UploadedFiles } from '@nestjs/common';
+import { Body, Injectable,HttpService } from '@nestjs/common';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
@@ -185,13 +185,14 @@ export class ActionInService {
         sql += ',visitor_slot_code,visitor_slot_name'
         sql += ' from m_visitor_slot'
         sql += ` where visitor_slot_number = $1`
-        sql += ` and company_id = $2 and guardhouse_id =$3;`;
+        sql += ` and company_id = $2 `
+        // and guardhouse_id =$3;`;
         const quesy = {
             text: sql
             , values: [
                 visitor_slot_number
                 , company_id
-                , guardhouse_in_id
+                // , guardhouse_in_id
             ]
         }
         const result = await this.dbconnecttion.getPgData(quesy);

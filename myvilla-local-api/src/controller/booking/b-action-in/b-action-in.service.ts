@@ -1,13 +1,16 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Body, Injectable,HttpService } from '@nestjs/common';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
+import { AxiosResponse } from "axios";
+import {configfile} from 'src/conf/config-setting'
 
 @Injectable()
 export class BActionInService {
     constructor(
         private readonly dbconnecttion: dbConnection
         , private readonly errMessageUtilsTh: ErrMessageUtilsTH
+        , private httpService: HttpService
     ) { }
 
     async saveBookingIn(@Body() body, files: any, homeObj: any, checkTBVCodeObj: any,getEmployeeID:any,getCartype:any) {
@@ -124,5 +127,22 @@ export class BActionInService {
             return null;
         else
             return res.result[0]._uuid;
+    }
+
+    async SendLineNotificationActionIn(notiObj: any): Promise<AxiosResponse> {
+        const url = configfile.HOST_LINE_NOTIFICATION + configfile.PATH_LINE_ACTION_IN_NOTIFICATION
+        return this.httpService.post(
+            url
+            , notiObj
+        ).toPromise()
+            .catch(err => {
+                console.log(`เชื่อมต่อ api ${url} ล้มเหลว`);
+                throw new StatusException({
+                    error: this.errMessageUtilsTh.errConnectServerLineNotificationError
+                    , result: null
+                    , message: this.errMessageUtilsTh.errConnectServerLineNotificationError
+                    , statusCode: 200
+                }, 200)
+            });
     }
 }
