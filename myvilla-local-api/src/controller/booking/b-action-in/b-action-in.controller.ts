@@ -216,6 +216,7 @@ export class BActionInController {
           body && body.cabinet_timestamp
             ? body.cabinet_timestamp
             : moment().format('YYYY-MM-DD HH:mm:ss'),
+        m_path_img: files && files.image_vehicle ? files.image_vehicle : null,
       };
       console.log(notiReq)
       const notiRes = await this.bActionINService.SendLineNotificationActionIn(

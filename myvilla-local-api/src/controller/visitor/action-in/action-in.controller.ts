@@ -217,7 +217,10 @@ export class ActionInController {
       visitorInfo && `${visitorInfo.first_name_th} ${visitorInfo.last_name_th}`,
       m_contact_licenseplate: body && body.license_plate,
       m_contact_time_in:body && body.cabinet_timestamp ? body.cabinet_timestamp : moment().format("YYYY-MM-DD HH:mm:ss"),
+      m_path_img: files && files.image_vehicle ? files.image_vehicle : null
     };
+
+    console.log('notiReq'+JSON.stringify(notiReq))
     if (body.visitor_slot_number) {
       console.log('Get slot');
       const getVisitorSlotID = await this.actionINService.getVisitorSlotID(
