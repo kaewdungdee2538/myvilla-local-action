@@ -226,8 +226,10 @@ export class ActionInService {
             return res.result[0];
     }
 
-    async SendLineNotificationActionIn(notiObj: any): Promise<AxiosResponse> {
-        const url = configfile.HOST_LINE_NOTIFICATION + configfile.PATH_LINE_ACTION_IN_NOTIFICATION
+    async SendLineNotificationActionIn(notiObj: any,lineNotificationMode :string): Promise<AxiosResponse> {
+        const url_for_pay = configfile.HOST_LINE_NOTIFICATION + configfile.PATH_LINE_ACTION_IN_NOTIFICATION
+        const url_for_boardcast = configfile.HOST_LINE_NOTIFICATION_BOARDCAST + configfile.PATH_LINE_ACTION_IN_NOTIFICATION_BOARDCAST
+        const  url = lineNotificationMode && lineNotificationMode.toLowerCase() === 'broadcast' ? url_for_boardcast : url_for_pay
         return this.httpService.post(
             url
             , notiObj

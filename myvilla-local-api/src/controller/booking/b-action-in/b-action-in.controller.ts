@@ -108,10 +108,9 @@ export class BActionInController {
     const VisitorSaveInMiddleware = this.vsActionSaveIn.CheckSaveIn(body);
     let VisitorInfoMiddleware = null;
 
-    if (
-      (await this.loadSettingLocalUtils.getBookingInMode(body.company_id)) ===
-      'qr_and_identitycard'
-    )
+    const setupCompany = await this.loadSettingLocalUtils.getBookingInMode(body.company_id)
+
+    if (setupCompany?.booking_verify === 'qr_and_identitycard')
       VisitorInfoMiddleware = this.vsActionInforMiddleware.CheclVisitorinfo(
         body,
       );
@@ -221,6 +220,7 @@ export class BActionInController {
       console.log(notiReq)
       const notiRes = await this.bActionINService.SendLineNotificationActionIn(
         notiReq,
+        setupCompany?.line_notification_mode,
       );
       console.log(
         'line notifycation response : ' + JSON.stringify(notiRes.data),

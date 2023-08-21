@@ -109,10 +109,8 @@ export class ActionInController {
     };
     //---------------------Middle ware
     let VisitorInfo = null;
-    if (
-      (await this.loadSettingLocalUtils.getVisitorInMode(body.company_id)) ===
-      'identitycard'
-    )
+    const setupCompany = await this.loadSettingLocalUtils.getVisitorInMode(body.company_id)
+    if ( setupCompany?.visitor_verify ==='identitycard' )
       VisitorInfo = this.vsActionInforMiddleware.CheclVisitorinfo(body);
     const VisitorSaveIn = this.vsActionSaveIn.CheckSaveIn(body);
     const VisitorValues = await this.vsActionCheckMiddleware.CheckActionIN(
@@ -187,6 +185,7 @@ export class ActionInController {
           getHomeID,
           getEmployeeID,
           getCartype,
+          setupCompany?.line_notification_mode,
         );
       } else
         throw new StatusException(
@@ -207,6 +206,7 @@ export class ActionInController {
     getHomeID: any,
     getEmployeeID: any,
     getCartype: any,
+    lineNotificationMode:string
   ) {
     console.log('Get slot Or Get Card');
     const visitorInfo = JSON.parse(body.visitor_info)
@@ -230,6 +230,7 @@ export class ActionInController {
         console.log(notiReq);
         const notiRes = await this.actionINService.SendLineNotificationActionIn(
           notiReq,
+          lineNotificationMode,
         );
         console.log('line notifycation response : ' + JSON.stringify(notiRes.data));
         return this.actionINService.ActionSaveIn(
@@ -260,6 +261,7 @@ export class ActionInController {
       console.log(notiReq);
       const notiRes = await this.actionINService.SendLineNotificationActionIn(
         notiReq,
+        lineNotificationMode,
       );
       console.log('line notifycation response : ' + JSON.stringify(notiRes.data));
       return this.actionINService.ActionSaveIn(

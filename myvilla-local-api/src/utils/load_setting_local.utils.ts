@@ -12,7 +12,7 @@ export class LoadSettingLocalUtils {
 
     }
     async getBookingInMode(company_id:string){
-        const sql =`select setup_data->'booking_verify' as booking_verify
+        const sql =`select setup_data->'booking_verify' as booking_verify,setup_data->>'line_notification_mode' as line_notification_mode
         from m_setup 
         where company_id = $1
         and ref_setup_id = 1;`
@@ -27,12 +27,12 @@ export class LoadSettingLocalUtils {
         }else if(res.result.length===0){
             console.log('Load Setting booking_in_mode not found')
             return null;
-        }else return res.result[0].booking_verify
+        }else return res.result[0]
     }
 
     async getVisitorInMode(company_id:string){
         console.log('getVisitorInMode')
-        const sql =`select setup_data->'visitor_verify' as visitor_verify
+        const sql =`select setup_data->>'visitor_verify' as visitor_verify,setup_data->>'line_notification_mode' as line_notification_mode
         from m_setup 
         where company_id = $1
         and ref_setup_id = 1;`
@@ -47,7 +47,7 @@ export class LoadSettingLocalUtils {
         }else if(res.result.length===0){
             console.log('Load Setting visitor_verify not found')
             return null;
-        }else return res.result[0].visitor_verify
+        }else return res.result[0]
     }
 
     async getBookingOutEstampMode(company_id:string){
