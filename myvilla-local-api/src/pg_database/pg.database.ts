@@ -4,12 +4,24 @@ var connection;
 export class dbConnection {
     async createPgConnect() {
         try {
+            // production
+            // connection = await createConnection({
+            //     type: 'postgres',
+            //     host: configfile.HOST,
+            // port: configfile.DATABASE_PORT,
+            //     port: 5432,
+            //     username: 'cit',
+            //     password: 'db13apr',
+            //     database: configfile.DATABASE
+            // });
+
+            //d emo
             connection = await createConnection({
                 type: 'postgres',
                 host: configfile.HOST,
-                port: 5432,
-                username: 'cit',
-                password: 'db13apr',
+                port: configfile.DATABASE_PORT,
+                username: 'postgres',
+                password: 'P@ssw0rd',
                 database: configfile.DATABASE
             });
             console.log('Create PG Connection Success.');

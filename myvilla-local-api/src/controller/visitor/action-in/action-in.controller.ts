@@ -232,7 +232,7 @@ export class ActionInController {
           notiReq,
           lineNotificationMode,
         );
-        console.log('line notifycation response : ' + JSON.stringify(notiRes.data));
+        console.log('line notifycation response : ' + JSON.stringify(notiRes));
         return this.actionINService.ActionSaveIn(
           files,
           body,
@@ -263,7 +263,7 @@ export class ActionInController {
         notiReq,
         lineNotificationMode,
       );
-      console.log('line notifycation response : ' + JSON.stringify(notiRes.data));
+      console.log('line notifycation response : ' + JSON.stringify(notiRes));
       return this.actionINService.ActionSaveIn(
         files,
         body,

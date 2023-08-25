@@ -223,7 +223,7 @@ export class BActionInController {
         setupCompany?.line_notification_mode,
       );
       console.log(
-        'line notifycation response : ' + JSON.stringify(notiRes.data),
+        'line notifycation response : ' + JSON.stringify(notiRes),
       );
       return await this.bActionINService.saveBookingIn(
         body,
