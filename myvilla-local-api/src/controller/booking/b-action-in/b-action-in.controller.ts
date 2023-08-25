@@ -70,6 +70,7 @@ export class BActionInController {
   )
   async saveBookingIn(@UploadedFiles() files, @Body() body) {
     console.log('Files' + JSON.stringify(files));
+    console.log('Body' + JSON.stringify(body));
     const pathMain = configfile.PATHSAVEIMAGE;
     if (!files.image_card) {
       throw new StatusException(
@@ -215,7 +216,7 @@ export class BActionInController {
           body && body.cabinet_timestamp
             ? body.cabinet_timestamp
             : moment().format('YYYY-MM-DD HH:mm:ss'),
-        m_path_img: files && files.image_vehicle ? files.image_vehicle : null,
+        m_path_img: imagesNameObj && imagesNameObj.image_vehicle ? imagesNameObj.image_vehicle : null,
       };
       console.log(notiReq)
       const notiRes = await this.bActionINService.SendLineNotificationActionIn(
