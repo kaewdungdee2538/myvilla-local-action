@@ -157,12 +157,13 @@ export class GetInService {
                         ...resultReUse
                         , calculate_info: {
                             tcpl_id:0,
+                            tcpl_code:'',
                             cartype_id: resultReUse.cartype_id,
                             start_date: resultReUse.parking_in_datetime,
                             end_date: resultReUse.date_now,
                             sum_interval: sum_interval,
                             sum_interval_text: sum_interval_text,
-                            sum_interval_after_discount_minute: "",
+                            sum_interval_after_discount_minute_text: "",
                             sum_interval_before_cal: 0,
                             sum_interval_after_cal: 0,
                             sum_parking_amount_before: 0,

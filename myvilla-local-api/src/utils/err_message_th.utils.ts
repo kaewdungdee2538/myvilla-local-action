@@ -136,6 +136,12 @@ export class ErrMessageUtilsTH {
     errPosIDNotFound = 'ไม่พบ pos id'
     errPosIDProhibitSpecial = 'pos id ห้ามมีอักขระพิเศษ หรือช่องว่าง'
 
+    errTcplIdNotFound = 'กรุณาระบุ ID รายการคำนวณค่าจอด'
+    errTcplCodeNotFound = 'กรุณาระบุรหัสรายการคำนวณค่าจอด'
+    errTcplCodeProhibitSpecial = 'รหัสรายการคำนวณค่าจอดห้ามมีอักษรพิเศษ'
+    errTcplNotInBase = 'ไม่พบรายการคำนวณค่าจอดในระบบ'
+    errTotalAmountMoreThanZeroCanNotUsePaymentTypeZero = 'ประเภทการชำระเงินไม่ถูกต้อง เนื่องจากมีค่าจอด'
+
     errPriceOfCardlossNotFound = 'ไม่พบค่าปรับบัตรหาย'
     errPriceOfCardlossProhibitSpecial = 'ค่าปรับบัตรหายห้ามมีอักขระพิเศษ หรือช่องว่าง'
     errPriceOfCardlossNotNumber = 'ค่าปรับบัตรหายต้องเป็นตัวเลขเท่านั้น'
@@ -222,6 +228,7 @@ export class ErrMessageUtilsTH {
     errOverFineProhitbitSpecial = `ค่าปรับบัตรหาย ห้ามมีอักขระพิเศษ หรือช่องว่าง`
     errPaymentTypeIdNotNumber = 'รหัสประเภทการจ่ายเงินต้องเป็นตัวเลขเท่านั้น'
     errPaymentTypeIdProhitbitSpecial = `รหัสประเภทการจ่ายเงิน ห้ามมีอักขระพิเศษ หรือช่องว่าง`
+    errPaymentTypeIdNotInBase = 'ประเภทการชำระเงินไม่ถูกต้อง'
 
     errLicensePlateNotFound = 'ไม่พบทะเบียนรถ'
     errLicensePlateProhibitSpecial = 'ทะเบียนรถ ห้ามมีอักขระพิเศษ'

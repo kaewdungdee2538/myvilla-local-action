@@ -212,10 +212,7 @@ export class BActionInController {
         checkTBVCode &&
           `${checkTBVCode.tbv_contact_person}`,
         m_contact_licenseplate: checkTBVCode && checkTBVCode.tbv_license_plate ? checkTBVCode.tbv_license_plate : body.license_plate,
-        m_contact_time_in:
-          body && body.cabinet_timestamp
-            ? body.cabinet_timestamp
-            : moment().format('YYYY-MM-DD HH:mm:ss'),
+        m_contact_time_in: moment().format('YYYY-MM-DD HH:mm:ss'),
         m_path_img: imagesNameObj && imagesNameObj.image_vehicle ? imagesNameObj.image_vehicle : null,
       };
       console.log(notiReq)
