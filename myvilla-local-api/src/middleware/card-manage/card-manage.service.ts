@@ -106,10 +106,14 @@ export class CardManageService {
     try{
         const total_amount = parseInt(res.result[0].total_amount)
         const new_payment_type_id = this.formatUtils.IsNumber(payment_type_id) ? parseInt(payment_type_id) : 0
-        if  (total_amount > 0 && new_payment_type_id > 0) return false;
+      //  if (total_amount === 0 && new_payment_type_id > 0){
+      //   return this.errMessageUtilsTh.errTotalAmountEqualZeroCanNotUsePaymentTypeNotEqualZero
+      //  }
+        if  (total_amount > 0 && new_payment_type_id === 0) return this.errMessageUtilsTh.errTotalAmountMoreThanZeroCanNotUsePaymentTypeZero;
+       
     }catch{}
    
-    return this.errMessageUtilsTh.errTotalAmountMoreThanZeroCanNotUsePaymentTypeZero;
+    return false 
   }
 
   async getPaymentTypeId(payment_type_id: number) {

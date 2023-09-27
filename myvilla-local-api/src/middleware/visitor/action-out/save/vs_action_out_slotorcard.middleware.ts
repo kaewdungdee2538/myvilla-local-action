@@ -84,21 +84,28 @@ export class VsActionOutSlotOrCardMiddleWare {
   async checkCalLog(body: any) {
     if (body.tcpl_id && !this.formatUtils.IsNumber(body.tcpl_id))
       return this.errMessageUtilsTh.errTcplIdNotFound;
+    else if ( body.tcpl_id &&
+      this.formatUtils.IsNumber(body.tcpl_id) &&
+      body.tcpl_id != 0  && !body.tcpl_code)
+      return this.errMessageUtilsTh.errTcplCodeNotFound;
     else if (
       body.tcpl_id &&
       this.formatUtils.IsNumber(body.tcpl_id) &&
+      body.tcpl_id != 0 &&
       body.tcpl_code.length == 0
     )
       return this.errMessageUtilsTh.errTcplCodeNotFound;
     else if (
       body.tcpl_id &&
       this.formatUtils.IsNumber(body.tcpl_id) &&
+      body.tcpl_id != 0 &&
       this.formatUtils.HaveSpecialFormat(body.tcpl_code)
     )
       return this.errMessageUtilsTh.errTcplCodeProhibitSpecial;
     else if (
       body.tcpl_id &&
       this.formatUtils.IsNumber(body.tcpl_id) &&
+      body.tcpl_id != 0 &&
       !this.formatUtils.HaveSpecialFormat(body.tcpl_code)
     ) {
       const error = await this.cardManageService.getCalculateLogInDataBase(
@@ -109,7 +116,7 @@ export class VsActionOutSlotOrCardMiddleWare {
         body.card_code,
         body.payment_type_id,
       );
-      if (error) return error 
+      if (error) return error;
     }
     return null;
   }
@@ -118,10 +125,15 @@ export class VsActionOutSlotOrCardMiddleWare {
     return await this.checkPaymentType(body);
   }
   async checkPaymentType(body: any) {
-    if (body.payment_type_id && !this.formatUtils.IsNumber(body.payment_type_id))
-        return this.errMessageUtilsTh.errPaymentTypeIdNotNumber;
-    else if (body.payment_type_id && this.formatUtils.IsNumber(body.payment_type_id))
-    {
+    if (
+      body.payment_type_id &&
+      !this.formatUtils.IsNumber(body.payment_type_id)
+    )
+      return this.errMessageUtilsTh.errPaymentTypeIdNotNumber;
+    else if (
+      body.payment_type_id &&
+      this.formatUtils.IsNumber(body.payment_type_id)
+    ) {
       const success = await this.cardManageService.getPaymentTypeId(
         body.payment_type_id,
       );
@@ -129,5 +141,4 @@ export class VsActionOutSlotOrCardMiddleWare {
     }
     return null;
   }
-
 }

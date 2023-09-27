@@ -9,9 +9,9 @@ import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
-
 import { ActionOutSaveController } from './action-out.controller';
 import { ActionOutSaveService } from './action-out.service';
+import { GetSlipService } from 'src/controller/visitor/get-slip/get-slip.service';
 
 @Module({
   imports:[],
@@ -28,6 +28,7 @@ import { ActionOutSaveService } from './action-out.service';
     ,VsActionInCheckEmployeeMiddleWare
     ,LoadSettingLocalUtils
     ,vsActionOutVerifyEstampMiddleware
+    ,GetSlipService
   ]
 })
 export class ActionOutSaveModule {}

@@ -141,6 +141,7 @@ export class ErrMessageUtilsTH {
     errTcplCodeProhibitSpecial = 'รหัสรายการคำนวณค่าจอดห้ามมีอักษรพิเศษ'
     errTcplNotInBase = 'ไม่พบรายการคำนวณค่าจอดในระบบ'
     errTotalAmountMoreThanZeroCanNotUsePaymentTypeZero = 'ประเภทการชำระเงินไม่ถูกต้อง เนื่องจากมีค่าจอด'
+    errTotalAmountEqualZeroCanNotUsePaymentTypeNotEqualZero = 'ประเภทการชำระเงินไม่ถูกต้อง เนื่องจากไม่มียอดเงิน'
 
     errPriceOfCardlossNotFound = 'ไม่พบค่าปรับบัตรหาย'
     errPriceOfCardlossProhibitSpecial = 'ค่าปรับบัตรหายห้ามมีอักขระพิเศษ หรือช่องว่าง'

@@ -118,6 +118,8 @@ export class GetBookingOutInfoService {
                     , result: {
                         ...resultReUse
                         , calculate_info: {
+                            tcpl_id:0,
+                            tcpl_code:'',
                             cartype_id: resultReUse.cartype_id,
                             start_date: resultReUse.parking_in_datetime,
                             end_date: resultReUse.date_now,
