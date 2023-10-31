@@ -13,7 +13,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionInService } from './action-in.service';
 import { diskStorage } from 'multer';
-import * as moment from 'moment'
+import * as moment from 'moment';
 import {
   editFileName,
   getCurrentDatePathFileSave,
@@ -29,6 +29,7 @@ import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action
 import { ActionInInterceptor } from 'src/interceptor/visitor/action-in/action-in.interceptor';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import { OverwritingRemarkImages } from 'src/middleware/image_manual/watermark/image-watermark.middleware';
 
 @Controller('bannayuu/api/visitor/action/in')
 export class ActionInController {
@@ -73,6 +74,7 @@ export class ActionInController {
   async ActionSaveIn(@UploadedFiles() files, @Body() body) {
     console.log('Files' + JSON.stringify(files));
     console.log('Body' + JSON.stringify(body));
+
     const pathMain = configfile.PATHSAVEIMAGE;
     if (!files.image_card) {
       throw new StatusException(
@@ -98,19 +100,24 @@ export class ActionInController {
     const pathDriver = files.image_card.map((file) => {
       return file.path.replace(pathMain, '');
     });
-    console.log(pathDriver);
     const pathLicense = files.image_vehicle.map((file) => {
       return file.path.replace(pathMain, '');
     });
-    console.log(pathLicense);
+
+    // overwriting images
+    OverwritingRemarkImages(files.image_card)
+    OverwritingRemarkImages(files.image_vehicle)
+
     const imagesNameObj = {
       image_card: pathDriver[0],
       image_vehicle: pathLicense[0],
     };
     //---------------------Middle ware
     let VisitorInfo = null;
-    const setupCompany = await this.loadSettingLocalUtils.getVisitorInMode(body.company_id)
-    if ( setupCompany?.visitor_verify ==='identitycard' )
+    const setupCompany = await this.loadSettingLocalUtils.getVisitorInMode(
+      body.company_id,
+    );
+    if (setupCompany?.visitor_verify === 'identitycard')
       VisitorInfo = this.vsActionInforMiddleware.CheclVisitorinfo(body);
     const VisitorSaveIn = this.vsActionSaveIn.CheckSaveIn(body);
     const VisitorValues = await this.vsActionCheckMiddleware.CheckActionIN(
@@ -206,21 +213,22 @@ export class ActionInController {
     getHomeID: any,
     getEmployeeID: any,
     getCartype: any,
-    lineNotificationMode:string
+    lineNotificationMode: string,
   ) {
     console.log('Get slot Or Get Card');
-    const visitorInfo = JSON.parse(body.visitor_info)
+    const visitorInfo = JSON.parse(body.visitor_info);
     const notiReq = {
       m_home_id: body && body.home_id,
       m_company_id: body && body.company_id,
       m_contact_name:
-      visitorInfo && `${visitorInfo.first_name_th} ${visitorInfo.last_name_th}`,
+        visitorInfo &&
+        `${visitorInfo.first_name_th} ${visitorInfo.last_name_th}`,
       m_contact_licenseplate: body && body.license_plate,
-      m_contact_time_in: moment().format("YYYY-MM-DD HH:mm:ss"),
-      m_path_img: files && files.image_vehicle ? files.image_vehicle : null
+      m_contact_time_in: moment().format('YYYY-MM-DD HH:mm:ss'),
+      m_path_img: files && files.image_vehicle ? files.image_vehicle : null,
     };
 
-    console.log('notiReq'+JSON.stringify(notiReq))
+    console.log('notiReq' + JSON.stringify(notiReq));
     if (body.visitor_slot_number) {
       console.log('Get slot');
       const getVisitorSlotID = await this.actionINService.getVisitorSlotID(

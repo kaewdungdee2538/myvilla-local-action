@@ -27,6 +27,7 @@ import { vsActionOutVerifyEstampMiddleware } from 'src/middleware/visitor/action
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ActionOutValuesInterceptor } from 'src/interceptor/visitor/action-out/action-out-values.interceptor';
+import { OverwritingRemarkImages } from 'src/middleware/image_manual/watermark/image-watermark.middleware';
 
 @Controller('bannayuu/api/visitor/action/out')
 export class ActionOutSaveController {
@@ -91,6 +92,9 @@ export class ActionOutSaveController {
     // const pathLicense = files.image_vehicle.map(file => {
     //     return file.path.replace(pathMain, '');
     // })
+
+    // overwriting images
+    OverwritingRemarkImages(files.image_vehicle)
 
     const imagesNameObj = {
       image_vehicle: pathDriver[0],

@@ -25,6 +25,7 @@ import { VsActionOutSlotOrCardMiddleWare } from 'src/middleware/visitor/action-o
 import { configfile } from '../../../conf/config-setting';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { OverwritingRemarkImages } from 'src/middleware/image_manual/watermark/image-watermark.middleware';
 @Controller('bannayuu/api/booking/b-action-out')
 export class BActionOutController {
   constructor(
@@ -66,10 +67,13 @@ export class BActionOutController {
     const pathVehicle = files.image_vehicle.map((file) => {
       return file.path.replace(pathMain, '');
     });
-    console.log(pathVehicle);
     const imagesNameObj = {
       image_vehicle: pathVehicle[0],
     };
+
+    // overwriting images
+    OverwritingRemarkImages(files.image_vehicle)
+
     //---------------------Middle ware
     const tbvCodeMiddleware = await this.bActionOutMiddleware.CheckSaveIn(body);
     if (tbvCodeMiddleware)

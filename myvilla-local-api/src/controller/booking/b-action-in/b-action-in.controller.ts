@@ -27,6 +27,8 @@ import { BActionInService } from './b-action-in.service';
 import { configfile } from '../../../conf/config-setting';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { OverwritingRemarkImages } from 'src/middleware/image_manual/watermark/image-watermark.middleware';
+
 @Controller('bannayuu/api/booking/b-action-in')
 export class BActionInController {
   constructor(
@@ -96,15 +98,18 @@ export class BActionInController {
     const pathDriver = files.image_card.map((file) => {
       return file.path.replace(pathMain, '');
     });
-    console.log(pathDriver);
     const pathLicense = files.image_vehicle.map((file) => {
       return file.path.replace(pathMain, '');
     });
-    console.log(pathLicense);
     const imagesNameObj = {
       image_card: pathDriver[0],
       image_vehicle: pathLicense[0],
     };
+
+    // overwriting image file
+    OverwritingRemarkImages(files.image_card)
+    OverwritingRemarkImages(files.image_vehicle)
+
     //---------------------Middle ware
     const VisitorSaveInMiddleware = this.vsActionSaveIn.CheckSaveIn(body);
     let VisitorInfoMiddleware = null;

@@ -4,6 +4,7 @@ import { StatusException } from "src/utils/callback.status";
 import { readdir, existsSync, mkdirSync } from 'fs';
 import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
+import { v4 as uuidv4 } from 'uuid';
 const errMessageUtilsTh = new ErrMessageUtilsTH();
 const formatUtils = new FormatDataUtils();
 
@@ -71,19 +72,10 @@ export const editFileName = (req, file, callback) => {
     const type_contrac = cookiesObj.type_contrac
     const action_type_contrac = cookiesObj.action_type_contrac
     console.log('cookie '+ JSON.stringify(cookiesObj))
-    const name = file.originalname.split('.')[0];
-    const current_date = new Date();
-    const year = current_date.getFullYear().toString();
-    const month = current_date.getMonth().toString();
-    const date = current_date.getDate().toString();
-    const hour = current_date.getHours().toString();
-    const minute = current_date.getHours().toString();
-    const second = current_date.getSeconds().toString();
-    const milsec = current_date.getMilliseconds().toString();
+    const name = generateUuidWithoutHyphens();
 
-    const file_date_name = `${year}${month}${date}_${hour}${minute}${second}${milsec}`
     const fileExtName = extname(file.originalname);
-    return callback(null, `${type_contrac}${action_type_contrac}_${name}_${file_date_name}${fileExtName}`);
+    return callback(null, `${type_contrac}${action_type_contrac}_${name}${fileExtName}`);
 };
 
 
@@ -98,6 +90,7 @@ export const getCurrentDatePathFileSave = (req, file, callback) => {
     let date = current_date.getDate().toString();
     let currentPath = `${pathAllFiles}/files/${type}/${action_type}/${year}/${month}/${date}`;
     console.log(pathAllFiles);
+    console.log('file'+ file)
     const dir = currentPath;
     if (!existsSync(dir)) {
         mkdirSync(dir, {
@@ -156,4 +149,8 @@ export const getCurrentDatePathFileForPacelSave = (req, file, callback) => {
         return callback(null, currentPath);
     });
 }
+function generateUuidWithoutHyphens(): string {
+    const uuid = uuidv4(); // Generate a random UUID with hyphens
+    return uuid.replace(/-/g, ''); // Remove hyphens from the UUID
+  }
 
