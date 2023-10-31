@@ -62,13 +62,6 @@ export class ActionInController {
         limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE },
       },
     ),
-    // FilesInterceptor('image', 20, {
-    //     storage: diskStorage({
-    //         destination: getCurrentDatePathFileSaveIn,
-    //         filename: editFileName,
-    //     }),
-    //     fileFilter: imageFileFilter,
-    // }),
     DefaultInterceptor,
   )
   async ActionSaveIn(@UploadedFiles() files, @Body() body) {

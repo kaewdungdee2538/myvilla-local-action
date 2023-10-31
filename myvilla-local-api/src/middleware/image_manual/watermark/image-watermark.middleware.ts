@@ -67,14 +67,14 @@ async function addTextOnImage() {
   try {
     const width = 500;
     const height = 500;
-    const text = stringToCharacters("Bannayuu In-Out Only");
+    const text = stringToCharacters("Bannayuu Only");
 
     const svgImage  = `
     <svg width="${width}" height="${height}" >
     <style>
-    .title { fill: #FD0404; font-size: 40px; font-weight: bold;}
+    .title { fill: #FD0404; font-size: 68px; font-weight: bold;}
     </style>
-    <text x="25%" y="70%" text-anchor="middle" dominant-baseline="central" transform="rotate(-30, 50, 50)" opacity="0.3" class="title">${text.join('')}</text>
+    <text x="25%" y="68%" text-anchor="middle" dominant-baseline="central" transform="rotate(-30, 50, 50)" opacity="0.3" class="title">${text.join('')}</text>
   </svg>
     `;
 
