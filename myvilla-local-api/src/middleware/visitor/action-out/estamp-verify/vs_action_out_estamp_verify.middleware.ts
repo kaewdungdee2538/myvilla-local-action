@@ -33,6 +33,7 @@ export class vsActionOutVerifyEstampMiddleware implements NestMiddleware {
             return this.checkEstampVisitorOut(body);
     }
     async checkEstampVisitorOut(body:any) {
+        console.log(body)
         const visitor_slot_number = body.visitor_slot_number
         const card_code = body.card_code
         const card_name = body.card_name

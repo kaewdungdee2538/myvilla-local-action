@@ -5,7 +5,7 @@ import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action
 import { bGetBookingOutInfoMiddleware } from 'src/middleware/booking/get-booking-out-info/b_get_booking_out_info.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
-import { LptBSaveOutService } from './lpt-b-save-out.service';
+import { LptBSaveOutService } from './lpr-b-save-out.service';
 import { diskStorage } from 'multer';
 import { configfile } from '../../../conf/config-setting'
 import { editFileName, getCurrentDatePathFileSave, imageFileFilter } from 'src/middleware/image_manual/uploadfile.middleware';
@@ -57,7 +57,7 @@ export class LptBSaveOutController {
             image_vehicle: pathVehicle[0]
         }
         //---------------------Middle ware
-        const tbvCodeMiddleware = await this.bActionOutMiddleware.CheckSaveIn(body);
+        const tbvCodeMiddleware = await this.bActionOutMiddleware.CheckSaveOut(body);
         if (tbvCodeMiddleware) throw new StatusException(
             {
                 error: tbvCodeMiddleware

@@ -9,8 +9,9 @@ import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
-import { LptBSaveInController } from './lpt-b-save-in.controller';
-import { LptBSaveInService } from './lpt-b-save-in.service';
+import { LptBSaveInController } from './lpr-b-save-in.controller';
+import { LptBSaveInService } from './lpr-b-save-in.service';
+import { LPRBookingCheckInMiddleware } from 'src/middleware/lpr/b-check-in/lpr_b_check_in.middleware';
 
 @Module({
   controllers: [LptBSaveInController],
@@ -26,6 +27,8 @@ import { LptBSaveInService } from './lpt-b-save-in.service';
     ,VsActionInCheckHomeIDMiddleWare
     ,VsActionInCheckEmployeeMiddleWare
     ,LoadSettingLocalUtils
+    ,LPRBookingCheckInMiddleware
   ]
 })
-export class LptBSaveInModule {}
+export class LptBSaveInModule {
+}

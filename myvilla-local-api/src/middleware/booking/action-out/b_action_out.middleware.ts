@@ -12,10 +12,17 @@ export class BActionOutMiddleware {
     private readonly dbconnecttion: dbConnection,
   ) {}
 
-  async CheckSaveIn(body: any) {
+  async CheckSaveOut(body: any) {
     const checkvalues = this.checkValues(body);
     if (checkvalues) return checkvalues;
     return await this.checkValuesTBVCode(body);
+  }
+
+
+  async CheckSaveOutLPRByPass(body: any) {
+    const checkvalues = this.checkValues(body);
+    if (checkvalues) return checkvalues;
+    return await this.checkValuesLPR(body);
   }
 
   checkValues(body: any) {
@@ -93,6 +100,52 @@ export class BActionOutMiddleware {
     }
     return res.result[0];
   }
+
+  async checkValuesLPR(body:any){
+    if(!body.license_plate)
+    return this.errMessageUtilsTh.errLicensePlateNotFound
+    else if(this.formatUtils.HaveSpecialHomeFormat(body.license_plate))
+    return this.errMessageUtilsTh.errLicensePlateProhibitSpecial
+    // const lprInFromBase = await this.checkLprOutFrombase(body);
+    // if (lprInFromBase) return lprInFromBase
+    return null;
+  }
+
+  async checkLprOutFrombase(body: any) {
+    const company_id = body.company_id;
+    const license_plate = body.license_plate;
+
+    let sql = ` 
+        SELECT 
+          visitor_record_id
+          ,visitor_record_code
+          ,license_plate
+          ,parking_in_datetime
+        FROM  t_visitor_record
+        WHERE company_id = $1
+        AND license_plate = $2
+        AND action_out_flag = 'N'
+        AND action_type = 'IN'
+        ;`;
+    const query = {
+      text: sql,
+      values: [company_id, license_plate],
+    };
+    const res = await this.dbconnecttion.getPgData(query);
+    if (res.error) {
+      console.log(res.error);
+      return this.errMessageUtilsTh.errLicenseplateNotIn;
+    } else if (res.result.length === 0) {
+      console.log('Record in not found');
+      return this.errMessageUtilsTh.errLicenseplateNotIn;
+    }else if (res.result.length > 1){
+      console.log('License plate more than 1 record');
+      return this.errMessageUtilsTh.errLicenseplateInThanMoreOneRecord;
+    }
+    return null;
+  }
+
+  
 
   async CheckCalculateLog(body: any) {
     return await this.checkCalLog(body);

@@ -75,7 +75,7 @@ export class BActionOutController {
     OverwritingRemarkImages(files.image_vehicle)
 
     //---------------------Middle ware
-    const tbvCodeMiddleware = await this.bActionOutMiddleware.CheckSaveIn(body);
+    const tbvCodeMiddleware = await this.bActionOutMiddleware.CheckSaveOut(body);
     if (tbvCodeMiddleware)
       throw new StatusException(
         {

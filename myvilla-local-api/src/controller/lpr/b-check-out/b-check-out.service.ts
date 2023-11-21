@@ -155,6 +155,7 @@ export class LPRBCheckOutService {
     }
 
     async getCalculate(valuesObj: any): Promise<AxiosResponse> {
+        console.log(valuesObj)
         const company_id = valuesObj.company_id;
         const visitor_record_id = valuesObj.visitor_record_id;
         const employee_id = valuesObj.employee_id;

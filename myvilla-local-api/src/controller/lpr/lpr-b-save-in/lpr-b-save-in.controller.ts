@@ -14,7 +14,8 @@ import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-i
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { LPRBSaveInInterceptor } from 'src/interceptor/lpr/booking-in/lpr-b-booking-save-in.interceptor';
-import { LptBSaveInService } from './lpt-b-save-in.service';
+import { LptBSaveInService } from './lpr-b-save-in.service';
+import { LPRBookingCheckInMiddleware } from 'src/middleware/lpr/b-check-in/lpr_b_check_in.middleware';
 
 @Controller('bannayuu/api/lpr/booking/save-in')
 export class LptBSaveInController {
@@ -27,6 +28,7 @@ export class LptBSaveInController {
         , private readonly vsActionCheckHomeID: VsActionInCheckHomeIDMiddleWare
         , private readonly vsActionCheckEmployee: VsActionInCheckEmployeeMiddleWare
         , private readonly loadSettingLocalUtils: LoadSettingLocalUtils
+        ,private readonly lprBookingCheckInMiddleware:LPRBookingCheckInMiddleware
     ) { }
     
     @Post('save')
@@ -171,5 +173,89 @@ export class LptBSaveInController {
                 , statusCode: 200
             }, 200
         )
+    }
+
+
+    @Post('bypass')
+    @UseGuards(JwtAuthGuard)
+    @UseInterceptors(
+        LPRBSaveInInterceptor,
+        FileFieldsInterceptor([
+            { name: 'image_card', maxCount: 1 }
+            , { name: 'image_vehicle', maxCount: 1 }
+        ], {
+            storage: diskStorage({
+                destination: getCurrentDatePathFileSave,
+                filename: editFileName,
+            }),
+            fileFilter: imageFileFilter,
+            limits: { fileSize: 1024 * 1024 * configfile.IMAGE_SIZE }
+        }),
+        DefaultInterceptor
+        // FilesInterceptor('image', 20, {
+        //     storage: diskStorage({
+        //         destination: getCurrentDatePathFileSaveIn,
+        //         filename: editFileName,
+        //     }),
+        //     fileFilter: imageFileFilter,
+        // }),
+    )
+    async saveLPRBookingInByPass(@UploadedFiles() files, @Body() body) {
+        console.log('Files' + JSON.stringify(files));
+        const pathMain = configfile.PATHSAVEIMAGE;
+        if (!files.image_card) {
+            throw new StatusException(
+                {
+                    error: this.errMessageUtilsTh.errImageCardNotFound
+                    , result: null
+                    , message: this.errMessageUtilsTh.errImageCardNotFound
+                    , statusCode: 200
+                }, 200
+            )
+        } else if (!files.image_vehicle) {
+            throw new StatusException(
+                {
+                    error: this.errMessageUtilsTh.errImageVehicleNotFound
+                    , result: null
+                    , message: this.errMessageUtilsTh.errImageVehicleNotFound
+                    , statusCode: 200
+                }, 200
+            )
+        }
+        const pathDriver = files.image_card.map(file => {
+            return file.path.replace(pathMain, '');
+        })
+        console.log(pathDriver);
+        const pathLicense = files.image_vehicle.map(file => {
+            return file.path.replace(pathMain, '');
+        })
+        console.log(pathLicense);
+        const imagesNameObj = {
+            image_card: pathDriver[0]
+            , image_vehicle: pathLicense[0]
+        }
+        //---------------------Middle ware
+        
+        const middlewareLPR = await this.lprBookingCheckInMiddleware.CheckLPRBoolingCheckIn(body);
+        console.log('middlewareLPR : ',middlewareLPR)
+        if (middlewareLPR) throw new StatusException(
+            {
+                error: middlewareLPR
+                , result: null
+                , message: middlewareLPR
+                , statusCode: 200
+            }, 200
+        )
+        const getEmployeeID = await this.vsActionCheckEmployee.CheckInEmployee(body);
+        if (!getEmployeeID) throw new StatusException(
+            {
+                error: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
+                , result: null
+                , message: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
+                , statusCode: 200
+            }, 200
+        )
+       
+            return await this.bActionINService.saveBookingInByPassWithLpr(body, imagesNameObj, getEmployeeID);
     }
 }

@@ -40,13 +40,16 @@ export class LPRBookingCheckInMiddleware implements NestMiddleware {
         
         const company_id = body.company_id;
         const license_plate = body.license_plate;
-        let sql = `select 
-        tbv.tbv_id,tbv.tbv_code
-        from t_booking_visitor tbv
-        where tbv.delete_flag = 'N'
-        and current_timestamp < tbv_end_datetime
-        and tbv.company_id = $1
-        and tbv_license_plate = $2
+        let sql = `
+        SELECT 
+            tbv.tbv_id,
+            tbv.tbv_code
+        FROM t_booking_visitor tbv
+        WHERE tbv.delete_flag = 'N'
+        AND current_timestamp < tbv_end_datetime
+        AND tbv.company_id = $1
+        AND tbv_license_plate = $2
+        AND tbv.tbv_status = 'N'
         ;`
         const query = {
             text: sql
@@ -56,6 +59,7 @@ export class LPRBookingCheckInMiddleware implements NestMiddleware {
         if (await res.error)  return this.errMessageUtilsTh.messageProcessFail
         else if (await res.result.length === 0) return this.errMessageUtilsTh.errBookingNotFound
         else if (await res.result.length > 1) return this.errMessageUtilsTh.errBookingLicenseIsDuplicate
+       
         else return null;
     }
 }

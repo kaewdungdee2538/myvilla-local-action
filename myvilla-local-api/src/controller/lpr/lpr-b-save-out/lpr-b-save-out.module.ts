@@ -6,8 +6,8 @@ import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
-import { LptBSaveOutController } from './lpt-b-save-out.controller';
-import { LptBSaveOutService } from './lpt-b-save-out.service';
+import { LptBSaveOutController } from './lpr-b-save-out.controller';
+import { LptBSaveOutService } from './lpr-b-save-out.service';
 
 @Module({
   controllers: [LptBSaveOutController],

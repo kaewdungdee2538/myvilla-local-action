@@ -10,8 +10,8 @@ import { GetBookingOutInfoModule } from './controller/booking/get-booking-out-in
 import { GetImageModule } from './controller/image/get-image/get-image.module';
 import { LPRBCheckInModule } from './controller/lpr/b-check-in/b-check-in.module';
 import { LPRBCheckOutModule } from './controller/lpr/b-check-out/b-check-out.module';
-import { LptBSaveInModule } from './controller/lpr/lpt-b-save-in/lpt-b-save-in.module';
-import { LptBSaveOutModule } from './controller/lpr/lpt-b-save-out/lpt-b-save-out.module';
+import { LptBSaveInModule } from './controller/lpr/lpr-b-save-in/lpr-b-save-in.module';
+import { LptBSaveOutModule } from './controller/lpr/lpr-b-save-out/lpr-b-save-out.module';
 import { ParcelModule } from './controller/parcel/parcel.module';
 import { ResetVisitorModule } from './controller/reset-data/reset-visitor/reset-visitor.module';
 import { SosModule } from './controller/sos/sos/sos.module';
@@ -33,6 +33,7 @@ import { GetSlotModule } from './controller/visitor/get-slot/get-slot.module';
 import { VisitorPendantModule } from './controller/visitor/visitor-pendant/visitor-pendant.module';
 import { loggerMiddleware } from './middleware/logger.middleware';
 import { GetVisitorOutHistoryModule } from './get-visitor-out-history/get-visitor-out-history.module';
+import { BypassModule } from './controller/lpr/bypass/bypass.module';
 
 @Module({
   imports: [
@@ -64,7 +65,7 @@ import { GetVisitorOutHistoryModule } from './get-visitor-out-history/get-visito
     , LPRBCheckInModule
     , LPRBCheckOutModule
     , LptBSaveInModule
-    , LptBSaveOutModule, GetVisitorOutHistoryModule
+    , LptBSaveOutModule, GetVisitorOutHistoryModule, BypassModule
   ],
   controllers: [AppController],
   providers: [AppService],
