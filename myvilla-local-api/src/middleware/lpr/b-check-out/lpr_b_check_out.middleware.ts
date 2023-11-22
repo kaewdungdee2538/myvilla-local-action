@@ -5,7 +5,7 @@ import { ErrMessageUtilsTH } from "src/utils/err_message_th.utils";
 import { FormatDataUtils } from "src/utils/format_data.utils";
 
 @Injectable()
-export class LPRBookingCheckInMiddleware implements NestMiddleware {
+export class LPRBookingCheckOutMiddleware implements NestMiddleware {
     constructor(
         private readonly errMessageUtilsTh: ErrMessageUtilsTH,
         private readonly formatUtils: FormatDataUtils,

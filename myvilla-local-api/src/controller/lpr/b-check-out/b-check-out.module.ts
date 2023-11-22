@@ -1,7 +1,7 @@
 import { HttpModule, MiddlewareConsumer, Module } from '@nestjs/common';
 import { CalTimediffService } from 'src/controller/cal-timediff/cal-timediff.service';
 import { vsDefaultMiddleware } from 'src/middleware/default/default.middleware';
-import { LPRBookingCheckInMiddleware } from 'src/middleware/lpr/b-check-out/lpr_b_check_out.middleware';
+import { LPRBookingCheckOutMiddleware } from 'src/middleware/lpr/b-check-out/lpr_b_check_out.middleware';
 import { dbConnection } from 'src/pg_database/pg.database';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { FormatDataUtils } from 'src/utils/format_data.utils';
@@ -26,7 +26,7 @@ import { LPRBCheckOutService } from './b-check-out.service';
 export class LPRBCheckOutModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsDefaultMiddleware,LPRBookingCheckInMiddleware)
+    .apply(vsDefaultMiddleware,LPRBookingCheckOutMiddleware)
     .forRoutes('bannayuu/api/lpr/booking/check-out/get');
   }
 }

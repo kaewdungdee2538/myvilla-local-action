@@ -28,14 +28,12 @@ export class LPRBCheckOutService {
     const company_id = body.company_id;
     const license_plate = body.license_plate;
     const promotion_code = body.promotion_code ? body.promotion_code : '';
-    let sql1 = `with gettbvcode as (select tbv_code 
-            from t_booking_visitor
-            where tbv_status = 'Y'
-            and company_id = $1
-            and tbv_license_plate = $2
-            order by tbv_id desc 
-            limit 1
-           )
+    let sql1 = `
+        WITH input_data AS (
+          SELECT
+          $1::NUMERIC AS company_id,
+          $2::VARCHAR AS license_plate
+        )
         select  
         visitor_record_id,visitor_record_code,ref_visitor_record_id
         ,tvr.tbv_code
@@ -60,9 +58,10 @@ export class LPRBCheckOutService {
         from t_visitor_record tvr
         left join t_booking_visitor tb on tvr.tbv_code = tb.tbv_code
         where tvr.action_out_flag = 'N'
-        and tvr.company_id = $1
-        and tvr.tbv_code = (select tbv_code from gettbvcode)
-        limit 1;`;
+        and tvr.company_id = (SELECT company_id FROM input_data)
+        and tvr.license_plate = (SELECT license_plate FROM input_data)
+        ORDER BY tvr.visitor_record_id DESC
+        ;`;
     const query1 = {
       text: sql1,
       values: [company_id, license_plate],
