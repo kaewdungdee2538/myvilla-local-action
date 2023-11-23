@@ -47,12 +47,12 @@ export class BActionOutMiddleware {
       return this.errMessageUtilsTh.errGuardHouseIDNotNumber;
     else if (this.formatUtils.HaveSpecialFormat(body.guardhouse_out_code))
       return this.errMessageUtilsTh.errGuardHouseCodeProhibitSpecial;
-    else if (!body.employee_out_id)
-      return this.errMessageUtilsTh.errEmployeeIDNotFound;
-    else if (this.formatUtils.HaveSpecialFormat(body.employee_out_id))
-      return this.errMessageUtilsTh.errEmployeeIDProhibitSpecail;
-    else if (!this.formatUtils.IsNumber(body.employee_out_id))
-      return this.errMessageUtilsTh.errEmployeeIDNotNumber;
+    // else if (!body.employee_out_id)
+    //   return this.errMessageUtilsTh.errEmployeeIDNotFound;
+    // else if (this.formatUtils.HaveSpecialFormat(body.employee_out_id))
+    //   return this.errMessageUtilsTh.errEmployeeIDProhibitSpecail;
+    // else if (!this.formatUtils.IsNumber(body.employee_out_id))
+      // return this.errMessageUtilsTh.errEmployeeIDNotNumber;
     else if (!body.pos_id) return this.errMessageUtilsTh.errPosIDNotFound;
     else if (this.formatUtils.HaveSpecialFormat(body.pos_id))
       return this.errMessageUtilsTh.errPosIDProhibitSpecial;

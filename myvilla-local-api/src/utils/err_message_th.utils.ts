@@ -2,6 +2,7 @@ export class ErrMessageUtilsTH {
   messageSuccess = 'เรียบร้อย';
   messageSuccessEn = 'Success';
   messageProcessFail = 'ล้มเหลว';
+  errBasicAuthFailed= 'Authen Failed'
   errConnectServerCalculateError = 'เชื่อมต่อ API คำนวณค่าจอดล้มเหลว';
   errConnectServerLineNotificationError =
     'เชื่อมต่อ API Line notification ล้มเหลว';

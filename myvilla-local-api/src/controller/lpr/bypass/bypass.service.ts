@@ -25,7 +25,7 @@ export class BypassService {
     const guardhouse_out_code = body.guardhouse_out_code;
     const pos_id = body.pos_id ? body.pos_id.toString() : '';
     const company_id = body.company_id;
-    const employee_out_id = body.employee_out_id;
+    const employee_out_id = body.employee_out_id ? body.employee_out_id : 0;
     const employee_out_info = JSON.stringify(employeeObj);
 
     const tcpl_id = recordIn ? parseInt(recordIn.summary_data.tcpl_id) : 0;
@@ -101,9 +101,7 @@ export class BypassService {
       );
   }
 
-  async getRecordInWithLPR(@Body() body, req: any) {
-    const employeeObj = req;
-    const employee_id = employeeObj.employee_id;
+  async getRecordInWithLPR(@Body() body) {
     const company_id = body.company_id;
     const license_plate = body.license_plate;
     const promotion_code = body.promotion_code ? body.promotion_code : '';
@@ -191,7 +189,6 @@ export class BypassService {
         const calculateParkingInfo = await this.getCalculate({
           ...resultReUse,
           company_id,
-          employee_id,
           promotion_code,
           estamp_flag,
         }).then((response) => {
@@ -222,7 +219,6 @@ export class BypassService {
   async getCalculate(valuesObj: any): Promise<AxiosResponse> {
     const company_id = valuesObj.company_id;
     const visitor_record_id = valuesObj.visitor_record_id;
-    const employee_id = valuesObj.employee_id;
     const start_date = moment(valuesObj.parking_in_datetime).format(
       'YYYY-MM-DD HH:mm:ss',
     );
@@ -233,7 +229,6 @@ export class BypassService {
     const params = {
       company_id,
       visitor_record_id,
-      employee_id,
       start_date,
       end_date,
       cartype_id,

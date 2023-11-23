@@ -1,4 +1,5 @@
 import {
+  Req,
   Body,
   Controller,
   Post,
@@ -7,7 +8,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { diskStorage } from 'multer';
 import {
   editFileName,
@@ -17,6 +17,7 @@ import {
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
+import {BasicAuthenInterceptor} from 'src/interceptor/auth/basic-auth.interceptor'
 import { LPRByPassSaveOutInterceptor } from 'src/interceptor/lpr/bypass/lpr-bypass-save-out.interceptor';
 import { configfile } from '../../../conf/config-setting';
 import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
@@ -37,8 +38,8 @@ export class BypassController {
   ) {}
 
   @Post('save')
-  @UseGuards(JwtAuthGuard)
   @UseInterceptors(
+    BasicAuthenInterceptor,
     LPRByPassSaveOutInterceptor,
     FileFieldsInterceptor([{ name: 'image_vehicle', maxCount: 1 }], {
       storage: diskStorage({
@@ -50,7 +51,7 @@ export class BypassController {
     }),
     DefaultInterceptor,
   )
-  async saveLPROutByPass(@UploadedFiles() files, @Body() body) {
+  async saveLPROutByPass(@UploadedFiles() files, @Body() body,@Req() request) {
     const pathMain = configfile.PATHSAVEIMAGE;
     if (!files.image_vehicle)
       throw new StatusException(
@@ -83,12 +84,8 @@ export class BypassController {
         200,
       );
 
-    const employeeObj = await this.vsActionInCheckEmployeeMiddleware.CheckOutEmployee(
-      body,
-    );
-    if (employeeObj) {
       //--------------------check calculate
-      const resRecordIn = await this.bypassService.getRecordInWithLPR(body,employeeObj);
+      const resRecordIn = await this.bypassService.getRecordInWithLPR(body);
       // when after cal has parking_amount > 0
       if(resRecordIn.summary_data.sum_total > 0){
         throw new StatusException(
@@ -141,16 +138,11 @@ export class BypassController {
         );
       }
       //--------------------Save Out
+      const authenticatedUser = request['user']; // Assuming the user property is set in the interceptor
+      const employeeObj = {
+        employee_type:'BASIC_AUTHEN',
+        ...authenticatedUser
+      }
       return this.bypassService.saveOutByPass(body, imagesNameObj, employeeObj,resRecordIn);
-    } else
-      throw new StatusException(
-        {
-          error: this.errMessageUtilsTh.errEmployeeInfoNotFound,
-          result: null,
-          message: this.errMessageUtilsTh.errEmployeeInfoNotFound,
-          statusCode: 200,
-        },
-        200,
-      );
   }
 }

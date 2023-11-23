@@ -23,8 +23,6 @@ export class LPRBCheckOutService {
   }
 
   async getBookingInfoWithLPR(@Body() body, req: any) {
-    const employeeObj = req.user.employee;
-    const employee_id = employeeObj.employee_id;
     const company_id = body.company_id;
     const license_plate = body.license_plate;
     const promotion_code = body.promotion_code ? body.promotion_code : '';
@@ -109,7 +107,6 @@ export class LPRBCheckOutService {
         const calculateParkingInfo = await this.getCalculate({
           ...resultReUse,
           company_id,
-          employee_id,
           promotion_code,
           estamp_flag,
         }).then((response) => {

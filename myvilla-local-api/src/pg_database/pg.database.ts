@@ -5,24 +5,24 @@ export class dbConnection {
   async createPgConnect() {
     try {
       // production
-      connection = await createConnection({
-        type: 'postgres',
-        host: configfile.HOST,
-        port: configfile.DATABASE_PORT,
-        username: 'cit',
-        password: 'db13apr',
-        database: configfile.DATABASE,
-      });
+      // connection = await createConnection({
+      //   type: 'postgres',
+      //   host: configfile.HOST,
+      //   port: configfile.DATABASE_PORT,
+      //   username: 'cit',
+      //   password: 'db13apr',
+      //   database: configfile.DATABASE,
+      // });
 
       //demo
-      // connection = await createConnection({
-      //     type: 'postgres',
-      //     host: configfile.HOST,
-      //     port: configfile.DATABASE_PORT,
-      //     username: 'postgres',
-      //     password: 'P@ssw0rd',
-      //     database: configfile.DATABASE
-      // });
+      connection = await createConnection({
+          type: 'postgres',
+          host: configfile.HOST,
+          port: configfile.DATABASE_PORT,
+          username: 'postgres',
+          password: 'P@ssw0rd',
+          database: configfile.DATABASE
+      });
       console.log('Create PG Connection Success.');
       return true;
     } catch (err) {

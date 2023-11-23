@@ -115,7 +115,7 @@ export class LptBSaveInService {
             }, 200)
     }
 
-    async saveBookingInByPassWithLpr(@Body() body, files: any,getEmployeeID:any) {
+    async saveBookingInByPassWithLpr(@Body() body, files: any,employeeObject:any) {
 
         
         const images = files;
@@ -126,8 +126,8 @@ export class LptBSaveInService {
         const license_plate = body.license_plate;
         const guardhouse_in_id = body.guardhouse_in_id;
         const guardhouse_in_code = body.guardhouse_in_code;
-        const employee_in_id = body.employee_in_id;
-        const employee_in_info = getEmployeeID;
+        const employee_in_id = body.employee_in_id ? body.employee_in_id : 0;
+        const employee_in_info = employeeObject;
         
 
         let sql1 = `

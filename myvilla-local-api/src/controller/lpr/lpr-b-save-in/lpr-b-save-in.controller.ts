@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body,Req, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { diskStorage } from 'multer';
@@ -12,6 +12,7 @@ import { VsActionInSaveMiddleware } from 'src/middleware/visitor/action-in/vs_ac
 import { BActionInMiddleware } from 'src/middleware/booking/action-in/b_action_in.middleware';
 import { VsActionInCheckHomeIDMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_checkhomeid.middleware';
 import { VsActionInCheckEmployeeMiddleWare } from 'src/middleware/visitor/action-in/vs_action_in_check_employee.middleware';
+import {BasicAuthenInterceptor} from 'src/interceptor/auth/basic-auth.interceptor'
 import { LoadSettingLocalUtils } from 'src/utils/load_setting_local.utils';
 import { LPRBSaveInInterceptor } from 'src/interceptor/lpr/booking-in/lpr-b-booking-save-in.interceptor';
 import { LptBSaveInService } from './lpr-b-save-in.service';
@@ -177,8 +178,8 @@ export class LptBSaveInController {
 
 
     @Post('bypass')
-    @UseGuards(JwtAuthGuard)
     @UseInterceptors(
+        BasicAuthenInterceptor,
         LPRBSaveInInterceptor,
         FileFieldsInterceptor([
             { name: 'image_card', maxCount: 1 }
@@ -200,7 +201,7 @@ export class LptBSaveInController {
         //     fileFilter: imageFileFilter,
         // }),
     )
-    async saveLPRBookingInByPass(@UploadedFiles() files, @Body() body) {
+    async saveLPRBookingInByPass(@UploadedFiles() files, @Body() body,@Req() request) {
         console.log('Files' + JSON.stringify(files));
         const pathMain = configfile.PATHSAVEIMAGE;
         if (!files.image_card) {
@@ -225,11 +226,9 @@ export class LptBSaveInController {
         const pathDriver = files.image_card.map(file => {
             return file.path.replace(pathMain, '');
         })
-        console.log(pathDriver);
         const pathLicense = files.image_vehicle.map(file => {
             return file.path.replace(pathMain, '');
         })
-        console.log(pathLicense);
         const imagesNameObj = {
             image_card: pathDriver[0]
             , image_vehicle: pathLicense[0]
@@ -246,16 +245,12 @@ export class LptBSaveInController {
                 , statusCode: 200
             }, 200
         )
-        const getEmployeeID = await this.vsActionCheckEmployee.CheckInEmployee(body);
-        if (!getEmployeeID) throw new StatusException(
-            {
-                error: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
-                , result: null
-                , message: this.errMessageUtilsTh.errEmployeeIDNotInDatabase
-                , statusCode: 200
-            }, 200
-        )
        
-            return await this.bActionINService.saveBookingInByPassWithLpr(body, imagesNameObj, getEmployeeID);
+        const authenticatedUser = request['user']; // Assuming the user property is set in the interceptor
+        const employeeObj = {
+          employee_type:'BASIC_AUTHEN',
+          ...authenticatedUser
+        }
+            return await this.bActionINService.saveBookingInByPassWithLpr(body, imagesNameObj, employeeObj);
     }
 }
