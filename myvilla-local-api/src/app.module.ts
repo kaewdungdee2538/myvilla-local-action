@@ -34,6 +34,7 @@ import { VisitorPendantModule } from './controller/visitor/visitor-pendant/visit
 import { loggerMiddleware } from './middleware/logger.middleware';
 import { GetVisitorOutHistoryModule } from './get-visitor-out-history/get-visitor-out-history.module';
 import { BypassModule } from './controller/lpr/bypass/bypass.module';
+import { EstampModule } from './controller/estamp/estamp.module';
 
 @Module({
   imports: [
@@ -65,7 +66,7 @@ import { BypassModule } from './controller/lpr/bypass/bypass.module';
     , LPRBCheckInModule
     , LPRBCheckOutModule
     , LptBSaveInModule
-    , LptBSaveOutModule, GetVisitorOutHistoryModule, BypassModule
+    , LptBSaveOutModule, GetVisitorOutHistoryModule, BypassModule, EstampModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -121,7 +121,7 @@ export class ErrMessageUtilsTH {
   errImageNotFound = 'ไม่พบรูปภาพ';
   errImageCardNotFound = 'ไม่พบรูปภาพหน้าบัตร';
   errImageVehicleNotFound = 'ไม่พบรูปภาพพาหนะ';
-  errImageCustomerNotFound = 'ไม่พบรูปภาพผู้ใช้บริการ';
+  errImageCustomerNotFound = 'ไม่พบรูปภาพหลักฐานการใช้บริการ';
 
   errHomeIDNotFound = 'ไม่พบรหัสลูกบ้าน';
   errHomeIDNotNumber = 'รหัสลูกบ้านต้องเป็นตัวเลขเท่านั้น';

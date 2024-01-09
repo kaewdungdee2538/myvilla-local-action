@@ -1,0 +1,4344 @@
+{
+	"info": {
+		"_postman_id": "004aeef5-90a4-48fd-96e3-a845e2e090e0",
+		"name": "my villa local api V22",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12358022"
+	},
+	"item": [
+		{
+			"name": "auth jwt",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"22\",\r\n    \"password\": \"22\",\r\n    \"company_id\": 41,\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/auth/login",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"11\",\r\n    \"password\": \"11\",\r\n    \"company_id\": 1,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://cit.bannayuu.com/apivisitor_uat/bannayuu/api/auth/login",
+									"protocol": "https",
+									"host": [
+										"cit",
+										"bannayuu",
+										"com"
+									],
+									"path": [
+										"apivisitor_uat",
+										"bannayuu",
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"35b-TFY/jNChQE/Nc8B+RYtcuttgKao\""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ARR/3.0"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 21 May 2021 08:12:37 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "859"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOVQwODoxNToyNy43NDZaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA2LTA5VDA4OjE1OjI3Ljc0NloifSwiaWF0IjoxNjIxNTg0NzU3LCJleHAiOjE2MjQxNzY3NTd9.OO16yzef5SAwCoavDt3RDUTSZuuLljgx6-GcuqMhQYY\",\n            \"employee\": {\n                \"employee_id\": 1,\n                \"employee_code\": \"100001\",\n                \"first_name_th\": \"ไข่ย้อย\",\n                \"last_name_th\": \"คอยรัก\",\n                \"username\": \"11\",\n                \"password_status\": true,\n                \"company_id\": 1,\n                \"start_date\": \"2021-05-09T08:15:27.746Z\",\n                \"expire_date\": \"2021-06-09T08:15:27.746Z\"\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "visitor",
+			"item": [
+				{
+					"name": "action in",
+					"item": [
+						{
+							"name": "save action in",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODcyMDgzMiwiZXhwIjoxNzAxMzEyODMyfQ.aJfqgB1d48GbjwW4M0f1CIYbUTCv4OFVllx8jpKhbAw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_card",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/297168406_6013766361970383_745062230665806300_n.jpg"
+										},
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/297447325_1433504370396870_7959254704321405008_n.jpg"
+										},
+										{
+											"key": "visitor_info",
+											"value": "{\"prefix_name\":\"\",\"first_name_th\":\"o\",\"last_name_th\":\"test\",\"identity_card\":\"\",\"gender\":\"ชาย\",\"address\":\"ที่อยู่\",\"birthdate\":\"10/10/2000\",\"religion\":\"พุทธ\"}",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "41",
+											"type": "text"
+										},
+										{
+											"key": "company_code",
+											"value": "001",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_code",
+											"value": "111",
+											"type": "text"
+										},
+										{
+											"key": "license_plate",
+											"value": "11121",
+											"type": "text"
+										},
+										{
+											"key": "employee_in_id",
+											"value": "97",
+											"type": "text"
+										},
+										{
+											"key": "home_id",
+											"value": "4493",
+											"type": "text"
+										},
+										{
+											"key": "visitor_slot_number",
+											"value": "141",
+											"type": "text"
+										},
+										{
+											"key": "card_code",
+											"value": "213123123",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "card_name",
+											"value": "654321",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "cartype_category_id",
+											"value": "81",
+											"type": "text"
+										},
+										{
+											"key": "cartype_category_info",
+											"value": "{\"cartype_category_id\": 5,\"cartype_category_code\": \"2002\",\"cartype_category_name_contraction\": \"BK\",\"cartype_category_name_th\": \"บิ๊กไบค์\",\"cartype_category_name_en\": \"Big Bike\",\"cartype_category_info\": {},\"cartype_id\": 2}",
+											"type": "text"
+										},
+										{
+											"key": "action_info",
+											"value": "{\"idividule_type\":\"เพื่อน\",\"person_contract\":\"คุณจันทร์ อังคารพุธ\",\"tel_number\":\"0987654321\",\"detail\":\"\",\"remark\":\"\",\"card_type_id\":\"1\",\"card_type_name\":\"บัตรประจำตัวประชาชน\"}",
+											"type": "text"
+										},
+										{
+											"key": "cabinet_timestamp",
+											"value": "2023-04-24 14:22:22",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/action/in/save",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"action",
+										"in",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "line notify",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"m_home_id\": 4493,\r\n    \"m_company_id\": 41,\r\n    \"m_contact_name\": \"นาย AASDASD adasdasdasdasd\",\r\n    \"m_contact_licenseplate\": \"59999\",\r\n    \"m_contact_time_in\": \"2023-04-17 15:18:52\",\r\n    \"m_path_img\": \"\\\\files\\\\VISITOR\\\\IN\\\\2023\\\\8\\\\17\\\\VI_visitorInVehicle_2023717_8856288.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api_line_notify_bannayuu_demo.bannayuu.com/line_notify/push_notify_home_line",
+									"protocol": "https",
+									"host": [
+										"api_line_notify_bannayuu_demo",
+										"bannayuu",
+										"com"
+									],
+									"path": [
+										"line_notify",
+										"push_notify_home_line"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "action out",
+					"item": [
+						{
+							"name": "get record in",
+							"item": [
+								{
+									"name": "get data in",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTcwMDU0ODQyNywiZXhwIjoxNzAzMTQwNDI3fQ.k1-iXqgO9iR45p6ekRSDmQBPPBrLspNpz5M1qFuhKFc",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"visitor_slot_number\":\"140\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"promotion_code\":\"\",\r\n    \"company_id\":41,\r\n    \"company_code\":\"001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"111\"\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/visitor/action/out/get-in/getaction-info",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"visitor",
+												"action",
+												"out",
+												"get-in",
+												"getaction-info"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "get data in when have a some error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"visitor_slot_number\":\"41\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"promotion_code\":\"pro0011\",\r\n    \"company_id\":1,\r\n    \"company_code\":\"001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"111\"\r\n}\r\n\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://{{Server}}:4090/bannayuu/api/visitor/action/out/get-in/getaction-info",
+													"protocol": "http",
+													"host": [
+														"{{Server}}"
+													],
+													"port": "4090",
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"action",
+														"out",
+														"get-in",
+														"getaction-info"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "141"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"8d-1uzjWUXOSJfofnzmuat8Kz/YaMM\""
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 14 May 2021 08:10:32 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"response\": {\n        \"error\": \"ล้มเหลว\",\n        \"result\": null,\n        \"message\": \"ไม่พบส่วนลดในระบบ\",\n        \"statusCode\": 200\n    }\n}"
+										},
+										{
+											"name": "get data not enable calculate",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"visitor_slot_number\":\"132\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"promotion_code\":\"\",\r\n    \"company_id\":41,\r\n    \"company_code\":\"001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"111\"\r\n}\r\n\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BaseURL}}/bannayuu/api/visitor/action/out/get-in/getaction-info",
+													"host": [
+														"{{BaseURL}}"
+													],
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"action",
+														"out",
+														"get-in",
+														"getaction-info"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Date",
+													"value": "Mon, 25 Sep 2023 07:40:37 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"85b-M2k+uF04btzTq8ognR4Qu16VQhA\""
+												},
+												{
+													"key": "CF-Cache-Status",
+													"value": "DYNAMIC"
+												},
+												{
+													"key": "Report-To",
+													"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=mh7lf08Oj80yLFQjguuBJxMcCaEm8GzQ7ohLX2IPXU6iHm7Gqvz3r9O1C005AChw0qhbS%2BImRzYFsiuiaIzccU%2FAqbYbIPEZABUir646fgm4siRgMUghXPn0qItGmdahAEk9Qw4086DsPDC%2F7SA%2FvTFE\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "NEL",
+													"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "Server",
+													"value": "cloudflare"
+												},
+												{
+													"key": "CF-RAY",
+													"value": "80c19ebc4be926c5-BKK"
+												},
+												{
+													"key": "Content-Encoding",
+													"value": "br"
+												},
+												{
+													"key": "alt-svc",
+													"value": "h3=\":443\"; ma=86400"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78273\",\n            \"visitor_record_code\": \"VS8F5688A\",\n            \"visitor_slot_id\": 8232,\n            \"visitor_slot_number\": 132,\n            \"card_code\": \"\",\n            \"card_name\": \"\",\n            \"cartype_id\": 77,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"visitor_info\": {\n                \"prefix_name\": \"\",\n                \"first_name_th\": \"o\",\n                \"last_name_th\": \"test\",\n                \"identity_card\": \"\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_id\": 4493,\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"test\",\n            \"image_path\": {\n                \"image_card\": \"/files/VISITOR/IN/2023/9/25/VI_IMG_20211014_102558_2023825_111114149.jpg\",\n                \"image_vehicle\": \"/files/VISITOR/IN/2023/9/25/VI_Anime_Pastel_Dream_Enter_a_charming_animeinspired_world_where_0_2023825_111114153.jpg\"\n            },\n            \"estamp_flag\": \"Y\",\n            \"estamp_id\": 1,\n            \"estamp_datetime\": \"2023-09-25 12:55:14\",\n            \"parking_in_datetime\": \"2023-09-25 11:17:14\",\n            \"datetime_action\": \"2023-09-25 11:17:14\",\n            \"date_now\": \"2023-09-25 14:40:37\",\n            \"employee_in_id\": 97,\n            \"employee_in_info\": {\n                \"employee_id\": 97,\n                \"employee_code\": \"EMA3A3E\",\n                \"prefix_name_th\": null,\n                \"first_name_th\": \"11\",\n                \"last_name_th\": \"11\"\n            },\n            \"calculate_info\": {\n                \"tcpl_id\": 0,\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-25 11:17:14\",\n                \"end_date\": \"2023-09-25 14:40:37\",\n                \"sum_interval\": 204,\n                \"sum_interval_text\": \"3 ชั่วโมง 24 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"\",\n                \"sum_interval_before_cal\": 0,\n                \"sum_interval_after_cal\": 0,\n                \"sum_parking_amount_before\": 0,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": null\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+										},
+										{
+											"name": "get data is calculate no e-stamp",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"visitor_slot_number\":\"133\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"promotion_code\":\"\",\r\n    \"company_id\":41,\r\n    \"company_code\":\"001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"111\"\r\n}\r\n\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BaseURL}}/bannayuu/api/visitor/action/out/get-in/getaction-info",
+													"host": [
+														"{{BaseURL}}"
+													],
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"action",
+														"out",
+														"get-in",
+														"getaction-info"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Date",
+													"value": "Mon, 25 Sep 2023 07:41:40 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"947-FpTIFgS6Fsc0DcnhR9SBMxd3Rc4\""
+												},
+												{
+													"key": "CF-Cache-Status",
+													"value": "DYNAMIC"
+												},
+												{
+													"key": "Report-To",
+													"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=jTl%2B5gfDvJ66XnO2ULwDHu7J8H%2B%2F486N3ddHpVenky9r5JDFQbJMlDLitx8%2Fpl3hgWvnWL98WJWNxtS8%2BKtYSDzZh%2FwHyhkScxdcrK9Iw7u9QRWrG%2FwMBX85C%2FtjSBZIw6Uv2IqMUfRacAS5nAOpYfLP\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "NEL",
+													"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "Server",
+													"value": "cloudflare"
+												},
+												{
+													"key": "CF-RAY",
+													"value": "80c1a03ffe4e26c5-BKK"
+												},
+												{
+													"key": "Content-Encoding",
+													"value": "br"
+												},
+												{
+													"key": "alt-svc",
+													"value": "h3=\":443\"; ma=86400"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78274\",\n            \"visitor_record_code\": \"VSC938E03\",\n            \"visitor_slot_id\": 8233,\n            \"visitor_slot_number\": 133,\n            \"card_code\": \"\",\n            \"card_name\": \"\",\n            \"cartype_id\": 77,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"visitor_info\": {\n                \"prefix_name\": \"\",\n                \"first_name_th\": \"o\",\n                \"last_name_th\": \"test\",\n                \"identity_card\": \"\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_id\": 4493,\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"test\",\n            \"image_path\": {\n                \"image_card\": \"/files/VISITOR/IN/2023/9/25/VI_IMG_20211014_102558_2023825_141411519.jpg\",\n                \"image_vehicle\": \"/files/VISITOR/IN/2023/9/25/VI_Anime_Pastel_Dream_Enter_a_charming_animeinspired_world_where_0_2023825_141411537.jpg\"\n            },\n            \"estamp_flag\": \"N\",\n            \"estamp_id\": 0,\n            \"estamp_datetime\": null,\n            \"parking_in_datetime\": \"2023-09-25 14:41:11\",\n            \"datetime_action\": \"2023-09-25 14:41:11\",\n            \"date_now\": \"2023-09-25 14:41:39\",\n            \"employee_in_id\": 97,\n            \"employee_in_info\": {\n                \"employee_id\": 97,\n                \"employee_code\": \"EMA3A3E\",\n                \"prefix_name_th\": null,\n                \"first_name_th\": \"11\",\n                \"last_name_th\": \"11\"\n            },\n            \"calculate_info\": {\n                \"tcpl_id\": \"21\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-25 14:41:11\",\n                \"end_date\": \"2023-09-25 14:41:39\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"1 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 1,\n                \"sum_parking_amount_before\": 0,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": {\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+										},
+										{
+											"name": "get data is calculate and e-stamp",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"visitor_slot_number\":\"132\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"promotion_code\":\"\",\r\n    \"company_id\":41,\r\n    \"company_code\":\"001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"111\"\r\n}\r\n\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BaseURL}}/bannayuu/api/visitor/action/out/get-in/getaction-info",
+													"host": [
+														"{{BaseURL}}"
+													],
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"action",
+														"out",
+														"get-in",
+														"getaction-info"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Date",
+													"value": "Mon, 25 Sep 2023 07:42:08 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"9a8-rosdQOIYwK2SJkOx7/CAGbgmoHc\""
+												},
+												{
+													"key": "CF-Cache-Status",
+													"value": "DYNAMIC"
+												},
+												{
+													"key": "Report-To",
+													"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=YrG57UDs7hLGncwTJN3vQEDP%2FMIZnr2azECGiu84vE3Lu%2BL3njiXZp%2BpQBYAq7hp%2FBlEmIOGlCWeDajpnjevJQeK5JDE%2Bx%2Fxj%2BCifDEFSAzbdHv2GGM%2BIXLed2rm3noxatnYVcQ1JS%2FpjVU98%2BI6zMcR\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "NEL",
+													"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+												},
+												{
+													"key": "Server",
+													"value": "cloudflare"
+												},
+												{
+													"key": "CF-RAY",
+													"value": "80c1a0f39c2926c5-BKK"
+												},
+												{
+													"key": "Content-Encoding",
+													"value": "br"
+												},
+												{
+													"key": "alt-svc",
+													"value": "h3=\":443\"; ma=86400"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78273\",\n            \"visitor_record_code\": \"VS8F5688A\",\n            \"visitor_slot_id\": 8232,\n            \"visitor_slot_number\": 132,\n            \"card_code\": \"\",\n            \"card_name\": \"\",\n            \"cartype_id\": 77,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"visitor_info\": {\n                \"prefix_name\": \"\",\n                \"first_name_th\": \"o\",\n                \"last_name_th\": \"test\",\n                \"identity_card\": \"\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_id\": 4493,\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"test\",\n            \"image_path\": {\n                \"image_card\": \"/files/VISITOR/IN/2023/9/25/VI_IMG_20211014_102558_2023825_111114149.jpg\",\n                \"image_vehicle\": \"/files/VISITOR/IN/2023/9/25/VI_Anime_Pastel_Dream_Enter_a_charming_animeinspired_world_where_0_2023825_111114153.jpg\"\n            },\n            \"estamp_flag\": \"Y\",\n            \"estamp_id\": 1,\n            \"estamp_datetime\": \"2023-09-25 12:55:14\",\n            \"parking_in_datetime\": \"2023-09-25 11:17:14\",\n            \"datetime_action\": \"2023-09-25 11:17:14\",\n            \"date_now\": \"2023-09-25 14:42:08\",\n            \"employee_in_id\": 97,\n            \"employee_in_info\": {\n                \"employee_id\": 97,\n                \"employee_code\": \"EMA3A3E\",\n                \"prefix_name_th\": null,\n                \"first_name_th\": \"11\",\n                \"last_name_th\": \"11\"\n            },\n            \"calculate_info\": {\n                \"tcpl_id\": \"22\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-25 11:17:14\",\n                \"end_date\": \"2023-09-25 14:42:08\",\n                \"sum_interval\": 205,\n                \"sum_interval_text\": \"3 ชั่วโมง 25 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"3 ชั่วโมง 15 นาที\",\n                \"sum_interval_before_cal\": 205,\n                \"sum_interval_after_cal\": 195,\n                \"sum_parking_amount_before\": 47,\n                \"sum_parking_amount_after\": 42,\n                \"sum_parking_total\": 42,\n                \"minutes_discount\": 10,\n                \"parking_discount\": 5,\n                \"sum_parking_total_after_discount\": 42,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 42,\n                \"promotion_object\": {\n                    \"promotion_id\": 3,\n                    \"promotion_code\": \"1\",\n                    \"promotion_name_th\": \"e-stamp\",\n                    \"promotion_name_en\": \"e-stamp\",\n                    \"promotion_new_calculate_status\": \"N\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 10,\n                    \"promotion_parking_discount_value\": 5,\n                    \"promotion_status\": \"Y\"\n                }\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "save out",
+							"item": [
+								{
+									"name": "save out",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODcyMDgzMiwiZXhwIjoxNzAxMzEyODMyfQ.aJfqgB1d48GbjwW4M0f1CIYbUTCv4OFVllx8jpKhbAw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/Users/chakr/Pictures/Untitled.png"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "001",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_code",
+													"value": "22222",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "123456789",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "card_code",
+													"value": "44444444444",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "card_name",
+													"value": "345345",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "visitor_slot_number",
+													"value": "139",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "186",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "tcpl_code",
+													"value": "TCPL041B0FD9",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "customer_payment",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/visitor/action/out/save",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"visitor",
+												"action",
+												"out",
+												"save"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "save out is success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "image_vehicle",
+															"type": "file",
+															"src": "/C:/Users/chakr/Pictures/logo-no-background (1).png"
+														},
+														{
+															"key": "company_id",
+															"value": "41",
+															"type": "text"
+														},
+														{
+															"key": "company_code",
+															"value": "001",
+															"type": "text"
+														},
+														{
+															"key": "guardhouse_out_id",
+															"value": "2",
+															"type": "text"
+														},
+														{
+															"key": "guardhouse_out_code",
+															"value": "22222",
+															"type": "text"
+														},
+														{
+															"key": "employee_out_id",
+															"value": "97",
+															"type": "text"
+														},
+														{
+															"key": "card_code",
+															"value": "44444444444",
+															"type": "text",
+															"disabled": true
+														},
+														{
+															"key": "card_name",
+															"value": "345345",
+															"type": "text",
+															"disabled": true
+														},
+														{
+															"key": "visitor_slot_number",
+															"value": "132",
+															"type": "text"
+														},
+														{
+															"key": "pos_id",
+															"value": "123456789",
+															"type": "text"
+														},
+														{
+															"key": "tcpl_id",
+															"value": "24",
+															"type": "text"
+														},
+														{
+															"key": "sum_parking_total_after_discount",
+															"value": "0",
+															"type": "text"
+														},
+														{
+															"key": "sum_overnight_fine_amount",
+															"value": "0",
+															"type": "text"
+														},
+														{
+															"key": "payment_type_id",
+															"value": "1",
+															"type": "text"
+														},
+														{
+															"key": "promotion_object",
+															"value": "{\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }",
+															"type": "text",
+															"disabled": true
+														},
+														{
+															"key": "payment_info",
+															"value": "{\n                \"tcpl_id\": \"24\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-25 15:54:16\",\n                \"end_date\": \"2023-09-25 15:54:20\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"1 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 1,\n                \"sum_parking_amount_before\": 0,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": {\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }\n            }",
+															"type": "text",
+															"disabled": true
+														},
+														{
+															"key": "customer_payment",
+															"value": "2",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "http://localhost:36005/bannayuu/api/visitor/action/out/save",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "36005",
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"action",
+														"out",
+														"save"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2827"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"b0b-mpuPJIzd8HpDdhvyIqwVW/8mNiM\""
+												},
+												{
+													"key": "Date",
+													"value": "Tue, 26 Sep 2023 02:43:15 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"receipt_no\": \"41C223092600012\",\n            \"company_name\": \"DEMO CIT\",\n            \"pos_id\": \"123456789\",\n            \"guardhouse_in_code\": \"111\",\n            \"guardhouse_out_code\": \"22222\",\n            \"visitor_record_id\": \"78276\",\n            \"visitor_record_code\": \"VSD63B47E\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": null,\n            \"record_in_use_type\": \"SLOT\",\n            \"visitor_slot_number\": 132,\n            \"card_code\": \"\",\n            \"card_name\": \"\",\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_info\": {\n                \"cartype_category_id\": 5,\n                \"cartype_category_code\": \"2002\",\n                \"cartype_category_name_contraction\": \"BK\",\n                \"cartype_category_name_th\": \"บิ๊กไบค์\",\n                \"cartype_category_name_en\": \"Big Bike\",\n                \"cartype_category_info\": {},\n                \"cartype_id\": 2\n            },\n            \"visitor_info\": {\n                \"prefix_name\": \"\",\n                \"first_name_th\": \"o\",\n                \"last_name_th\": \"test\",\n                \"identity_card\": \"\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"test\",\n            \"payment_type_id\": null,\n            \"payment_type_name\": null,\n            \"parking_payment\": 0,\n            \"overnight_fines\": 0,\n            \"losscard_fines\": 0,\n            \"total_price\": 0,\n            \"payment_info\": {\n                \"tcpl_id\": \"\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-25 15:54:16\",\n                \"end_date\": \"2023-09-25 15:54:20\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"1 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 1,\n                \"sum_parking_amount_before\": 0,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": {\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }\n            },\n            \"customer_payment\": 2,\n            \"promotion_info\": {\n                \"promotion_id\": 0,\n                \"promotion_code\": \"\",\n                \"promotion_name_th\": \"\",\n                \"promotion_name_en\": \"\",\n                \"promotion_new_calculate_status\": \"\",\n                \"promotion_new_cpm_id\": 0,\n                \"promotion_minutes_discount_value\": 0,\n                \"promotion_parking_discount_value\": 0,\n                \"promotion_status\": \"\"\n            },\n            \"parking_in_datetime\": \"2023-09-25 16:16:14\",\n            \"parking_payment_datetime\": null,\n            \"parking_out_datetime\": \"2023-09-26 09:43:15\",\n            \"cardproblem_info\": null,\n            \"cardproblem_status\": false,\n            \"cardproblem_datetime\": null\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get slot number",
+					"item": [
+						{
+							"name": "get slot number all",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTAzLCJlbXBsb3llZV9jb2RlIjoiRU05RDNFNiIsImZpcnN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJsYXN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODk3MzI4OSwiZXhwIjoxNzAxNTY1Mjg5fQ.xJhDjUCnpn88tUl0GhgjOo_5zFMlKLR6jsEIgRaQeUs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":49,\r\n    \"guardhouse_id\":1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-slot/getall",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-slot",
+										"getall"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get slot number",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTAzLCJlbXBsb3llZV9jb2RlIjoiRU05RDNFNiIsImZpcnN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJsYXN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODk3MzI4OSwiZXhwIjoxNzAxNTY1Mjg5fQ.xJhDjUCnpn88tUl0GhgjOo_5zFMlKLR6jsEIgRaQeUs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":42,\r\n    \"guardhouse_id\":1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-slot/get",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-slot",
+										"get"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get slot by number",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTAzLCJlbXBsb3llZV9jb2RlIjoiRU05RDNFNiIsImZpcnN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJsYXN0X25hbWVfdGgiOiJjYWxjdWxhdGUiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODk3MzI4OSwiZXhwIjoxNzAxNTY1Mjg5fQ.xJhDjUCnpn88tUl0GhgjOo_5zFMlKLR6jsEIgRaQeUs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":42,\r\n    \"guardhouse_id\":1,\r\n    \"visitor_slot_number\":2\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-slot/getbyslotnumber",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-slot",
+										"getbyslotnumber"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get home info",
+					"item": [
+						{
+							"name": "get hom info",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-home/homeinfo",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-home",
+										"homeinfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get cartype",
+					"item": [
+						{
+							"name": "get cartype",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":7,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-cartype/cartypeinfo",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-cartype",
+										"cartypeinfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get cartype category",
+					"item": [
+						{
+							"name": "get car type category",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":2,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"cartype_id\":7\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-cartype-category/getcategory",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-cartype-category",
+										"getcategory"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get cartype category all",
+					"item": [
+						{
+							"name": "get cartype category all",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":7,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-cartype-category-all/getall",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-cartype-category-all",
+										"getall"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get department type",
+					"item": [
+						{
+							"name": "get department type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":\"11\",\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-department-type/getdepartment",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-department-type",
+										"getdepartment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get individual type",
+					"item": [
+						{
+							"name": "get individual type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":\"11\",\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-individual-type/getindividual",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-individual-type",
+										"getindividual"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "card loss",
+					"item": [
+						{
+							"name": "get price cardloss",
+							"item": [
+								{
+									"name": "get price of card loss",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/visitor/cardloss/get-priceofcardloss/getprice",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"visitor",
+												"cardloss",
+												"get-priceofcardloss",
+												"getprice"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "save card loss",
+							"item": [
+								{
+									"name": "save card loss and out",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjIzODEyMDY0LCJleHAiOjE2MjY0MDQwNjR9.k2B9D9c7Si4oz3pZuZ3riO_Wjgky8_yoZAkCKyVzh3U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_customer",
+													"type": "file",
+													"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_camera_click.png"
+												},
+												{
+													"key": "company_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "0001",
+													"type": "text"
+												},
+												{
+													"key": "cardloss_price",
+													"value": "350",
+													"type": "text"
+												},
+												{
+													"key": "customer_payment",
+													"value": "350",
+													"type": "text"
+												},
+												{
+													"key": "change_money",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_id",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_code",
+													"value": "center111",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "98789798798",
+													"type": "text"
+												},
+												{
+													"key": "visitor_record_id",
+													"value": "84",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "sum_parking_total_after_discount",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "sum_overnight_fine_amount",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "promotion_object",
+													"value": "{}",
+													"type": "text"
+												},
+												{
+													"key": "payment_info",
+													"value": "{}",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/visitor/cardloss/save-cardloss/saveandout",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"visitor",
+												"cardloss",
+												"save-cardloss",
+												"saveandout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "save card loss and not out",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjIzODEyMDY0LCJleHAiOjE2MjY0MDQwNjR9.k2B9D9c7Si4oz3pZuZ3riO_Wjgky8_yoZAkCKyVzh3U",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_customer",
+													"type": "file",
+													"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_clear_card_visitor_click.png"
+												},
+												{
+													"key": "company_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "1111",
+													"type": "text"
+												},
+												{
+													"key": "cardloss_price",
+													"value": "350",
+													"type": "text"
+												},
+												{
+													"key": "customer_payment",
+													"value": "400",
+													"type": "text"
+												},
+												{
+													"key": "change_money",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_id",
+													"value": "7",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_code",
+													"value": "777",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "7",
+													"type": "text"
+												},
+												{
+													"key": "visitor_record_id",
+													"value": "80",
+													"type": "text"
+												},
+												{
+													"key": "card_id_before",
+													"value": "6",
+													"type": "text"
+												},
+												{
+													"key": "card_code_before",
+													"value": "213123123",
+													"type": "text"
+												},
+												{
+													"key": "card_name_before",
+													"value": "A123",
+													"type": "text"
+												},
+												{
+													"key": "card_id_after",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "card_code_after",
+													"value": "44444444444",
+													"type": "text"
+												},
+												{
+													"key": "card_name_after",
+													"value": "a1115",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "sum_parking_total_after_discount",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "sum_overnight_fine_amount",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "promotion_object",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "payment_info",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/visitor/cardloss/save-cardloss/savenotout",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"visitor",
+												"cardloss",
+												"save-cardloss",
+												"savenotout"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "visitor pendant",
+							"item": [
+								{
+									"name": "get pendant all",
+									"item": [
+										{
+											"name": "get visitor pendant all",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MywiZW1wbG95ZWVfY29kZSI6IkVNUDBDRTA4QkMiLCJmaXJzdF9uYW1lX3RoIjoi4Lic4Li54LmJ4Lib4LiP4Li04Lia4Lix4LiV4Li04LiH4Liy4LiZIiwibGFzdF9uYW1lX3RoIjoiU3RhZmYiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDMwLTEyLTMwVDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjIzNjYzMTAzLCJleHAiOjE2MjYyNTUxMDN9.IR2s7dej8VNAvFVEvLzngtN2oPk5v--M5F7e5GiOdMk",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0xMFQwNzoyMzozNy4wMzBaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA1LTEwVDA3OjI0OjM3LjAzMFoifSwiaWF0IjoxNjIwNjMxNDUwLCJleHAiOjE2MjMyMjM0NTB9.NbqFMT2HocU6DsKsQeYMlDssLm7iR5t7SDWXyzUjgI8",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"identity_card\":\"\",\r\n    \"license_plate\":\"\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BaseURL}}/bannayuu/api/visitor/visitor-pendant/getall",
+													"host": [
+														"{{BaseURL}}"
+													],
+													"path": [
+														"bannayuu",
+														"api",
+														"visitor",
+														"visitor-pendant",
+														"getall"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "check card",
+					"item": [
+						{
+							"name": "check card",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"001\",\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"654321\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/check-card/check",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"check-card",
+										"check"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get slip",
+					"item": [
+						{
+							"name": "get slip in",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDUyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjU4MzAxMjQ0LCJleHAiOjE2NjA4OTMyNDR9.gzJk7x-IO2YB9kZq6K6f7NWSHtmdGtUHECdMIoeC0QQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"visitor_record_code\":\"VS85E0BF4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-slip/slipin",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-slip",
+										"slipin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get slip out",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5NTYxNDI5MCwiZXhwIjoxNjk4MjA2MjkwfQ.HGhLGAEVYV2PUoGvcZna4ZrZ3VezDeO5es2FKcFxfk8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":41,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"visitor_record_id\":78366\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:36005/bannayuu/api/visitor/get-slip/slipout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "36005",
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-slip",
+										"slipout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get visitor out history",
+					"item": [
+						{
+							"name": "get visitor out history",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDUyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjU4MzAxMjQ0LCJleHAiOjE2NjA4OTMyNDR9.gzJk7x-IO2YB9kZq6K6f7NWSHtmdGtUHECdMIoeC0QQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"datetime_start\":\"2022-07-20 00:00:00\",\r\n    \"datetime_end\":\"2022-07-21 00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/visitor/get-visitor-out/history",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"visitor",
+										"get-visitor-out",
+										"history"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "get local image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjAwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYgiLCJsYXN0X25hbWVfdGgiOiLguKLguYnguK3guKIiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlfSwiaWF0IjoxNjEzMTIzODAzLCJleHAiOjE2MTMxMjM4NjN9.gkrYRKBrwluz_q-uHejVhpgKCAum-_wRhPC1xTmY37E",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_path\": \"\\\\files\\\\VISITOR\\\\IN\\\\2023\\\\10\\\\31\\\\VI_4803debf5b51459693c00f33d95468eb.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/manual/get-image/get",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"manual",
+								"get-image",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register image token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_path\":\"\\\\files\\\\2021\\\\1\\\\10\\\\Background_Badcard_Payment_Member_2021110_1111456.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/registry-image/registry",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"registry-image",
+								"registry"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reset visitor data",
+			"item": [
+				{
+					"name": "reset visitor data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/reset/visitor",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"reset",
+								"visitor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "get booking in info",
+					"item": [
+						{
+							"name": "get booking info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTcwMDU0MDIzNSwiZXhwIjoxNzAzMTMyMjM1fQ.vky85Foe9Ao3daLm55Tx9_wiKRPbwgJX-hSDAc7NFA8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":41,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"tbv_code\":\"BK83G3D32\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/booking/get-booking-info/getinfo",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"booking",
+										"get-booking-info",
+										"getinfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "action in",
+					"item": [
+						{
+							"name": "action in save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODcyMDgzMiwiZXhwIjoxNzAxMzEyODMyfQ.aJfqgB1d48GbjwW4M0f1CIYbUTCv4OFVllx8jpKhbAw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_card",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/logo-no-background (1).png"
+										},
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/Untitled.png"
+										},
+										{
+											"key": "company_id",
+											"value": "41",
+											"type": "text"
+										},
+										{
+											"key": "company_code",
+											"value": "111",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_code",
+											"value": "01",
+											"type": "text"
+										},
+										{
+											"key": "employee_in_id",
+											"value": "97",
+											"type": "text"
+										},
+										{
+											"key": "visitor_info",
+											"value": "{\"prefix_name\":\"นาย\",\"first_name_th\":\"test\",\"last_name_th\":\"testlast\",\"identity_card\":\"4548798798798\",\"gender\":\"ชาย\",\"address\":\"ที่อยู่\",\"birthdate\":\"10/10/2000\",\"religion\":\"พุทธ\"}",
+											"type": "text"
+										},
+										{
+											"key": "action_info",
+											"value": "{\"idividule_type\":\"เพื่อน\",\"person_contract\":\"คุณจันทร์ อังคารพุธ\",\"tel_number\":\"0987654321\",\"detail\":\"\",\"remark\":\"\",\"card_type_id\":\"1\",\"card_type_name\":\"บัตรประจำตัวประชาชน\"}",
+											"type": "text"
+										},
+										{
+											"key": "license_plate",
+											"value": "ฆฏ209",
+											"type": "text"
+										},
+										{
+											"key": "cartype_category_id",
+											"value": "81",
+											"type": "text"
+										},
+										{
+											"key": "cartype_category_info",
+											"value": "{}",
+											"type": "text"
+										},
+										{
+											"key": "tbv_code",
+											"value": "BK8353D3E",
+											"type": "text"
+										},
+										{
+											"key": "cabinet_timestamp",
+											"value": "2023-04-24 00:00:01",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/booking/b-action-in/save",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"booking",
+										"b-action-in",
+										"save"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_card",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "111",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_code",
+													"value": "01",
+													"type": "text"
+												},
+												{
+													"key": "employee_in_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "visitor_info",
+													"value": "{\"prefix_name\":\"นาย\",\"first_name_th\":\"test\",\"last_name_th\":\"testlast\",\"identity_card\":\"4548798798798\",\"gender\":\"ชาย\",\"address\":\"ที่อยู่\",\"birthdate\":\"10/10/2000\",\"religion\":\"พุทธ\"}",
+													"type": "text"
+												},
+												{
+													"key": "action_info",
+													"value": "{\"idividule_type\":\"เพื่อน\",\"person_contract\":\"คุณจันทร์ อังคารพุธ\",\"tel_number\":\"0987654321\",\"detail\":\"\",\"remark\":\"\",\"card_type_id\":\"1\",\"card_type_name\":\"บัตรประจำตัวประชาชน\"}",
+													"type": "text"
+												},
+												{
+													"key": "license_plate",
+													"value": "ฆฏ209",
+													"type": "text"
+												},
+												{
+													"key": "cartype_category_id",
+													"value": "81",
+													"type": "text"
+												},
+												{
+													"key": "cartype_category_info",
+													"value": "{}",
+													"type": "text"
+												},
+												{
+													"key": "tbv_code",
+													"value": "BK962821D",
+													"type": "text"
+												},
+												{
+													"key": "cabinet_timestamp",
+													"value": "2023-04-24 00:00:01",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/booking/b-action-in/save",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"b-action-in",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:52:05 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"7b-9tU9l035Lou3ectWmk4jGUNbtPM\""
+										},
+										{
+											"key": "CF-Cache-Status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=IfkBX0Vq1MxiqFsEOS9fjut%2FbibGoLj0ibzz5tDqSQtR7RoH8bDqwQmTGKCqy5lmI%2FI2xZLIOabENYKruGeKguOMgFfdjixV3kzFwMswXDuIocbnciaptr18eQCewGE0I%2FWzIE1lgqWEJdHqoH6BHHvV\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "80d2822d39af3e9d-BKK"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": \"เรียบร้อย\",\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								},
+								{
+									"name": "failed",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_card",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "111",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_code",
+													"value": "01",
+													"type": "text"
+												},
+												{
+													"key": "employee_in_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "visitor_info",
+													"value": "{\"prefix_name\":\"นาย\",\"first_name_th\":\"test\",\"last_name_th\":\"testlast\",\"identity_card\":\"4548798798798\",\"gender\":\"ชาย\",\"address\":\"ที่อยู่\",\"birthdate\":\"10/10/2000\",\"religion\":\"พุทธ\"}",
+													"type": "text"
+												},
+												{
+													"key": "action_info",
+													"value": "{\"idividule_type\":\"เพื่อน\",\"person_contract\":\"คุณจันทร์ อังคารพุธ\",\"tel_number\":\"0987654321\",\"detail\":\"\",\"remark\":\"\",\"card_type_id\":\"1\",\"card_type_name\":\"บัตรประจำตัวประชาชน\"}",
+													"type": "text"
+												},
+												{
+													"key": "license_plate",
+													"value": "ฆฏ209",
+													"type": "text"
+												},
+												{
+													"key": "cartype_category_id",
+													"value": "81",
+													"type": "text"
+												},
+												{
+													"key": "cartype_category_info",
+													"value": "{}",
+													"type": "text"
+												},
+												{
+													"key": "tbv_code",
+													"value": "BK962821D",
+													"type": "text"
+												},
+												{
+													"key": "cabinet_timestamp",
+													"value": "2023-04-24 00:00:01",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/booking/b-action-in/save",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"b-action-in",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:52:17 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"125-RFMAtp9yEyasJLhcaoILwgOFSOY\""
+										},
+										{
+											"key": "CF-Cache-Status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=XXk8BEROVKWgFS2vMrIflrd7smSa5uwoTfNJtUzoSTXz4OD5Nn2gVxKFXWCzM9vdKliWMkpqu9JzaEMz4DKGRljE%2B0zhXWt64jC0r0jod19x73EJSiwtlIgK3jSpQcnL0%2F0fagwy8ey6U4i%2FbvxIL2QR\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "80d28278cf903e9d-BKK"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": \"ไม่พบข้อมูลการจอง หรือหมดเวลาจองไปแล้ว\",\n        \"result\": null,\n        \"message\": \"ไม่พบข้อมูลการจอง หรือหมดเวลาจองไปแล้ว\",\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get booking out info",
+					"item": [
+						{
+							"name": "get booking out info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTcwMDU0MDIzNSwiZXhwIjoxNzAzMTMyMjM1fQ.vky85Foe9Ao3daLm55Tx9_wiKRPbwgJX-hSDAc7NFA8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\": 41,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\",\r\n    \"promotion_code\": \"\",\r\n    \"tbv_code\": \"BK4EF879WS444\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/booking/get-booking-out-info/getout",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"booking",
+										"get-booking-out-info",
+										"getout"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "get booking out info have a some error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\":1,\r\n    \"company_code\":\"0001\",\r\n    \"guardhouse_id\":1,\r\n    \"guardhouse_code\":\"1111\",\r\n    \"promotion_code\":\"adwa\",\r\n    \"tbv_code\":\"BK0312C90\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{Server}}:4090/bannayuu/api/booking/get-booking-out-info/getout",
+											"protocol": "http",
+											"host": [
+												"{{Server}}"
+											],
+											"port": "4090",
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"get-booking-out-info",
+												"getout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "141"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"8d-1uzjWUXOSJfofnzmuat8Kz/YaMM\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 May 2021 09:30:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": \"ล้มเหลว\",\n        \"result\": null,\n        \"message\": \"ไม่พบส่วนลดในระบบ\",\n        \"statusCode\": 200\n    }\n}"
+								},
+								{
+									"name": "success is cal and estamp",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\": 41,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\",\r\n    \"promotion_code\": \"\",\r\n    \"tbv_code\": \"BK2655EC7\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/booking/get-booking-out-info/getout",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"get-booking-out-info",
+												"getout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:43:37 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"a44-SX3Ni4HejxZcuTLjL8IZfld8bVU\""
+										},
+										{
+											"key": "CF-Cache-Status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=1tp2YZDKsMAoUggQYv%2BOzma3ZJlxrcImmZbQnbrN25yftfGlsLrCJxTxsD%2FDFf%2FrGY38KzIU8GckyKzfLsfEs%2Fx2SBlso46%2FNBfZJsXp38ijQZnD%2F%2B%2B3cZ1lhd%2FN%2FCjXN4wuq2bvZWIHuCaAP6xcsY8M\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "80d275c13bef3e9d-BKK"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78369\",\n            \"visitor_record_code\": \"VS56377BF\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BK2655EC7\",\n            \"cartype_id\": 77,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_id\": 81,\n            \"cartype_category_info\": {},\n            \"visitor_info\": {\n                \"prefix_name\": \"นาย\",\n                \"first_name_th\": \"test\",\n                \"last_name_th\": \"testlast\",\n                \"identity_card\": \"4548798798798\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_id\": 4493,\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"guardhouse_in_id\": 3,\n            \"guardhouse_in_code\": \"01\",\n            \"employee_in_id\": 97,\n            \"employee_in_info\": {\n                \"employee_id\": 97,\n                \"employee_code\": \"EMA3A3E\",\n                \"prefix_name_th\": null,\n                \"first_name_th\": \"11\",\n                \"last_name_th\": \"11\"\n            },\n            \"license_plate\": \"ฆฏ209\",\n            \"tbv_license_plate\": \"Iiiii\",\n            \"tbv_contact_person\": \"Ggtubhhj 😎\",\n            \"tbv_mobile_contact_person\": \"0857588558\",\n            \"img_visitor_in\": {\n                \"images\": {\n                    \"image_card\": \"/files/BOOKING/IN/2023/9/27/BI_linerichmenu_2023827_151552415.jpg\",\n                    \"image_vehicle\": \"/files/BOOKING/IN/2023/9/27/BI_linerichmenu_2023827_151552415.jpg\"\n                }\n            },\n            \"estamp_id\": 1,\n            \"estamp_datetime\": \"2023-09-27 15:43:23\",\n            \"estamp_image\": null,\n            \"estamp_flag\": \"Y\",\n            \"parking_in_datetime\": \"2023-09-27 15:42:52\",\n            \"datetime_action\": \"2023-09-27 15:42:52\",\n            \"date_now\": \"2023-09-27 15:43:36\",\n            \"calculate_info\": {\n                \"tcpl_id\": \"167\",\n                \"tcpl_code\": \"TCPL0413B360\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-27 15:42:52\",\n                \"end_date\": \"2023-09-27 15:43:36\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"0 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 0,\n                \"sum_parking_amount_before\": 5,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 10,\n                \"parking_discount\": 5,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": {\n                    \"promotion_id\": 3,\n                    \"promotion_code\": \"1\",\n                    \"promotion_name_th\": \"e-stamp\",\n                    \"promotion_name_en\": \"e-stamp\",\n                    \"promotion_new_calculate_status\": \"N\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 10,\n                    \"promotion_parking_discount_value\": 5,\n                    \"promotion_status\": \"Y\"\n                }\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								},
+								{
+									"name": "success is cal no estamp",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\": 41,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\",\r\n    \"promotion_code\": \"\",\r\n    \"tbv_code\": \"BKFCBF71D\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/booking/get-booking-out-info/getout",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"get-booking-out-info",
+												"getout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:48:03 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"a1c-EvXoobbyyEozdCfoE++X4w0IYk0\""
+										},
+										{
+											"key": "CF-Cache-Status",
+											"value": "DYNAMIC"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=452B1EHsmrpnwp1Oc5shtqHGSbJ%2Bw4aMgE06MHvn1uPrvMbCAeISruxOIjcV0gE1TAkfLHG9aUGhM48w9nnyoQtqaKsMGl7SUYvur%2FcBrfbZYfSH6b7vt%2FJaJMi5d2zmt7dAuzOiNfkevw3w7HUBrvPz\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "80d27c3e9bfe3e9d-BKK"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78370\",\n            \"visitor_record_code\": \"VSD072ACA\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BKFCBF71D\",\n            \"cartype_id\": 77,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_id\": 81,\n            \"cartype_category_info\": {},\n            \"visitor_info\": {\n                \"prefix_name\": \"นาย\",\n                \"first_name_th\": \"test\",\n                \"last_name_th\": \"testlast\",\n                \"identity_card\": \"4548798798798\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_id\": 4493,\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"guardhouse_in_id\": 3,\n            \"guardhouse_in_code\": \"01\",\n            \"employee_in_id\": 97,\n            \"employee_in_info\": {\n                \"employee_id\": 97,\n                \"employee_code\": \"EMA3A3E\",\n                \"prefix_name_th\": null,\n                \"first_name_th\": \"11\",\n                \"last_name_th\": \"11\"\n            },\n            \"license_plate\": \"ฆฏ209\",\n            \"tbv_license_plate\": \"Hdhfbf\",\n            \"tbv_contact_person\": \"Uddufbfb\",\n            \"tbv_mobile_contact_person\": \"0787245494\",\n            \"img_visitor_in\": {\n                \"images\": {\n                    \"image_card\": \"/files/BOOKING/IN/2023/9/27/BI_linerichmenu_2023827_151552881.jpg\",\n                    \"image_vehicle\": \"/files/BOOKING/IN/2023/9/27/BI_linerichmenu_2023827_151552882.jpg\"\n                }\n            },\n            \"estamp_id\": 0,\n            \"estamp_datetime\": null,\n            \"estamp_image\": null,\n            \"estamp_flag\": \"N\",\n            \"parking_in_datetime\": \"2023-09-27 15:47:52\",\n            \"datetime_action\": \"2023-09-27 15:47:52\",\n            \"date_now\": \"2023-09-27 15:48:02\",\n            \"calculate_info\": {\n                \"tcpl_id\": \"168\",\n                \"tcpl_code\": \"TCPL0416F0E0\",\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-27 15:47:52\",\n                \"end_date\": \"2023-09-27 15:48:02\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"1 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 1,\n                \"sum_parking_amount_before\": 5,\n                \"sum_parking_amount_after\": 5,\n                \"sum_parking_total\": 5,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 5,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 5,\n                \"promotion_object\": {\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "action out",
+					"item": [
+						{
+							"name": "save booking action out",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MTA0LCJlbXBsb3llZV9jb2RlIjoiRU04NzNFRCIsImZpcnN0X25hbWVfdGgiOiJjYWwiLCJsYXN0X25hbWVfdGgiOiJjYWwiLCJ1c2VybmFtZSI6IjIyIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjo0MSwic3RhcnRfZGF0ZSI6IjIwMjMtMDQtMjVUMTc6MDA6MDAuMDAwWiIsImV4cGlyZV9kYXRlIjoiMjAyNS0wNS0yNVQxNzowMDowMC4wMDBaIn0sImlhdCI6MTY5ODcyMDgzMiwiZXhwIjoxNzAxMzEyODMyfQ.aJfqgB1d48GbjwW4M0f1CIYbUTCv4OFVllx8jpKhbAw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/C:/Users/chakr/Downloads/ideogram (54).jpeg"
+										},
+										{
+											"key": "company_id",
+											"value": "41",
+											"type": "text"
+										},
+										{
+											"key": "company_code",
+											"value": "1111",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_out_id",
+											"value": "6",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_out_code",
+											"value": "66666",
+											"type": "text"
+										},
+										{
+											"key": "employee_out_id",
+											"value": "97",
+											"type": "text"
+										},
+										{
+											"key": "pos_id",
+											"value": "656565",
+											"type": "text"
+										},
+										{
+											"key": "tbv_code",
+											"value": "BK8353D3E",
+											"type": "text"
+										},
+										{
+											"key": "tcpl_id",
+											"value": "191",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "tcpl_code",
+											"value": "TCPL0414A544",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "payment_type_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "customer_payment",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/booking/b-action-out/save",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"booking",
+										"b-action-out",
+										"save"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success is cal and estamp",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "tbv_code",
+													"value": "BK2655EC7",
+													"type": "text"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "1111",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_id",
+													"value": "6",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_code",
+													"value": "66666",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "656565",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "167",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_code",
+													"value": "TCPL0413B360",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "customer_payment",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:36005/bannayuu/api/booking/b-action-out/save",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "36005",
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"b-action-out",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2740"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"ab4-2Wbb4xedKs5C53PojEw3YpMoWtI\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:44:40 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"message\": \"เรียบร้อย\",\n        \"result\": \"เรียบร้อย\",\n        \"result_info\": {\n            \"receipt_no\": \"41CF62309270000001\",\n            \"company_name\": \"DEMO CIT\",\n            \"pos_id\": \"656565\",\n            \"guardhouse_in_code\": \"01\",\n            \"guardhouse_out_code\": \"66666\",\n            \"visitor_record_id\": 78369,\n            \"visitor_record_code\": \"VS56377BF\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BK2655EC7\",\n            \"record_in_use_type\": \"BOOKING\",\n            \"visitor_slot_number\": 0,\n            \"card_code\": null,\n            \"card_name\": null,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_info\": {},\n            \"visitor_info\": {\n                \"prefix_name\": \"นาย\",\n                \"first_name_th\": \"test\",\n                \"last_name_th\": \"testlast\",\n                \"identity_card\": \"4548798798798\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"ฆฏ209\",\n            \"payment_type_id\": 0,\n            \"payment_type_name\": \"ฟรี\",\n            \"parking_payment\": \"0\",\n            \"overnight_fines\": \"0\",\n            \"losscard_fines\": \"0\",\n            \"total_price\": \"0\",\n            \"customer_payment\": \"1\",\n            \"payment_info\": {\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-27 15:42:52\",\n                \"end_date\": \"2023-09-27 15:43:36\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"0 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 0,\n                \"sum_parking_amount_before\": 5,\n                \"sum_parking_amount_after\": 0,\n                \"sum_parking_total\": 0,\n                \"minutes_discount\": 10,\n                \"parking_discount\": 5,\n                \"sum_parking_total_after_discount\": 0,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 0,\n                \"promotion_object\": {\n                    \"promotion_id\": 3,\n                    \"promotion_code\": \"1\",\n                    \"promotion_name_th\": \"e-stamp\",\n                    \"promotion_name_en\": \"e-stamp\",\n                    \"promotion_new_calculate_status\": \"N\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 10,\n                    \"promotion_parking_discount_value\": 5,\n                    \"promotion_status\": \"Y\"\n                }\n            },\n            \"promotion_info\": {\n                \"promotion_id\": 3,\n                \"promotion_code\": \"1\",\n                \"promotion_name_th\": \"e-stamp\",\n                \"promotion_name_en\": \"e-stamp\",\n                \"promotion_new_calculate_status\": \"N\",\n                \"promotion_new_cpm_id\": 0,\n                \"promotion_minutes_discount_value\": 10,\n                \"promotion_parking_discount_value\": 5,\n                \"promotion_status\": \"Y\"\n            },\n            \"parking_in_datetime\": \"2023-09-27 15:42:52\",\n            \"parking_payment_datetime\": \"2023-09-27 15:44:40\",\n            \"parking_out_datetime\": \"2023-09-27 15:44:40\",\n            \"cardproblem_info\": null,\n            \"cardproblem_status\": false,\n            \"cardproblem_datetime\": null\n        },\n        \"statusCode\": 200\n    }\n}"
+								},
+								{
+									"name": "success is cal no estamp",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "tbv_code",
+													"value": "BKFCBF71D",
+													"type": "text"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "1111",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_id",
+													"value": "6",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_code",
+													"value": "66666",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "656565",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "168",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_code",
+													"value": "TCPL0416F0E0",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "customer_payment",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:36005/bannayuu/api/booking/b-action-out/save",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "36005",
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"b-action-out",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2712"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"a98-csu7YoyKmk1cUOnG/4tWtJhUW80\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 08:49:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"message\": \"เรียบร้อย\",\n        \"result\": \"เรียบร้อย\",\n        \"result_info\": {\n            \"receipt_no\": \"41CC62309270000011\",\n            \"company_name\": \"DEMO CIT\",\n            \"pos_id\": \"656565\",\n            \"guardhouse_in_code\": \"01\",\n            \"guardhouse_out_code\": \"66666\",\n            \"visitor_record_id\": 78370,\n            \"visitor_record_code\": \"VSD072ACA\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BKFCBF71D\",\n            \"record_in_use_type\": \"BOOKING\",\n            \"visitor_slot_number\": 0,\n            \"card_code\": null,\n            \"card_name\": null,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_info\": {},\n            \"visitor_info\": {\n                \"prefix_name\": \"นาย\",\n                \"first_name_th\": \"test\",\n                \"last_name_th\": \"testlast\",\n                \"identity_card\": \"4548798798798\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"ฆฏ209\",\n            \"payment_type_id\": 1,\n            \"payment_type_name\": \"เงินสด\",\n            \"parking_payment\": \"5\",\n            \"overnight_fines\": \"0\",\n            \"losscard_fines\": \"0\",\n            \"total_price\": \"5\",\n            \"customer_payment\": \"1\",\n            \"payment_info\": {\n                \"cartype_id\": 77,\n                \"start_date\": \"2023-09-27 15:47:52\",\n                \"end_date\": \"2023-09-27 15:48:02\",\n                \"sum_interval\": 1,\n                \"sum_interval_text\": \"1 นาที\",\n                \"sum_interval_after_discount_minute_text\": \"1 นาที\",\n                \"sum_interval_before_cal\": 1,\n                \"sum_interval_after_cal\": 1,\n                \"sum_parking_amount_before\": 5,\n                \"sum_parking_amount_after\": 5,\n                \"sum_parking_total\": 5,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 0,\n                \"sum_parking_total_after_discount\": 5,\n                \"sum_overnight_fine_amount\": 0,\n                \"sum_other_fine_amount\": 0,\n                \"sum_total\": 5,\n                \"promotion_object\": {\n                    \"promotion_id\": 0,\n                    \"promotion_code\": \"\",\n                    \"promotion_name_th\": \"\",\n                    \"promotion_name_en\": \"\",\n                    \"promotion_new_calculate_status\": \"\",\n                    \"promotion_new_cpm_id\": 0,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 0,\n                    \"promotion_status\": \"\"\n                }\n            },\n            \"promotion_info\": {\n                \"promotion_id\": 0,\n                \"promotion_code\": \"\",\n                \"promotion_name_th\": \"\",\n                \"promotion_name_en\": \"\",\n                \"promotion_new_calculate_status\": \"\",\n                \"promotion_new_cpm_id\": 0,\n                \"promotion_minutes_discount_value\": 0,\n                \"promotion_parking_discount_value\": 0,\n                \"promotion_status\": \"\"\n            },\n            \"parking_in_datetime\": \"2023-09-27 15:47:52\",\n            \"parking_payment_datetime\": \"2023-09-27 15:49:08\",\n            \"parking_out_datetime\": \"2023-09-27 15:49:08\",\n            \"cardproblem_info\": null,\n            \"cardproblem_status\": false,\n            \"cardproblem_datetime\": null\n        },\n        \"statusCode\": 200\n    }\n}"
+								},
+								{
+									"name": "success not cal",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/line bot/ouan-restaurant/linerichmenu.jpg"
+												},
+												{
+													"key": "tbv_code",
+													"value": "BKBB7763F",
+													"type": "text"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "company_code",
+													"value": "1111",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_out_code",
+													"value": "66666",
+													"type": "text"
+												},
+												{
+													"key": "employee_out_id",
+													"value": "97",
+													"type": "text"
+												},
+												{
+													"key": "pos_id",
+													"value": "656565",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_id",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "tcpl_code",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "payment_type_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "customer_payment",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:36005/bannayuu/api/booking/b-action-out/save",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "36005",
+											"path": [
+												"bannayuu",
+												"api",
+												"booking",
+												"b-action-out",
+												"save"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1726"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6be-hXu2wkum3PhZFkUOyF5T8G3pWUk\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 27 Sep 2023 09:13:17 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"message\": \"เรียบร้อย\",\n        \"result\": \"เรียบร้อย\",\n        \"result_info\": {\n            \"receipt_no\": \"41CF22309270000004\",\n            \"company_name\": \"DEMO CIT\",\n            \"pos_id\": \"656565\",\n            \"guardhouse_in_code\": \"01\",\n            \"guardhouse_out_code\": \"66666\",\n            \"visitor_record_id\": 78375,\n            \"visitor_record_code\": \"VS9AA04FC\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BKBB7763F\",\n            \"record_in_use_type\": \"BOOKING\",\n            \"visitor_slot_number\": 0,\n            \"card_code\": null,\n            \"card_name\": null,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_info\": {},\n            \"visitor_info\": {\n                \"prefix_name\": \"นาย\",\n                \"first_name_th\": \"test\",\n                \"last_name_th\": \"testlast\",\n                \"identity_card\": \"4548798798798\",\n                \"gender\": \"ชาย\",\n                \"address\": \"ที่อยู่\",\n                \"birthdate\": \"10/10/2000\",\n                \"religion\": \"พุทธ\"\n            },\n            \"action_info\": {\n                \"idividule_type\": \"เพื่อน\",\n                \"person_contract\": \"คุณจันทร์ อังคารพุธ\",\n                \"tel_number\": \"0987654321\",\n                \"detail\": \"\",\n                \"remark\": \"\",\n                \"card_type_id\": \"1\",\n                \"card_type_name\": \"บัตรประจำตัวประชาชน\"\n            },\n            \"home_info\": {\n                \"home_id\": 4493,\n                \"home_code\": \"HOME041AA187\",\n                \"home_name\": null,\n                \"home_address\": \"123\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"test\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"license_plate\": \"ฆฏ209\",\n            \"payment_type_id\": 0,\n            \"payment_type_name\": \"ฟรี\",\n            \"parking_payment\": \"0\",\n            \"overnight_fines\": \"0\",\n            \"losscard_fines\": \"0\",\n            \"total_price\": \"0\",\n            \"customer_payment\": \"1\",\n            \"payment_info\": null,\n            \"promotion_info\": null,\n            \"parking_in_datetime\": \"2023-09-27 16:12:51\",\n            \"parking_payment_datetime\": \"2023-09-27 16:13:17\",\n            \"parking_out_datetime\": \"2023-09-27 16:13:17\",\n            \"cardproblem_info\": null,\n            \"cardproblem_status\": false,\n            \"cardproblem_datetime\": null\n        },\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Estamp",
+			"item": [
+				{
+					"name": "get Estamp visitor info",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\":1,\r\n    \"card_code\":\"\",\r\n    \"card_name\":\"\",\r\n    \"visitor_slot_number\":\"8\",\r\n    \"tbv_code\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/visitor/estamp/get-visitorinfo",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"visitor",
+								"estamp",
+								"get-visitorinfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post estamp visitor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image_customer",
+									"type": "file",
+									"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_change_card_status_click.png"
+								},
+								{
+									"key": "company_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "company_code",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "guardhouse_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "guardhouse_code",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "visitor_record_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "employee_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "estamp_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/visitor/estamp/stamp",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"visitor",
+								"estamp",
+								"stamp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sos",
+			"item": [
+				{
+					"name": "get all sos not approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjI5MDgxNTg2LCJleHAiOjE2MzE2NzM1ODZ9._uKmrXGqYwrQ5g7vtDTLgmq32JN-ID0sl5r1Nu0YaW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/sos/get-not-approve",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"sos",
+								"get-not-approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all sos history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjI5MDgxNTg2LCJleHAiOjE2MzE2NzM1ODZ9._uKmrXGqYwrQ5g7vtDTLgmq32JN-ID0sl5r1Nu0YaW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"datetime_start\":\"2021-08-01 00:00:00\",\r\n    \"datetime_end\":\"2021-08-30 00:00:00\",\r\n    \"company_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/sos/get-history",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"sos",
+								"get-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get not approve by id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\": 1,\r\n    \"sos_id\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/sos/get-by-id",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"sos",
+								"get-by-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save receive sos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\":1,\r\n    \"sos_id\":163,\r\n    \"sos_remark\":\"test from local\",\r\n    \"employee_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/sos/corporate-receive",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"sos",
+								"corporate-receive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "parcel",
+			"item": [
+				{
+					"name": "receive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOVQwODoxNToyNy43NDZaIiwiZXhwaXJlX2RhdGUiOiIyMDIxLTA2LTA5VDA4OjE1OjI3Ljc0NloifSwiaWF0IjoxNjIwODA2NTgyLCJleHAiOjE2MjMzOTg1ODJ9.yKNdABLWyuSMFR0vggWtxkw5qqj9lyBEKo05-wJGZxA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlfSwiaWF0IjoxNjE5MTQ3NjA5LCJleHAiOjE2MTkyMzQwMDl9.TZ3MiiWmVN9GY4gaihLUPZlnu4ZydKq1GBdGWJnryFY"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image_parcel_receive",
+									"type": "file",
+									"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_QR_click_L.png"
+								},
+								{
+									"key": "company_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tpi_title",
+									"value": "หัวข้อ",
+									"type": "text"
+								},
+								{
+									"key": "tpi_detail",
+									"value": "รหัสรับพัสดุ",
+									"type": "text"
+								},
+								{
+									"key": "receive_parcel_detail",
+									"value": "รายละเอียด",
+									"type": "text"
+								},
+								{
+									"key": "home_address",
+									"value": "7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/parcel/receive-parcel",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"parcel",
+								"receive-parcel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lpr",
+			"item": [
+				{
+					"name": "booking",
+					"item": [
+						{
+							"name": "lpr booking check in",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjQwNTcyNTI5LCJleHAiOjE2NDMxNjQ1Mjl9.vPgIXwh7zaCa45gGG83acCfOnZ2N9mE6XtOaYz00FNs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\":41,\r\n    \"license_plate\":\"99893\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/check-in/get",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"lpr",
+										"booking",
+										"check-in",
+										"get"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "lpr booking check in",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\":1,\r\n    \"license_plate\":\"1234\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/check-in/get",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"lpr",
+												"booking",
+												"check-in",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"533-gx0bnL3CuMd5Z1yHWeLzTiI39iA\""
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "ARR/3.0"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 27 Dec 2021 03:45:00 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1331"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"tbv_id\": 1,\n            \"tbv_code\": \"BKDBC3D39\",\n            \"home_line_id\": 11,\n            \"home_id\": 208,\n            \"home_code\": \"HOME00478BCF\",\n            \"home_name\": null,\n            \"home_address\": \"007\",\n            \"home_type\": null,\n            \"home_data\": null,\n            \"home_remark\": \"ทดสอบระบบ\",\n            \"home_privilege_line_amount\": 0,\n            \"home_privilege_card_amount\": 0,\n            \"booking_start_datetime\": \"2021-07-07 00:00:00\",\n            \"booking_end_datetime\": \"2022-07-08 00:00:00\",\n            \"license_plate\": \"1234\",\n            \"person_name\": \"ทดสอบ\",\n            \"person_mobile\": \"0898765432\",\n            \"tbv_detail\": \"ทดสอบลงทะเบียนล่วงหน้า\",\n            \"tbv_data\": {\n                \"m_line_obj\": {\n                    \"home_id\": 208,\n                    \"home_line_id\": 11\n                },\n                \"m_uuiduser\": \"Ucca86cc59b9ca0134acaf78e816c99a4\",\n                \"m_promotion\": \"STANDARD\",\n                \"m_company_id\": \"3\",\n                \"m_tbv_detail\": \"ทดสอบลงทะเบียนล่วงหน้า\",\n                \"m_company_obj\": {\n                    \"company_id\": 3,\n                    \"company_promotion\": \"STANDARD\",\n                    \"company_start_date\": \"2021-06-30T17:00:00.000Z\",\n                    \"company_expire_date\": \"2031-07-30T17:00:00.000Z\"\n                },\n                \"m_tbv_license_plate\": \"1234\",\n                \"m_tbv_contact_person\": \"ทดสอบ\",\n                \"m_tbv_start_datetime\": \"2021-07-07 00:00\",\n                \"m_tbv_mobile_contact_person\": \"0898765432\"\n            },\n            \"action_out_status\": false,\n            \"host_first_name\": \"CIT\",\n            \"host_last_name\": \"TEST\",\n            \"host_mobile\": \"0876543210\",\n            \"create_by\": \"11\",\n            \"create_date\": \"2021-07-07 14:28:41\"\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "lpr booking save in",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjI3NTMxNzUyLCJleHAiOjE2MzAxMjM3NTJ9.fR7cL81-ta4pTI3LdLbo8bDXSxBU2W2sSZ-1rbjELlU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_card",
+											"type": "file",
+											"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_money_click.png"
+										},
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_no_click.png"
+										},
+										{
+											"key": "company_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "company_code",
+											"value": "111",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_code",
+											"value": "01",
+											"type": "text"
+										},
+										{
+											"key": "employee_in_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "visitor_info",
+											"value": "{\"prefix_name\":\"นาย\",\"first_name_th\":\"test\",\"last_name_th\":\"testlast\",\"identity_card\":\"4548798798798\",\"gender\":\"ชาย\",\"address\":\"ที่อยู่\",\"birthdate\":\"10/10/2000\",\"religion\":\"พุทธ\"}",
+											"type": "text"
+										},
+										{
+											"key": "action_info",
+											"value": "{\"idividule_type\":\"เพื่อน\",\"person_contract\":\"คุณจันทร์ อังคารพุธ\",\"tel_number\":\"0987654321\",\"detail\":\"\",\"remark\":\"\",\"card_type_id\":\"1\",\"card_type_name\":\"บัตรประจำตัวประชาชน\"}",
+											"type": "text"
+										},
+										{
+											"key": "license_plate",
+											"value": "ฆฏ209",
+											"type": "text"
+										},
+										{
+											"key": "cartype_category_id",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "cartype_category_info",
+											"value": "{\"cartype_category_id\": 6,\"cartype_category_code\": \"2002\",\"cartype_category_name_contraction\": \"BK\",\"cartype_category_name_th\": \"บิ๊กไบค์\",\"cartype_category_name_en\": \"Big Bike\",\"cartype_category_info\": {},\"cartype_id\": 2}",
+											"type": "text"
+										},
+										{
+											"key": "tbv_code",
+											"value": "BK2A0BCBC",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/save-in/save",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"lpr",
+										"booking",
+										"save-in",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "lpr booking by pass save in",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "bannayuu@pass",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "bannayuu",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_card",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/297168406_6013766361970383_745062230665806300_n.jpg"
+										},
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/C:/Users/chakr/Pictures/296654805_1055006095152557_4043752423088935239_n.jpg"
+										},
+										{
+											"key": "company_id",
+											"value": "41",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_in_code",
+											"value": "01",
+											"type": "text"
+										},
+										{
+											"key": "license_plate",
+											"value": "99895",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/save-in/bypass",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"lpr",
+										"booking",
+										"save-in",
+										"bypass"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "lpr booking by pass save in",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image_card",
+													"type": "file",
+													"src": "/C:/Users/chakr/Pictures/297168406_6013766361970383_745062230665806300_n.jpg"
+												},
+												{
+													"key": "image_vehicle",
+													"type": "file",
+													"src": "/C:/Users/chakr/Pictures/297447325_1433504370396870_7959254704321405008_n.jpg"
+												},
+												{
+													"key": "company_id",
+													"value": "41",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "guardhouse_in_code",
+													"value": "01",
+													"type": "text"
+												},
+												{
+													"key": "employee_in_id",
+													"value": "104",
+													"type": "text"
+												},
+												{
+													"key": "license_plate",
+													"value": "99893",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/save-in/bypass",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"lpr",
+												"booking",
+												"save-in",
+												"bypass"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "264"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"108-L7tP6gKeSv7qOVwZpPYoymoRGMA\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 21 Nov 2023 09:08:49 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"78470\",\n            \"visitor_record_code\": \"VS92FC342\",\n            \"tbv_code\": \"BK4EF87QE789\",\n            \"license_plate\": \"99893\",\n            \"parking_in_datetime\": \"21/11/2023 16:08:50\",\n            \"tbv_id\": 196\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "lpr booking check out",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "bannayuu@pass",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "bannayuu",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_id\": 41,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\",\r\n    \"promotion_code\": \"\",\r\n    \"license_plate\": \"99895\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/check-out/get",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"lpr",
+										"booking",
+										"check-out",
+										"get"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "lpr booking check out",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"company_id\": 1,\r\n    \"company_code\": \"0001\",\r\n    \"guardhouse_id\": 1,\r\n    \"guardhouse_code\": \"1111\",\r\n    \"promotion_code\": \"\",\r\n    \"license_plate\": \"4590\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/check-out/get",
+											"host": [
+												"{{BaseURL}}"
+											],
+											"path": [
+												"bannayuu",
+												"api",
+												"lpr",
+												"booking",
+												"check-out",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"ac9-v4wSye42zfCjQY33wyiA5d5wuRw\""
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "ARR/3.0"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 27 Dec 2021 03:42:54 GMT"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2761"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"response\": {\n        \"error\": null,\n        \"result\": {\n            \"visitor_record_id\": \"112\",\n            \"visitor_record_code\": \"VSB3BBB74\",\n            \"ref_visitor_record_id\": null,\n            \"tbv_code\": \"BK9DD7229\",\n            \"cartype_id\": 5,\n            \"cartype_name_th\": \"รถยนต์\",\n            \"cartype_name_en\": \"Car\",\n            \"cartype_category_id\": 30,\n            \"cartype_category_info\": {\n                \"cartype_name_th\": \"รถยนต์\",\n                \"cartype_category_id\": 30,\n                \"cartype_category_info\": null,\n                \"cartype_category_name_contraction\": \"NSCT\",\n                \"cartype_category_name_th\": \"ไม่ระบุประเภทรถ\",\n                \"cartype_category_code\": \"CT00105CA0\",\n                \"cartype_name_en\": \"Car\",\n                \"cartype_category_name_en\": \"Not select car type\",\n                \"cartype_id\": 5,\n                \"cartype_name_contraction\": \"C\"\n            },\n            \"visitor_info\": {\n                \"first_name_th\": \"\",\n                \"last_name_th\": \"\",\n                \"address\": \"\",\n                \"birthdate\": \"\",\n                \"prefix_name\": \"\",\n                \"gender\": \"\",\n                \"identity_card\": \"\",\n                \"religion\": \"\"\n            },\n            \"action_info\": {},\n            \"home_id\": 4766,\n            \"home_info\": {\n                \"home_id\": 4766,\n                \"home_code\": \"HOME0014060D\",\n                \"home_name\": null,\n                \"home_address\": \"182\",\n                \"home_type\": null,\n                \"home_data\": null,\n                \"home_remark\": \"KaKuShin\",\n                \"home_privilege_line_amount\": 0,\n                \"home_privilege_card_amount\": 0\n            },\n            \"guardhouse_in_id\": 1,\n            \"guardhouse_in_code\": \"0001\",\n            \"employee_in_id\": 1,\n            \"employee_in_info\": {\n                \"employee_id\": 1,\n                \"employee_code\": \"100001\",\n                \"prefix_name_th\": \"นาย\",\n                \"first_name_th\": \"232\",\n                \"last_name_th\": \"dsffsd\"\n            },\n            \"license_plate\": \"4590\",\n            \"tbv_license_plate\": \"4590\",\n            \"tbv_contact_person\": \"อารียา กั้วพงษ์\",\n            \"tbv_mobile_contact_person\": \"0929669431\",\n            \"img_visitor_in\": {\n                \"images\": {\n                    \"image_card\": \"\\\\files\\\\BOOKING\\\\IN\\\\2021\\\\7\\\\13\\\\BI_bookedVisitorIn_2021613_101016432.jpg\",\n                    \"image_vehicle\": \"\\\\files\\\\BOOKING\\\\IN\\\\2021\\\\7\\\\13\\\\BI_bookedVisitorInVehicle_2021613_10101757.jpg\"\n                }\n            },\n            \"estamp_id\": 1,\n            \"estamp_datetime\": \"2021-07-15 11:44:26\",\n            \"estamp_image\": null,\n            \"estamp_flag\": \"Y\",\n            \"parking_in_datetime\": \"2021-07-13 10:32:17\",\n            \"datetime_action\": \"2021-07-13 10:32:17\",\n            \"date_now\": \"2021-12-27 10:42:52\",\n            \"calculate_info\": {\n                \"tcpl_id\": \"215\",\n                \"cartype_id\": 5,\n                \"start_date\": \"2021-07-13 10:32:17\",\n                \"end_date\": \"2021-12-27 10:42:52\",\n                \"sum_interval\": 240491,\n                \"sum_interval_text\": \"167 วัน 11 นาที\",\n                \"sum_interval_after_discount_minute\": \"139 วัน 3 ชั่วโมง 56 นาที\",\n                \"sum_interval_before_cal\": 200396,\n                \"sum_interval_after_cal\": 180236,\n                \"sum_parking_amount_before\": 4200,\n                \"sum_parking_amount_after\": 36060,\n                \"sum_parking_total\": 40260,\n                \"minutes_discount\": 0,\n                \"parking_discount\": 100,\n                \"sum_parking_total_after_discount\": 40160,\n                \"sum_overnight_fine_amount\": 33400,\n                \"sum_total\": 73560,\n                \"promotion_object\": {\n                    \"promotion_id\": 22,\n                    \"promotion_code\": \"ESTMP1\",\n                    \"promotion_name_th\": \"new estamp\",\n                    \"promotion_name_en\": \"new estamp\",\n                    \"promotion_new_calculate_status\": \"N\",\n                    \"promotion_new_cpm_id\": null,\n                    \"promotion_minutes_discount_value\": 0,\n                    \"promotion_parking_discount_value\": 100,\n                    \"promotion_status\": \"Y\"\n                }\n            }\n        },\n        \"message\": \"เรียบร้อย\",\n        \"statusCode\": 200\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "lpr booking save out",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiIyMzIiLCJsYXN0X25hbWVfdGgiOiJkc2Zmc2QiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxLCJzdGFydF9kYXRlIjoiMjAyMS0wNS0wOFQxNzowMDowMC4wMDBaIiwiZXhwaXJlX2RhdGUiOiIyMDIyLTA2LTA4VDE3OjAwOjAwLjAwMFoifSwiaWF0IjoxNjI3NTMxNzUyLCJleHAiOjE2MzAxMjM3NTJ9.fR7cL81-ta4pTI3LdLbo8bDXSxBU2W2sSZ-1rbjELlU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image_vehicle",
+											"type": "file",
+											"src": "/F:/POS/POS/bin/Debug/image/Button_click/btn_change_image_click.png"
+										},
+										{
+											"key": "tbv_code",
+											"value": "BK2A0BCBC",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "company_code",
+											"value": "1111",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_out_id",
+											"value": "6",
+											"type": "text"
+										},
+										{
+											"key": "guardhouse_out_code",
+											"value": "66666",
+											"type": "text"
+										},
+										{
+											"key": "employee_out_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "pos_id",
+											"value": "656565",
+											"type": "text"
+										},
+										{
+											"key": "tcpl_id",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "sum_parking_total_after_discount",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "sum_overnight_fine_amount",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "payment_type_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "promotion_object",
+											"value": "null",
+											"type": "text"
+										},
+										{
+											"key": "payment_info",
+											"value": "{}",
+											"type": "text"
+										},
+										{
+											"key": "customer_payment",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseURL}}/bannayuu/api/lpr/booking/save-out/save",
+									"host": [
+										"{{BaseURL}}"
+									],
+									"path": [
+										"bannayuu",
+										"api",
+										"lpr",
+										"booking",
+										"save-out",
+										"save"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lpr bypass save out",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "bannayuu@pass",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "bannayuu",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZSI6eyJlbXBsb3llZV9pZCI6MSwiZW1wbG95ZWVfY29kZSI6IjEwMDAwMSIsImZpcnN0X25hbWVfdGgiOiLguYTguILguYjguKLguYnguK3guKIiLCJsYXN0X25hbWVfdGgiOiLguITguK3guKLguKPguLHguIEiLCJ1c2VybmFtZSI6IjExIiwicGFzc3dvcmRfc3RhdHVzIjp0cnVlLCJjb21wYW55X2lkIjoxfSwiaWF0IjoxNjIwNjI5Njc5LCJleHAiOjE2MjMyMjE2Nzl9.U5jti-rYXuqZUdyXE6YhiXhnuo3gALWhWSDTbJXqfFg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image_vehicle",
+									"type": "file",
+									"src": "/C:/Users/chakr/Pictures/297437831_3245728545703580_8026295735794134594_n.jpg"
+								},
+								{
+									"key": "company_id",
+									"value": "41",
+									"type": "text"
+								},
+								{
+									"key": "company_code",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "guardhouse_out_id",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "guardhouse_out_code",
+									"value": "66666",
+									"type": "text"
+								},
+								{
+									"key": "pos_id",
+									"value": "656565",
+									"type": "text"
+								},
+								{
+									"key": "license_plate",
+									"value": "99895",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseURL}}/bannayuu/api/lpr/bypass/save-out/save",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"bannayuu",
+								"api",
+								"lpr",
+								"bypass",
+								"save-out",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

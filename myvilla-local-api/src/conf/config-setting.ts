@@ -26,12 +26,12 @@ export const configfile = {
   DATABASE: 'demo_bannayuu_db',
   DATABASE_PORT: 50005,
   PORT_API: '36005',
-  "PATHSAVEIMAGE": "C:\\Bannayuu\\Visitor\\Image\\files", //prod
-  "PATHPACELSAVEIMAGE": "C:\\Bannayuu\\Web\\Image\\files", //prod
-  "PATHFOLDERSTATIC": "C:\\Bannayuu\\Visitor\\Image\\files", //prod
-  // PATHSAVEIMAGE: '/home/ubuntu/banayuu_images/visitor', // demo
-  // PATHPACELSAVEIMAGE: '/home/ubuntu/banayuu_images/webmanagement', // demo
-  // PATHFOLDERSTATIC: '/home/ubuntu/banayuu_images/visitor', // demo
+  // "PATHSAVEIMAGE": "C:\\Bannayuu\\Visitor\\Image\\files", //prod
+  // "PATHPACELSAVEIMAGE": "C:\\Bannayuu\\Web\\Image\\files", //prod
+  // "PATHFOLDERSTATIC": "C:\\Bannayuu\\Visitor\\Image\\files", //prod
+  PATHSAVEIMAGE: '/home/ubuntu/banayuu_images/visitor', // demo
+  PATHPACELSAVEIMAGE: '/home/ubuntu/banayuu_images/webmanagement', // demo
+  PATHFOLDERSTATIC: '/home/ubuntu/banayuu_images/visitor', // demo
   MYCOMPANY_ID: '1',
   IMAGE_SIZE: 10,
   // "URL_CALCULATE":"http://localhost:4060/api/bannayuu/calculate/cal-all", //prod
