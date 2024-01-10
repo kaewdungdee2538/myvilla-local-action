@@ -40,17 +40,25 @@ export class vsActionOutVerifyEstampMiddleware implements NestMiddleware {
         const company_id = body.company_id
 
         if (await this.localSettingLocalUtils.getVisitorOutEstampMode(company_id)) {
-            let sql = `select estamp_flag from t_visitor_record
-            where action_out_flag = 'N' and company_id = $1 
-            and visitor_record_code = func_getvs_uuid_card_or_slot($1,$2,$3,$4);`
+            let sql = `
+            SELECT
+                CASE WHEN estamp_flag = 'Y' THEN true ELSE false END AS estamp_flag
+                ,tvr.cartype_id
+                ,mcc.cartype_category_id
+                ,COALESCE(CAST(mcc.cartype_category_info->>'ignore_estamp' AS BOOLEAN),false) AS ignore_estamp
+            FROM t_visitor_record tvr
+            LEFT JOIN m_cartype_category mcc ON tvr.cartype_category_id = mcc.cartype_category_id
+            WHERE action_out_flag = 'N' 
+            AND tvr.company_id = $1 
+            AND visitor_record_code = func_getvs_uuid_card_or_slot($1,$2,$3,$4);`
             const query = {
                 text: sql
                 , values: [company_id, card_code, card_name, visitor_slot_number]
             }
-            console.log(JSON.stringify(query))
+
             const result = await this.dbconnecttion.getPgData(query);
             if (result.error || result.result.length === 0) return this.errMessageUrilTh.errVisitorNotIn;
-            else if (result.result[0].estamp_flag === 'N')
+            else if (!result.result[0].ignore_estamp && !result.result[0].estamp_flag)
                 return this.errMessageUrilTh.errVisitorNotVerifyEstamp;
             else return null;
         }

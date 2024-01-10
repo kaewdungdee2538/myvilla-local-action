@@ -87,7 +87,7 @@ export class BypassController {
       //--------------------check calculate
       const resRecordIn = await this.bypassService.getRecordInWithLPR(body);
       // when after cal has parking_amount > 0
-      if(resRecordIn.summary_data.sum_total > 0){
+      if(resRecordIn?.summary_data?.sum_total > 0){
         throw new StatusException(
             {
               error: this.errMessageUtilsTh.errNotPay,

@@ -28,7 +28,7 @@ export class BypassService {
     const employee_out_id = body.employee_out_id ? body.employee_out_id : 0;
     const employee_out_info = JSON.stringify(employeeObj);
 
-    const tcpl_id = recordIn ? parseInt(recordIn.summary_data.tcpl_id) : 0;
+    const tcpl_id = recordIn?.summary_data ? parseInt(recordIn.summary_data.tcpl_id) : 0;
     const visitor_record_id = recordIn ? parseInt(recordIn.visitor_record_id) : 0;
     let sql1 = `
     WITH input_data AS (
