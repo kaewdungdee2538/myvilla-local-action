@@ -83,7 +83,7 @@ export class BypassService {
       throw new StatusException(
         {
           error: res.error,
-          result: null,
+          result: recordIn,
           message: this.errMessageUtilsTh.messageProcessFail,
           statusCode: 200,
         },
@@ -93,7 +93,7 @@ export class BypassService {
       throw new StatusException(
         {
           error: null,
-          result: this.errMessageUtilsTh.messageSuccess,
+          result: recordIn,
           message: this.errMessageUtilsTh.messageSuccess,
           statusCode: 200,
         },
