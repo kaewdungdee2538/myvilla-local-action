@@ -18,6 +18,7 @@ export const configfile = {
   PATH_LINE_ACTION_IN_NOTIFICATION_BOARDCAST: '/push_notify_home_line',
   BASIC_AUTH_USERNAME: 'bannayuu',
   BASIC_AUTH_PASSWORD: 'bannayuu@pass',
+  TOKEN_AUTHENTICATION:'5330531265f44e00bffdd12aa1e3e3a0'
 };
 
 // demo
@@ -44,4 +45,5 @@ export const configfile = {
 //   PATH_LINE_ACTION_IN_NOTIFICATION_BOARDCAST: '/push_notify_home_line',
 //   BASIC_AUTH_USERNAME:'bannayuu',
 //   BASIC_AUTH_PASSWORD:'bannayuu@pass',
+//   TOKEN_AUTHENTICATION:'5330531265f44e00bffdd12aa1e3e3a0'
 // };

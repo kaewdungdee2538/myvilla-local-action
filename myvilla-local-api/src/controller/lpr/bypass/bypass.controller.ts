@@ -17,7 +17,7 @@ import {
 import { StatusException } from 'src/utils/callback.status';
 import { ErrMessageUtilsTH } from 'src/utils/err_message_th.utils';
 import { DefaultInterceptor } from 'src/interceptor/default/default.interceptor';
-import {BasicAuthenInterceptor} from 'src/interceptor/auth/basic-auth.interceptor'
+import {TokenAuthenInterceptor} from 'src/interceptor/auth/token-auth.interceptor'
 import { LPRByPassSaveOutInterceptor } from 'src/interceptor/lpr/bypass/lpr-bypass-save-out.interceptor';
 import { configfile } from '../../../conf/config-setting';
 import { BActionOutMiddleware } from 'src/middleware/booking/action-out/b_action_out.middleware';
@@ -39,7 +39,7 @@ export class BypassController {
 
   @Post('save')
   @UseInterceptors(
-    BasicAuthenInterceptor,
+    TokenAuthenInterceptor,
     LPRByPassSaveOutInterceptor,
     FileFieldsInterceptor([{ name: 'image_vehicle', maxCount: 1 }], {
       storage: diskStorage({
@@ -140,7 +140,7 @@ export class BypassController {
       //--------------------Save Out
       const authenticatedUser = request['user']; // Assuming the user property is set in the interceptor
       const employeeObj = {
-        employee_type:'BASIC_AUTHEN',
+        employee_type:'BYPASS_AUTHEN',
         ...authenticatedUser
       }
       return this.bypassService.saveOutByPass(body, imagesNameObj, employeeObj,resRecordIn);
