@@ -76,7 +76,24 @@ export class BypassService {
         visitor_record_id,
       ],
     };
-    const querys = [query1];
+
+    let query2;
+    if (recordIn && recordIn.visitor_slot_id) {
+      let sql2 = `update m_visitor_slot set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where visitor_slot_id = $2 and company_id = $3`;
+      query2 = {
+        text: sql2,
+        values: [employee_out_id, recordIn.visitor_slot_id, company_id],
+      };
+    } else {
+      let sql2 = `update m_card set status_flag = 'N',visitor_record_code = null,update_by =$1,update_date = now() where card_id = $2 and company_id = $3`;
+      query2 = {
+        text: sql2,
+        values: [employee_out_id, recordIn.card_id, company_id],
+      };
+    }
+
+
+    const querys = [query1,query2];
     const res = await this.dbconnecttion.savePgData(querys);
     console.log(querys);
     if (res.error)

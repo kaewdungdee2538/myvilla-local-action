@@ -91,7 +91,7 @@ export class BypassController {
         throw new StatusException(
             {
               error: this.errMessageUtilsTh.errNotPay,
-              result: null,
+              result: resRecordIn,
               message: this.errMessageUtilsTh.errNotPay,
               statusCode: 200,
             },
@@ -105,7 +105,7 @@ export class BypassController {
           throw new StatusException(
             {
               error: middlewareEstampVerifyBooking,
-              result: null,
+              result: resRecordIn,
               message: middlewareEstampVerifyBooking,
               statusCode: 200,
             },
@@ -119,7 +119,7 @@ export class BypassController {
             throw new StatusException(
               {
                 error: middlewareEstampVerifyVisitor,
-                result: null,
+                result: resRecordIn,
                 message: middlewareEstampVerifyVisitor,
                 statusCode: 200,
                 slip_info: null,
@@ -130,7 +130,7 @@ export class BypassController {
         throw new StatusException(
           {
             error: this.errMessageUtilsTh.errLicensePlateOutFailed,
-            result: null,
+            result: resRecordIn,
             message: this.errMessageUtilsTh.errLicensePlateOutFailed,
             statusCode: 200,
           },
