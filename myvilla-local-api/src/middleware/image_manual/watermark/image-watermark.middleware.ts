@@ -26,8 +26,8 @@ export async function addWatermarkToImage(
     const height = metadata.height;
 
     // Read the watermark image
-    const watermarkImage = await addTextOnImage()
-    const imageWatermark = sharp(watermarkImage).png()
+    // const watermarkImage = await addTextOnImage()
+    const imageWatermark = sharp('assets/watermark.png').png()
     .resize(width, height)
     .toBuffer((err, buffer, info) => {
         if (err)
@@ -38,15 +38,13 @@ export async function addWatermarkToImage(
     })
 
     const rawWatermark = await imageWatermark.toBuffer();
-    const centerX = 0;
-    const centerY = 0;
+
     // Composite the watermark onto the image
     await image
       .composite([
         {
           input: rawWatermark,
-          top: centerY,
-          left: centerX,
+           gravity: 'center',
         },
       ])
       .toBuffer()

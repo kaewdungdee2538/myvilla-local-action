@@ -8,8 +8,10 @@ import * as os from 'os';
 import * as cookieParser from 'cookie-parser';
 import { LoadSettingLocalUtils } from './utils/load_setting_local.utils';
 
+
 const connect = new dbConnection;
-const port = configfile.PORT_API || 8080;
+console.log(configfile)
+const port = configfile.APP_PORT || 8080;
 const loadSettingLocal = new LoadSettingLocalUtils(connect);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{

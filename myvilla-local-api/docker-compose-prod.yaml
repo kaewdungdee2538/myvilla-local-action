@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  api-bannayuu-visitor-inout:
+    image: api-bannayuu-visitor-inout:1.0.0
+    ports:
+      - 4010:4010
+    volumes:
+      - ./volumes/log:/app/dist/logs
+    restart: unless-stopped 
+    environment:
+      - TZ=Asia/Bangkok
+      - NODE_ENV=production
+      - APP_PORT=4090
+      - DB_HOST=local.uat.bannayuu.com
+      - DB_PORT=5432
+      - DB_NAME=cit_bannayuu_db
+      - DB_USERNAME=cit
+      - DB_PASSWORD=db13apr
+      - IMAGE_PATH_WEB=C:\\Bannayuu\\Web\\Image\\files
+      - IMAGE_PATH_VISITOR=C:\\Bannayuu\\Visitor\\Image\\files
+      - MYCOMPANY_ID=1
+      - IMAGE_SIZE_MB=10
+      - URL_CALCULATE=http://localhost:4060/api/bannayuu/calculate/cal-all
+      - HOST_LINE_NOTIFICATION=https://cit.bannayuu.com/apicross/webhook
+      - PATH_LINE_ACTION_IN_NOTIFICATION=/push_noti_home_line
+      - HOST_LINE_NOTIFICATION_BOARDCAST=hhttps://cit.bannayuu.com/apinotify/line_notify
+      - PATH_LINE_ACTION_IN_NOTIFICATION_BOARDCAST=/push_notify_home_line
+      - BASIC_AUTH_USERNAME=bannayuu
+      - BASIC_AUTH_PASSWORD=bannayuu@pass
+      - TOKEN_AUTHENTICATION=5330531265f44e00bffdd12aa1e3e3a0
+    

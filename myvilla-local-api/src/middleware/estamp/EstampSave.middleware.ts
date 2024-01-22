@@ -23,7 +23,7 @@ export class EstampSaveMiddleware implements NestInterceptor {
             {
                 error: errMessage
                 , result: null
-                , message: this.errMessageUrilTh.messageProcessFail
+                , message: errMessage
                 , statusCode: 200
             }, 200)
         else return next.handle();

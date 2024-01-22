@@ -1,5 +1,15 @@
 {
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
-  "entryFile":"bannayuu-local-api"
+  "entryFile":"bannayuu-local-api",
+  "compilerOptions": {    
+    "assets": [
+      {
+        "include": "../assets",
+        "outDir": "dist/assets",
+        "watchAssets": true
+      }
+    ],
+    "watchAssets": true
+  }
 }
