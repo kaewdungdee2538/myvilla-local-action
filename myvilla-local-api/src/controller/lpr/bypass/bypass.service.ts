@@ -130,12 +130,15 @@ export class BypassService {
 )
         SELECT  
         	visitor_record_id,visitor_record_code,ref_visitor_record_id
-			,CASE WHEN tvr.tbv_code IS NOT NULL THEN 'BOOKING'
-			ELSE 'VISITOR' END AS action_in_type
-			,visitor_slot_id,visitor_slot_number
-			,card_id,card_code,card_name
+			    ,CASE WHEN tvr.tbv_code IS NOT NULL THEN 'BOOKING'
+			    ELSE 'VISITOR' END AS action_in_type
+			    ,coalesce(visitor_slot_id,0) AS visitor_slot_id
+          ,coalesce(visitor_slot_number,0) AS visitor_slot_number
+			    ,coalesce(card_id,0) AS card_id
+          ,card_code,card_name
         	,tvr.tbv_code
-        	,cartype_id,cartype_name_th,cartype_name_en
+        	,coalesce(cartype_id,0) AS cartype_id
+          ,cartype_name_th,cartype_name_en
         	,cartype_category_id,cartype_category_info
         	,visitor_info,action_info
         	,tvr.home_id,home_info
@@ -153,7 +156,7 @@ export class BypassService {
         	,tvr.parking_in_datetime
         	,tvr.datetime_action
         	,current_timestamp as date_now
-            ,tvr.company_id
+          ,tvr.company_id
         FROM t_visitor_record tvr
         LEFT JOIN t_booking_visitor tb ON tvr.tbv_code = tb.tbv_code
         WHERE tvr.action_out_flag = 'N'
