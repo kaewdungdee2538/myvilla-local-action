@@ -2,7 +2,8 @@ version: '3'
 services:
 
   api-bannayuu-visitor-inout:
-    image: api-bannayuu-visitor-inout:1.0.0
+    image: api-bannayuu-visitor-inout:1.0.1
+    build: ./
     ports:
       - 4010:4010
     volumes:

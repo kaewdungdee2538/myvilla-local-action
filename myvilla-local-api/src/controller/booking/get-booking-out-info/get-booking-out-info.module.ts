@@ -29,7 +29,7 @@ import { GetBookingOutInfoService } from './get-booking-out-info.service';
 export class GetBookingOutInfoModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,bGetBookingInfoMiddleware,bGetBookingOutInfoMiddleware)
+    .apply(vsDefaultMiddleware,vsGetHomeMiddleware,bGetBookingInfoMiddleware)
     .forRoutes('bannayuu/api/booking/get-booking-out-info/*');
   }
 }

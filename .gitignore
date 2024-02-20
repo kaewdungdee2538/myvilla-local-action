@@ -1,0 +1,6 @@
+#LOG
+/log
+#image folder
+/uploads
+
+*.zip

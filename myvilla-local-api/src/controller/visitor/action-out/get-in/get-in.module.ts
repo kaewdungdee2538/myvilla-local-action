@@ -34,7 +34,7 @@ import { GetInService } from './get-in.service';
 export class GetInModule {
   configure(consumer:MiddlewareConsumer){
     consumer
-    .apply(vsDefaultMiddleware,vsActionOutGetInMiddleware,vsActionOutVerifyEstampMiddleware)
+    .apply(vsDefaultMiddleware,vsActionOutGetInMiddleware)
     .forRoutes('bannayuu/api/visitor/action/out/get-in/*');
   }
 }
