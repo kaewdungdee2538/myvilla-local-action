@@ -15,19 +15,23 @@ export class AuthService {
 
     async validateUser(user: any): Promise<any> {
         console.log(user.username + user.password)
-        let sql = `select employee_id, employee_code,first_name_th,last_name_th,username,(passcode = crypt($2, passcode)) as password_status 
+        let sql = `SELECT employee_id, employee_code,first_name_th,last_name_th,username,(passcode = crypt($2, passcode)) as password_status 
         ,me.company_id
         ,mc.company_start_date as start_date
         ,mc.company_expire_date as expire_date
+		,setup_data AS config
         FROM m_employee me
-        inner join m_employee_privilege mep on me.employee_privilege_id = mep.employee_privilege_id
-        left join m_company mc
-        on me.company_id = mc.company_id
+        INNER JOIN m_employee_privilege mep on me.employee_privilege_id = mep.employee_privilege_id
+        LEFT JOIN m_company mc
+        ON me.company_id = mc.company_id
+		LEFT JOIN m_setup ms ON me.company_id = ms.company_id
         WHERE me.username = $1 
-         and me.delete_flag = 'N' 
-         and mep.delete_flag ='N' 
-         and mep.login_general_status='Y' 
-         and me.company_id = $3;`;
+         AND me.delete_flag = 'N' 
+         AND mep.delete_flag ='N' 
+         AND mep.login_general_status='Y' 
+		 AND ref_setup_id = 8
+         AND me.company_id = $3
+		 ;`;
         const querys = {
             text: sql
             , values: [user.username, user.password, user.company_id]
@@ -72,7 +76,19 @@ export class AuthService {
                 error: null,
                 result: {
                     access_token
-                    , employee: response.result[0]
+                    , employee: {
+                        employee_id:response.result[0]?.employee_id,
+                        employee_code:response.result[0]?.employee_code,
+                        first_name_th:response.result[0]?.first_name_th,
+                        last_name_th:response.result[0]?.last_name_th,
+                        username:response.result[0]?.username,
+                        password_status:response.result[0]?.password_status,
+                        company_id:response.result[0]?.company_id,
+                        start_date:response.result[0]?.start_date,
+                        expire_date:response.result[0]?.expire_date,
+                    },config:{
+                        ...response.result[0]?.config
+                    }
                 },
                 message: this.errMessageUtilsTh.messageSuccess,
                 statusCode: 200
