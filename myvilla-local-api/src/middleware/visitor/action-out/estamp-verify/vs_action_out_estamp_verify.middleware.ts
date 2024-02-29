@@ -40,7 +40,10 @@ export class vsActionOutVerifyEstampMiddleware implements NestMiddleware {
         const company_id = body.company_id
 
         if (await this.localSettingLocalUtils.getVisitorOutEstampMode(company_id)) {
-            let sql = `
+            let sql = `WITH input_data AS (
+                SELECT
+                    func_getvs_uuid_card_or_slot($1,$2,$3,$4) AS vs_id
+            )
             SELECT
                 CASE WHEN estamp_flag = 'Y' THEN true ELSE false END AS estamp_flag
                 ,tvr.cartype_id
@@ -50,7 +53,7 @@ export class vsActionOutVerifyEstampMiddleware implements NestMiddleware {
             LEFT JOIN m_cartype_category mcc ON tvr.cartype_category_id = mcc.cartype_category_id
             WHERE action_out_flag = 'N' 
             AND tvr.company_id = $1 
-            AND visitor_record_code = func_getvs_uuid_card_or_slot($1,$2,$3,$4);`
+            AND visitor_record_code = (SELECT vs_id FROM input_data);`
             const query = {
                 text: sql
                 , values: [company_id, card_code, card_name, visitor_slot_number]
